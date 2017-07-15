@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_id: MyString
+  goal_id: MyString
+  user_id: MyString
+  comment: MyString
+  action_required: false
+
+two:
+  project_id: MyString
+  goal_id: MyString
+  user_id: MyString
+  comment: MyString
+  action_required: false

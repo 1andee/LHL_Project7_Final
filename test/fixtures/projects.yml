@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  mentee: MyString
+  mentor: MyString
+  pending: false
+  start_date: 2017-07-15
+  finish_date: 2017-07-15
+  status: MyString
+  public: false
+  project_url: MyString
+  summary: MyString
+  mentee_feedback: MyString
+  mentor_feedback: MyString
+
+two:
+  name: MyString
+  description: MyString
+  mentee: MyString
+  mentor: MyString
+  pending: false
+  start_date: 2017-07-15
+  finish_date: 2017-07-15
+  status: MyString
+  public: false
+  project_url: MyString
+  summary: MyString
+  mentee_feedback: MyString
+  mentor_feedback: MyString
