@@ -23,4 +23,5 @@ class User < ApplicationRecord
   def all_projects
     Project.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
   end
+
 end
