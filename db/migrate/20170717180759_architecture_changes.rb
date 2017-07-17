@@ -7,8 +7,8 @@ class ArchitectureChanges < ActiveRecord::Migration[5.0]
       t.remove :status
       t.remove :pending
 
-      t.integer :mentee
-      t.integer :mentor
+      t.integer :mentee_id
+      t.integer :mentor_id
       t.integer :completion_status_id
       t.boolean :mentor_pending
       t.boolean :mentee_pending
