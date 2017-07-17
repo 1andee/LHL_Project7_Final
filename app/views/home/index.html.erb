@@ -1,0 +1,16 @@
+<% if current_user %>
+  <%= render 'user_feed' %>
+<% else %>
+
+  <section class="home-search">
+    <%= form_tag :method => "get", id: "search-form" do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Mentors" %>
+    <%= submit_tag "Search" %>
+    <% end %>
+  </section>
+
+  <section class="project-showcase">
+    <h1>Projects</h1>
+  </section>
+  
+<% end %>

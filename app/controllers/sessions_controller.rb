@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       Rails.logger.info("user recognized, cookie set, redirecting....")
       Rails.logger.info("--------------------------------------------")
       flash[:success] = 'Welcome back'
-      redirect_to '/authenticate'
+      redirect_to '/home/index'
       # remove above line and uncomment below line once root_path is set
       # redirect_back(fallback_location: root_path)
     else
@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     Rails.logger.info("cookie destroyed, redirecting....")
     Rails.logger.info("---------------------------------")
     flash[:info] = 'You have successfully logged out'
-    redirect_to '/authenticate'
+    redirect_to '/home/index'
   end
 
 end

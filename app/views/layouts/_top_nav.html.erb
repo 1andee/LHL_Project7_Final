@@ -1,0 +1,14 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <ul class="nav-left">
+    <li><%= link_to 'Home', :root %></li>
+    <li><%= link_to 'Messages', :root %></li>
+    <li><%= link_to 'Search', :root %></li>
+  </ul>
+  <ul class="nav-right">
+    <% if current_user %>
+      <li>Signed in as <%= link_to current_user.name, [:users] %> | <%= link_to "Logout", '/logout' %></li>
+    <% else %>
+      <li><%= link_to 'Register/Login',  [:authenticate] %></li>
+    <% end %>
+  </ul>
+</nav>

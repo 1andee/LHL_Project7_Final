@@ -4,14 +4,12 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
-  margin: 33px;
+  margin: 0;
 }
 
-p, ol, ul, td {
+p, ol, ul, td, h1 {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-  margin: 33px;
+  margin: 0 0 15px;
 }
 
 pre {
@@ -24,12 +22,7 @@ a {
   color: #000;
 
   &:visited {
-    color: #666;
-  }
-
-  &:hover {
-    color: #fff;
-    background-color: #000;
+    color: #000;
   }
 }
 
@@ -86,4 +79,95 @@ div {
 
 label {
   display: block;
+}
+
+/* NAV */
+
+.navbar {
+  position: fixed; top: 0; left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 10px;
+  text-transform: uppercase;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul li {
+    list-style: none;
+    display: inline-block;
+  }
+
+  ul li a {
+    display: inline-block;
+    font-size: 10px;
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .current-user-first-name {
+    margin-right: 15px;
+  }
+}
+
+.nav-left {
+  display: inline-block;
+  width: 49%;
+  text-align: left;
+}
+
+.nav-right {
+  float: right;
+  display: inline-block;
+  width: 49%;
+  text-align: right;
+}
+
+/* MAIN */
+
+main {
+  margin-top: 50px;
+}
+
+.user-feed {
+  text-align: center;
+  min-height: 300px;
+  padding: 30px 0;
+}
+
+.home-search {
+  text-align: center;
+  min-height: 300px;
+  padding: 30px 0;
+}
+
+.project-showcase {
+  background: #eee;
+  border-top: 1px solid #ddd;
+  min-height: 300px;
+  padding: 30px 0;
+
+  h1 {
+    text-align: center;
+  }
+}
+
+/* FOOTER */
+
+footer {
+  background: #ddd;
+  border-top: 1px solid #ccc;
+  padding: 40px;
 }
