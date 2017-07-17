@@ -37,14 +37,13 @@ class UsersController < ApplicationController
       Rails.logger.info("--------------------------------------------")
       # temporary redirect to authenticate until pages are built out
       flash[:success] = 'Your account has been created'
-      redirect_to '/authenticate'
+      redirect_to '/home/index'
       # redirect_back(fallback_location: root_path)
     else
       # If the user can't be added
       Rails.logger.info("-------------------------------")
       Rails.logger.info("new user couldn't be saved.....")
       Rails.logger.info("-------------------------------")
-      # flash failure message
       flash[:warning] = @user.errors.full_messages.join(' // ')
       redirect_to '/authenticate'
     end
