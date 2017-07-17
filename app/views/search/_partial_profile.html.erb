@@ -1,27 +1,23 @@
 <article>
-  <% @users.each do |user| %>
+  <section width: {width: 100%}>
+    <% @users.each do |user| %>
     <h1><%= user.avatar %></h1>
     <h2><%= user.name %></h2>
   <% end %>
-  <div class = "container">
-  <!-- show user reputation by rendering partial -->
-   <h2> @user.reputation </h2>
-    <!-- show skills and projects where user is mentor and mentee-->
-    <table>
-      <tr>
-        <th> Mentor </th>
-        <th> Mentee </th>
-      </tr>
-      <tr>
-        <td> <h1> @user.skills </h1> </td>
-        <td> <h1> @user.skills </h1> </td>
-      </tr>
-      <tr>
-        <td> <h1>  @user.projects </h1> </td>
-        <td> <h1> @user.projects </h1> </td>
-      </tr>
-    </table>
-    <!-- show user skills  -->
-    <button>View Full Profile</button>
-  </div>
+  </section>
+  <section width = 33%>
+    <div width = 100%>
+      <h2> @user.reputation </h2>
+    </div>
+    <div width = 50%>
+      <h2>Mentoring</h2>
+      <h2>@user.skills</h2>
+      <h2>@user.projects</h2>
+    </div>
+      <div width = 50%>
+      <h3>Mentoring</h3>
+      <h2>@user.skills</h2>
+      <h2>@user.projects</h2>
+    </div>
+  </section>
 </article>
