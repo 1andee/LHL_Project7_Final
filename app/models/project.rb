@@ -5,7 +5,8 @@ class Project < ApplicationRecord
   has_many :comments
   has_one :rating
   has_many :skills
-  belongs_to :mentee, :class_name => 'User' #, :foreign_key => 'mentee_id'
-  belongs_to :mentor, :class_name => 'User' #, :foreign_key => 'mentor_id'
 
+  # adds association to alias of mentee_id and mentor_id
+  belongs_to :mentee, :class_name => 'User'
+  belongs_to :mentor, :class_name => 'User'
 end
