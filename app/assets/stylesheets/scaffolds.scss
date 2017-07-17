@@ -7,11 +7,9 @@ body {
   margin: 0;
 }
 
-p, ol, ul, td {
+p, ol, ul, td, h1 {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-  margin: 33px;
+  margin: 0 0 15px;
 }
 
 pre {
@@ -93,6 +91,8 @@ label {
   color: #fff;
   padding: 5px 10px;
   border-bottom: 1px solid #ddd;
+  font-size: 10px;
+  text-transform: uppercase;
 
   ul {
     margin: 0;

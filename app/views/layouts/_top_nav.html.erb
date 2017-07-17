@@ -6,7 +6,7 @@
   </ul>
   <ul class="nav-right">
     <% if current_user %>
-      <li><span class="current-user-first-name">Signed in as <%= current_user.name %></span> | <%= link_to "Logout", '/logout' %></li>
+      <li>Signed in as <%= link_to current_user.name, [:users] %> | <%= link_to "Logout", '/logout' %></li>
     <% else %>
       <li><%= link_to 'Register/Login',  [:authenticate] %></li>
     <% end %>
