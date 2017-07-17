@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170715202415) do
+ActiveRecord::Schema.define(version: 20170717180759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string   "project_id"
-    t.string   "goal_id"
-    t.string   "user_id"
     t.string   "comment"
     t.boolean  "action_required"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "goal_id"
   end
 
   create_table "completion_statuses", force: :cascade do |t|
@@ -32,56 +32,65 @@ ActiveRecord::Schema.define(version: 20170715202415) do
   end
 
   create_table "feeds", force: :cascade do |t|
-    t.string   "project_id"
-    t.string   "user_id"
     t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "project_id"
+    t.integer  "user_id"
   end
 
   create_table "goals", force: :cascade do |t|
-    t.string   "project_id"
     t.string   "title"
-    t.string   "completion_status_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "project_id"
+    t.integer  "completion_status_id"
   end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "mentee"
-    t.string   "mentor"
-    t.boolean  "pending"
     t.date     "start_date"
     t.date     "finish_date"
-    t.string   "status"
     t.boolean  "public"
     t.string   "project_url"
     t.string   "summary"
     t.string   "mentee_feedback"
     t.string   "mentor_feedback"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "mentee"
+    t.integer  "mentor"
+    t.integer  "completion_status_id"
+    t.boolean  "mentor_pending"
+    t.boolean  "mentee_pending"
+  end
+
+  create_table "projects_skills", force: :cascade do |t|
+    t.integer "skill_id"
+    t.integer "project_id"
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.string   "availability"
-    t.string   "accuracy"
-    t.string   "giver_id"
-    t.string   "receiver_id"
-    t.string   "project_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "availability"
+    t.integer  "accuracy"
+    t.integer  "giver_id"
+    t.integer  "receiver_id"
+    t.integer  "project_id"
   end
 
   create_table "skills", force: :cascade do |t|
-    t.string   "name"
-    t.string   "user_id"
-    t.boolean  "mentor"
-    t.string   "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "skill_name"
+  end
+
+  create_table "skills_users", force: :cascade do |t|
+    t.integer "skill_id"
+    t.integer "user_id"
+    t.boolean "mentor"
   end
 
   create_table "users", force: :cascade do |t|

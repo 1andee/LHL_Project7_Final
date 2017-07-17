@@ -44,7 +44,6 @@ class UsersController < ApplicationController
       Rails.logger.info("-------------------------------")
       Rails.logger.info("new user couldn't be saved.....")
       Rails.logger.info("-------------------------------")
-      # flash failure message
       flash[:warning] = @user.errors.full_messages.join(' // ')
       redirect_to '/authenticate'
     end
