@@ -3,14 +3,16 @@
 <% else %>
 
   <section class="home-search">
-    <%= form_tag :method => "get", id: "search-form" do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Mentors" %>
-    <%= submit_tag "Search" %>
-    <% end %>
+    <div class="search-input">
+      <%= form_tag home_index_path, :method => 'get' do %>
+        <input id="searchbar" name="query">
+      <% end %>
+    </div>
+    <%= render partial: 'users/users', locals: {users: @users} %>
   </section>
 
   <section class="project-showcase">
     <h1>Projects</h1>
   </section>
-  
+
 <% end %>

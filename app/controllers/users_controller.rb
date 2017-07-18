@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.search_by_name(params[:query])
   end
 
   # GET /users/1
@@ -86,6 +86,8 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
   private
   # Use callbacks to share common setup or constraints between actions.

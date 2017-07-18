@@ -24,4 +24,12 @@ class User < ApplicationRecord
     Project.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
   end
 
+  def self.search_by_name(query)
+    if query
+      User.where("name LIKE ?", query)
+    else
+      User.all
+    end
+  end
+
 end

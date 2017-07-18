@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Profile</h1>
+<% users.each do |user| %>
+    <%= render 'users/user', user: user %>
+<% end %>
+
+<%= link_to 'New User', new_user_path %>
