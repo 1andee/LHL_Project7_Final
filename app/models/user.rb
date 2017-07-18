@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+  # defining has many relationships between skills using through table
   has_many :skill_users
   has_many  :skills, through: :skill_users
   has_many :comments
@@ -25,12 +26,5 @@ class User < ApplicationRecord
     Project.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
   end
 
-  # def all_skills
-  #   SkillUser.find(self.id)
-  # end
-
-  # def mentee_skills
-  #   Skill.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
-  # end
 
 end
