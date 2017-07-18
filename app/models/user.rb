@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
-  has_many :skills
+  has_many :skill_users
+  has_many  :skills, through: :skill_users
   has_many :comments
 
   # resource pointing to all ratings user received or given
@@ -23,5 +24,13 @@ class User < ApplicationRecord
   def all_projects
     Project.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
   end
+
+  # def all_skills
+  #   SkillUser.find(self.id)
+  # end
+
+  # def mentee_skills
+  #   Skill.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
+  # end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717193325) do
+ActiveRecord::Schema.define(version: 20170718002939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 20170717193325) do
     t.index ["project_id"], name: "index_goals_on_project_id", using: :btree
   end
 
+  create_table "project_skills", force: :cascade do |t|
+    t.integer "skill_id"
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_project_skills_on_project_id", using: :btree
+    t.index ["skill_id"], name: "index_project_skills_on_skill_id", using: :btree
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -76,13 +83,6 @@ ActiveRecord::Schema.define(version: 20170717193325) do
     t.index ["mentor_id"], name: "index_projects_on_mentor_id", using: :btree
   end
 
-  create_table "projects_skills", force: :cascade do |t|
-    t.integer "skill_id"
-    t.integer "project_id"
-    t.index ["project_id"], name: "index_projects_skills_on_project_id", using: :btree
-    t.index ["skill_id"], name: "index_projects_skills_on_skill_id", using: :btree
-  end
-
   create_table "ratings", force: :cascade do |t|
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -96,18 +96,18 @@ ActiveRecord::Schema.define(version: 20170717193325) do
     t.index ["receiver_id"], name: "index_ratings_on_receiver_id", using: :btree
   end
 
+  create_table "skill_users", force: :cascade do |t|
+    t.boolean "mentor"
+    t.integer "skill_id"
+    t.integer "user_id"
+    t.index ["skill_id"], name: "index_skill_users_on_skill_id", using: :btree
+    t.index ["user_id"], name: "index_skill_users_on_user_id", using: :btree
+  end
+
   create_table "skills", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "skill_name"
-  end
-
-  create_table "skills_users", force: :cascade do |t|
-    t.boolean "mentor"
-    t.integer "skill_id"
-    t.integer "user_id"
-    t.index ["skill_id"], name: "index_skills_users_on_skill_id", using: :btree
-    t.index ["user_id"], name: "index_skills_users_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -132,10 +132,10 @@ ActiveRecord::Schema.define(version: 20170717193325) do
   add_foreign_key "feeds", "users"
   add_foreign_key "goals", "completion_statuses"
   add_foreign_key "goals", "projects"
+  add_foreign_key "project_skills", "projects"
+  add_foreign_key "project_skills", "skills"
   add_foreign_key "projects", "completion_statuses"
-  add_foreign_key "projects_skills", "projects"
-  add_foreign_key "projects_skills", "skills"
   add_foreign_key "ratings", "projects"
-  add_foreign_key "skills_users", "skills"
-  add_foreign_key "skills_users", "users"
+  add_foreign_key "skill_users", "skills"
+  add_foreign_key "skill_users", "users"
 end
