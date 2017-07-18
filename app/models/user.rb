@@ -26,21 +26,25 @@ class User < ApplicationRecord
     Project.where("mentee_id = ? OR mentor_id = ?", self.id, self.id)
   end
 
-  def self.search_by_name(query)
-    if query
-      User.where("name LIKE ?", "%#{query}%")
-    else
-      User.all
-    end
-  end
-
-  # def self.search_by_skill(query)
+  # def self.search_by_name(query)
+  #   puts "name!!!"
   #   if query
-  #     @skills = Skill.where("skill_name LIKE ?", query)
-  #     User.where(:skills => {})
+  #     User.where("name LIKE ?", "%#{query}%")
   #   else
   #     User.all
   #   end
   # end
+
+  def self.search_by_skill(query)
+    puts "skills!!!"
+    if !query.blank?
+      skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
+      user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
+      return User.where(id: user_ids)
+    else
+      user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
+      return User.where(id: user_ids)
+    end
+  end
 
 end
