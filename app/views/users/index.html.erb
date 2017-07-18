@@ -1,6 +1,7 @@
 <div class="search-input">
   <%= form_tag users_path, :method => 'get' do %>
-    <input id="searchbar" name="query">
+    <input id="searchbar" name="query" placeholder="Search mentors by skill">
+    <%= submit_tag "Search" %>
   <% end %>
 </div>
 

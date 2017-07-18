@@ -26,10 +26,19 @@ class User < ApplicationRecord
 
   def self.search_by_name(query)
     if query
-      User.where("name LIKE ?", query)
+      User.where("name LIKE ?", "%#{query}%")
     else
       User.all
     end
   end
+
+  # def self.search_by_skill(query)
+  #   if query
+  #     @skills = Skill.where("skill_name LIKE ?", query)
+  #     User.where(:skills => {})
+  #   else
+  #     User.all
+  #   end
+  # end
 
 end
