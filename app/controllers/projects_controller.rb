@@ -1,15 +1,9 @@
 class ProjectsController < ApplicationController
+  def new
+    @project = Project.new
+  end
 
   def create
-  # /projects?name=guitar&type=mentee
-  # /projects?name=rails&type=mentor
-
+    @project = Project.new(project_params)
   end
-
-  def destroy
-  # /projects/1231
-  # /projects/12412
-
-  end
-
 end

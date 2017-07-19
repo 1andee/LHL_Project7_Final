@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'projects/new'
+
   get 'home/index'
 
   root 'home#index'
 
-  resources :users
+  resources :users, :projects
   resources :skills, :only => [:create, :destroy]
-
-
   resources :sessions, :only => [:create, :destroy]
 
 
