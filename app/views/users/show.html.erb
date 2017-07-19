@@ -52,3 +52,68 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+
+
+
+<div class="user_skills">
+  <span class="as_mentor">
+    <span class="title">As mentor:</span>
+    <span class="mentor_skills">
+      <table>
+        <tr>
+          <td>Skills:</td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentor_skills">
+            HTML<br>
+            JS<br>
+          </td>
+        </tr>
+        <tr>
+          <td>Projects:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentor_projects">
+            render
+          </td>
+        </tr>
+
+      </table>
+    </span>
+    <span><%= link_to 'Add skills' %></span>
+  </span>
+  <span class="as_mentee">
+    <span class="title">As mentee:</span>
+    <span class="mentee_skills">
+      <table>
+        <tr>
+          <td>Skills:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentee_skills">
+            render
+          </td>
+        </tr>
+        <tr>
+          <td>Projects:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentee_projects">
+            render
+          </td>
+        </tr>
+
+      </table>
+    </span>
+  </span>
+</div>
