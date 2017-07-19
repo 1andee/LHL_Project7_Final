@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Vendor
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+
+
 .user_skills {
   display: flex;
 
@@ -10,6 +16,10 @@
     border: 1px solid #000000;
     margin: 5px;
     padding: 5px;
+
+    .fa-times {
+      color: red;
+    }
   }
 
   .as_mentee {
@@ -17,6 +27,10 @@
     border: 1px solid #000000;
     margin: 5px;
     padding: 5px;
+
+    .fa-times {
+      color: red;
+    }
   }
 
   .title {

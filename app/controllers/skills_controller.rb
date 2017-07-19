@@ -9,8 +9,12 @@ class SkillsController < ApplicationController
     if @skill.blank?
       @skill = Skill.create(skill_name: params[:skill_name])
     end
-    puts current_user
-    @user_skill = SkillUser.create!(skill_id: @skill.id, user_id: current_user.id)
+
+    @skill_user = SkillUser.find_by(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+
+    if @skill_user.blank?
+      @user_skill = SkillUser.create!(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+    end
     redirect_to user_path(current_user.id)
     # render 'skill_created'
     # return
@@ -24,6 +28,10 @@ class SkillsController < ApplicationController
   # /1231/skills/1231
   # /1231/skills/12412
 
+    user_skill = SkillUser.find_by(skill_id: params[:id], mentor: params[:mentor], user_id: current_user.id)
+    user_skill.destroy
+
+    redirect_to user_path(current_user.id)
   end
 
 end
