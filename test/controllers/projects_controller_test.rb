@@ -5,5 +5,4 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     get projects_new_url
     assert_response :success
   end
-
 end
