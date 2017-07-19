@@ -34,6 +34,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use validates_email_format_of gem for validation upon registration
 gem 'validates_email_format_of'
 
+gem "paperclip", "~> 5.0.0"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -43,7 +43,7 @@ class UsersController < ApplicationController
       Rails.logger.info("--------------------------------------------")
       # temporary redirect to authenticate until pages are built out
       flash[:success] = 'Your account has been created'
-      redirect_to '/home/index'
+      redirect_to root_path
       # redirect_back(fallback_location: root_path)
     else
       # If the user can't be added
@@ -103,6 +103,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :location, :linkedin_url, :github_url, :other_site, :twitter, :slack_name)
+    params.require(:user).permit(:avatar, :name, :email, :password, :password_confirmation, :location, :linkedin_url, :github_url, :other_site, :twitter, :slack_name)
   end
 end
