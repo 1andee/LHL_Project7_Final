@@ -1,3 +1,4 @@
+
 <section class="user-profile">
 
   <p id="notice"><%= notice %></p>
@@ -15,3 +16,100 @@
   <%= link_to 'Back', users_path %>
 
 </section>
+
+<div class="user_skills">
+  <span class="as_mentor">
+    <span class="title">As mentor:</span>
+    <span class="mentor_skills">
+      <table>
+        <tr>
+          <td>Skills:</td>
+          <td>
+            <%= form_tag('/skills', method: :post, remote: false) do %>
+            <input type=hidden name="mentor" value=true>
+              <%= text_field_tag(:skill_name) %>
+              <%= submit_tag("Add skill") %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span>
+              <ul id="container_mentor_skills">
+                <% if @mentor_skills %>
+                  <% @mentor_skills.each do |s| %>
+                    <li id='<%= s.id %>'><%= s.skill_name %>
+                    <%= link_to skill_path(id: s.id, mentor: true), class: 'btn btn-xs btn-danger', method: :delete do %>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <% end %>
+                  </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>Projects:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentor_projects">
+            render
+          </td>
+        </tr>
+
+      </table>
+    </span>
+
+  </span>
+  <span class="as_mentee">
+    <span class="title">As mentee:</span>
+    <span class="mentee_skills">
+      <table>
+        <tr>
+          <td>Skills:</td>
+          <td>
+            <%= form_tag('/skills', method: :post, remote: false) do %>
+            <input type=hidden name="mentor" value=false>
+              <%= text_field_tag(:skill_name) %>
+              <%= submit_tag("Add skill") %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span>
+              <ul id="container_mentee_skills">
+                <% if @mentee_skills %>
+                  <% @mentee_skills.each do |s| %>
+                    <li id='<%= s.id %>'><%= s.skill_name %>
+                    <%= link_to skill_path(id: s.id, mentor: false), class: 'btn btn-xs btn-danger', method: :delete do %>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <% end %>
+                  </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>Projects:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="container_mentee_projects">
+            render
+          </td>
+        </tr>
+
+      </table>
+    </span>
+  </span>
+</div>
+

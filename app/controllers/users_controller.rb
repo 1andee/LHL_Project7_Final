@@ -11,6 +11,11 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @mentor_skills_id = User.find(current_user).skill_users.where(mentor: true).pluck(:skill_id)
+    @mentor_skills = Skill.where(id: @mentor_skills_id).order(skill_name: :asc)
+
+    @mentee_skills_id = User.find(current_user).skill_users.where(mentor: false).pluck(:skill_id)
+    @mentee_skills = Skill.where(id: @mentee_skills_id).order(skill_name: :asc)
   end
 
   # GET /users/new
