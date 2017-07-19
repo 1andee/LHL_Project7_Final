@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :skills, :only => [:create, :destroy]
 
+
   resources :sessions, :only => [:create, :destroy]
 
 

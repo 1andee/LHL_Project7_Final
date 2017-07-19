@@ -64,13 +64,24 @@
         <tr>
           <td>Skills:</td>
           <td>
+            <%= form_tag('/skills', method: :post, remote: false) do %>
+              <%= text_field_tag(:skill_name) %>
+              <%= submit_tag("Add skill") %>
+            <% end %>
           </td>
         </tr>
         <tr>
           <td></td>
-          <td class="container_mentor_skills">
-            HTML<br>
-            JS<br>
+          <td>
+            <span>
+              <ul id="container_mentor_skills">
+                <% if @user_skills %>
+                  <% @user_skills.each do |s| %>
+                  <li id='<%= s.id %>'><%= s.skill_name %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </span>
           </td>
         </tr>
         <tr>
