@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :users
+  resources :users, :projects
   resources :sessions, :only => [:create, :destroy]
   # resources :search, :only => [:index]
 
