@@ -17,4 +17,4 @@
 .byebug_history
 
 # Ignore personal data in seed file.
-/db/seeds.db
+/db/seeds.rb
