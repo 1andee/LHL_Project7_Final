@@ -3,7 +3,7 @@
   <h1>User Profile</h1>
   <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
   <% @users.each do |user| %>
-    <section>
+    <section style="max-width: 600px; margin: 0 auto">
       <section style="width: 33%; display: inline-block; vertical-align: top">
         <%= user.avatar %>
         <h2> <%= user.name %></h2>

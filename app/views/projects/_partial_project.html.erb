@@ -1,26 +1,31 @@
 <article>
   <% @users.each do |user| %>
-
-  <% (user.mentor_projects).each do |mentor_project| %>
-    <section style="width: 33%; display: inline-block; vertical-align: top">
-      <% if mentor_project &&  mentor_project.mentor_id =  user.id && mentor_project.public == true %>
+   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+    <% (user.mentor_projects).each do |mentor_project| %>
+      <section style="max-width: 600px; margin: 0 auto">
+        <% if mentor_project &&  mentor_project.mentor_id =  user.id && mentor_project.public == true %>
           <% mentee = User.get_user(mentor_project.mentee_id)%>
-          <%= mentee.name%>
-        <h5> <%= user.name%> </h5>
-        <h5> <%= mentor_project.id%> </h5>
-        <h5> <%= mentor_project.public%> </h5>
-         <h1>Mentor Avatar</h1>
-        <h1>Mentee Avatar</h1>
+          <section style="width: 33%; display: inline-block; vertical-align: top">
+            <h5>  Mentor On This Project </h5>
+            <%= user.avatar%>
+            <h5>  <%= user.name%></h5>
+            <h5>  Mentee On This Project </h5>
+            <%= mentee.avatar%>
+            <h5>  <%= mentee.name%></h5>
+          </section>
+          <section style="width: 66%; display: inline-block;">
+            <div style="width: 100;">
+              <h5> Project Name </h5>
+              <h4><%= mentor_project.name%> </h4>
+              <h5> Project Description </h5>
+              <h4><%= mentor_project.description%> </h4>
+              <h5> Skills To Learn </h5>
+              <h4>Project Skills</h4>
+              <button>See This Project</button>
+            </div>
+          </section>
+        <% end %>
       <% end %>
-  <% end %>
-    </section>
-    <section style="width: 66%; display: inline-block;">
-      <div style="width: 100;">
-       <h2>Project Name</h2>
-        <h2>Project Description</h2>
-        <h2>Project Skills</h2>
-        <button>See Project</button>
-      </div>
     </section>
   <% end %>
 </article>
