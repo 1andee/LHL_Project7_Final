@@ -1,29 +1,38 @@
 <!-- not working yet -->
-<article class="user">
-<h1>User Profile</h1>
-  <% @users.each do |user| %>
-    <section style="width: 33%; display: inline-block; vertical-align: top">
-      <%= user.avatar %>
-      <h2><%= user.name %></h2>
-    </section>
-  <% end %>
+<article class="user-">
+  <h1>User Profile</h1>
+  <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
+    <% @users.each do |user| %>
+      <section style="width: 33%; display: inline-block; vertical-align: top">
+        <%= user.avatar %>
+        <h2> <%= user.name %></h2>
 
-    <section style="width: 66%; display: inline-block;">
-      <div style="width: 100;">
-        <h4> user.recieved_ratings </h4>
-      </div>
-
-      <div style="width: 49%; display: inline-block;">
-        <h4>Mentor In</h4>
-        <h4> <=% skill.skill_name %> </h4>
-        <h4>user.mentor_projects</h4>
-      </div>
-
-        <div style="width: 49%; display: inline-block;">
-        <h3>Mentee In</h3>
-        <h4>@user.skills</h4>
-        <h4>@user.mentee_projects</h4>
-      </div>
-    </section>
-    <button>See Mentor's Profile</button>
+        <section style="width: 66%; display: inline-block;">
+          <div style="width: 100;">
+            <h4> user.recieved_ratings </h4>
+          </div>
+          <div style="width: 49%; display: inline-block;">
+            <h4>Mentor In</h4>
+             <!-- iterate of both arrays at once -->
+            <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+              <% if user_skill.mentor == true && skill.id = user_skill.skill_id%>
+                <h5> <%= skill.skill_name%></h5>
+              <% end %>
+            <% end %>
+            <h4>user.mentor_projects</h4>
+          </div>
+            <div style="width: 49%; display: inline-block;">
+            <h3>Mentee In</h3>
+             <!-- iterate of both arrays at once -->
+            <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+              <% if !user_skill.mentor && skill.id = user_skill.skill_id%>
+                <h5> <%= skill.skill_name%></h5>
+              <% end %>
+            <% end %>
+            <h4>@user.mentee_projects</h4>
+          </div>
+        </section>
+        <button>See Mentor's Profile</button>
+      </section>
+    <% end %>
 </article>
