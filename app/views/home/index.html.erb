@@ -1,0 +1,21 @@
+<% if current_user %>
+  <%= render 'user_feed' %>
+<% else %>
+
+  <section class="home-search">
+    <div class="search-input">
+      <%= form_tag home_index_path, :method => 'get' do %>
+        <input id="searchbar" name="query" placeholder="Search mentors by skill">
+        <%= submit_tag "Search" %>
+      <% end %>
+    </div>
+    <section style="width: 50%; display: inline-block;">
+    <%= render partial: 'users/partial_profile' %>
+     </section>
+  </section>
+
+  <section class="project-showcase">
+    <h1>Projects</h1>
+  </section>
+
+<% end %>

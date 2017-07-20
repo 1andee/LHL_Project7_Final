@@ -7,14 +7,10 @@
   <%= link_to "Logout", '/logout' %>
 <% end %>
 
-<div id="wrapper" style="height: 100%; width: 100%;">
+<div id="register">
+  <%= render 'users/register' %>
+</div>
 
-  <div id="register" style="width: 50%; display: block; float:left;">
-    <%= render 'users/register' %>
-  </div>
-
-  <div id="login" style="width: 50%; display: block; float: left;">
-    <%= render 'sessions/login' %>
-  </div>
-
+<div id="login">
+  <%= render 'sessions/login' %>
 </div>

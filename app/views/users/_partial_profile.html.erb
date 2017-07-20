@@ -1,0 +1,50 @@
+<!-- not working yet -->
+<article class="user-">
+  <h1>User Profile</h1>
+  <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
+  <% @users.each do |user| %>
+    <section>
+      <section style="width: 33%; display: inline-block; vertical-align: top">
+        <%= user.avatar %>
+        <h2> <%= user.name %></h2>
+      </section>
+      <section style="width: 66%; display: inline-block;">
+        <div style="width: 100;">
+          <h4> user.recieved_ratings </h4>
+        </div>
+        <div style="width: 49%; display: inline-block;">
+          <h4>Mentor In</h4>
+           <!-- iterate of both arrays at once -->
+          <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+            <% if user_skill.mentor == true && skill.id = user_skill.skill_id%>
+              <h5> <%= skill.skill_name%></h5>
+            <% end %>
+          <% end %>
+
+          <% (user.mentor_projects).each do |mentor_project| %>
+            <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
+              <h5> <%= mentor_project.id%></h5>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div style="width: 49%; display: inline-block;">
+          <h3>Mentee In</h3>
+           <!-- iterate of both arrays at once -->
+          <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+            <% if !user_skill.mentor && skill.id = user_skill.skill_id%>
+              <h5> <%= skill.skill_name%></h5>
+            <% end %>
+          <% end %>
+
+          <% (user.mentee_projects).each do |mentee_project| %>
+            <% if mentee_project && mentee_project.mentor_id =  user.id%>
+              <h5> <%= mentee_project.id%></h5>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+        <button>See Mentor's Profile</button>
+      </section>
+  <% end %>
+</article>

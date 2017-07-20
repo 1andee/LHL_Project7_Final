@@ -1,3 +1,85 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Vendor
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+
+
+.user_skills {
+  display: flex;
+
+  .as_mentor {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+
+    .fa-times {
+      color: red;
+    }
+  }
+
+  .as_mentee {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+
+    .fa-times {
+      color: red;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .container_mentor_skills {
+    border: 1px solid #e3e3e3;
+    width: 100%
+  }
+
+  .container_mentee_skills {
+    border: 1px solid #e3e3e3;
+    width: 100%;
+  }
+
+}
+
+.user_projects {
+  display: flex;
+
+  .as_mentor {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .as_mentee {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .title {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .container_mentor_projects {
+    border: 1px solid #e3e3e3;
+    width: 100%;
+  }
+
+  .container_mentee_projects {
+    border: 1px solid #e3e3e3;
+    width: 100%;
+  }
+
+}

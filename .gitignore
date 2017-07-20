@@ -15,3 +15,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore personal data in seed file.
+/db/seeds.rb
+
+# Ignore all .DS files
+.DS_Store

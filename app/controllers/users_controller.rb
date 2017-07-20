@@ -4,12 +4,21 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @mentor_skills_id = User.find(@user.id).skill_users.where(mentor: true).pluck(:skill_id)
+    @mentor_skills = Skill.where(id: @mentor_skills_id).order(skill_name: :asc)
+
+    @mentee_skills_id = User.find(@user.id).skill_users.where(mentor: false).pluck(:skill_id)
+    @mentee_skills = Skill.where(id: @mentee_skills_id).order(skill_name: :asc)
+
+    @mentor_projects = Project.where(mentor_id: @user.id)
+
+    @mentee_projects = Project.where(mentee_id: @user.id)
   end
 
   # GET /users/new
@@ -37,14 +46,13 @@ class UsersController < ApplicationController
       Rails.logger.info("--------------------------------------------")
       # temporary redirect to authenticate until pages are built out
       flash[:success] = 'Your account has been created'
-      redirect_to '/authenticate'
+      redirect_to root_path
       # redirect_back(fallback_location: root_path)
     else
       # If the user can't be added
       Rails.logger.info("-------------------------------")
       Rails.logger.info("new user couldn't be saved.....")
       Rails.logger.info("-------------------------------")
-      # flash failure message
       flash[:warning] = @user.errors.full_messages.join(' // ')
       redirect_to '/authenticate'
     end
@@ -88,6 +96,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
@@ -96,6 +106,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :location, :linkedin_url, :github_url, :other_site, :twitter, :slack_name)
+    params.require(:user).permit(:avatar, :name, :email, :password, :password_confirmation, :location, :linkedin_url, :github_url, :other_site, :twitter, :slack_name)
   end
 end
