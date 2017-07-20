@@ -4,26 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-
-    # @test = Skill.all
-    # @users = User.search_by_name(params[:query])
-    # @user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
-    # # mentor_skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
-    # #   user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
-    # #   return User.wher@e(id: user_ids)
-
-    # @mentor_skills_id = SkillUser.where(user_id: @user_ids).pluck(:skill_id)
-
-    # @mentor_skills = Skill.where(id: @mentor_skills_id)
-    # @mentor_skills = Skill.all
-
-
-    # @mentee_skills_id = SkillUser.where(mentor: false).pluck(:skill_id)
-    # @mentee_skills = Skill.where(id: @mentee_skills_id).order(skill_name: :asc)
-
-    # @users = User.search_by_skill(params[:query])
-    # @skill_ids = SkillUser.where(user_id: @users.id).where(mentor: true).pluck(:skill_id)
-    # @mentor_skills = Skill.where(id: skill_ids)
+    # @users = User.all
   end
 
   # GET /users/1
