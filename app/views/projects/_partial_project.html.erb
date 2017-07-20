@@ -1,0 +1,26 @@
+<article>
+  <% @users.each do |user| %>
+
+  <% (user.mentor_projects).each do |mentor_project| %>
+    <section style="width: 33%; display: inline-block; vertical-align: top">
+      <% if mentor_project &&  mentor_project.mentor_id =  user.id && mentor_project.public == true %>
+          <% mentee = User.get_user(mentor_project.mentee_id)%>
+          <%= mentee.name%>
+        <h5> <%= user.name%> </h5>
+        <h5> <%= mentor_project.id%> </h5>
+        <h5> <%= mentor_project.public%> </h5>
+         <h1>Mentor Avatar</h1>
+        <h1>Mentee Avatar</h1>
+      <% end %>
+  <% end %>
+    </section>
+    <section style="width: 66%; display: inline-block;">
+      <div style="width: 100;">
+       <h2>Project Name</h2>
+        <h2>Project Description</h2>
+        <h2>Project Skills</h2>
+        <button>See Project</button>
+      </div>
+    </section>
+  <% end %>
+</article>

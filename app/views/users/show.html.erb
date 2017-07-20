@@ -111,7 +111,7 @@
         <ul id="container_mentee_projects">
           <% if !@mentee_projects.blank? %>
             <% @mentee_projects.each do |p| %>
-              <li id='<%= p.id %>'><%= p.name %> (<%= p.completion_status%>)</li>
+              <li id='<%= p.id %>'><%= p.name %> </li>
             <% end %>
           <% else %>
             No projects as mente.
