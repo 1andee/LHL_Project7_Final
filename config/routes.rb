@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'projects/new'
-
   get 'home/index'
 
   root 'home#index'
@@ -15,6 +13,7 @@ Rails.application.routes.draw do
 
   get '/authenticate' => 'authenticate#index'
   post '/users' => 'users#create'
+  post '/projects' => 'projects#create'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
