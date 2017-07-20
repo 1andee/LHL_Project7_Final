@@ -1,29 +1,26 @@
 <!-- not working yet -->
-<article class="user">
-<h1>User Profile</h1>
+<article>
   <% @users.each do |user| %>
     <section style="width: 33%; display: inline-block; vertical-align: top">
-      <%= user.avatar %>
+      <h1><%= user.avatar %></h1>
       <h2><%= user.name %></h2>
     </section>
-  <% end %>
 
     <section style="width: 66%; display: inline-block;">
       <div style="width: 100;">
-        <h4> user.recieved_ratings </h4>
+        <h2> user.recieved_ratings </h2>
       </div>
-
       <div style="width: 49%; display: inline-block;">
-        <h4>Mentor In</h4>
-        <h4> <=% skill.skill_name %> </h4>
-        <h4>user.mentor_projects</h4>
+        <h2>Mentoring</h2>
+        <h2>user.skills</h2>
+        <h2>user.mentor_projects</h2>
       </div>
-
         <div style="width: 49%; display: inline-block;">
-        <h3>Mentee In</h3>
-        <h4>@user.skills</h4>
-        <h4>@user.mentee_projects</h4>
+        <h3>Mentoring</h3>
+        <h2>@user.skills</h2>
+        <h2>@user.mentee_projects</h2>
       </div>
     </section>
-    <button>See Mentor's Profile</button>
+  <% end %>
+  <button>See Mentor's Profile</button>
 </article>

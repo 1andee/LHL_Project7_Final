@@ -9,7 +9,9 @@
         <%= submit_tag "Search" %>
       <% end %>
     </div>
-    <%= render partial: 'users/users', locals: {users: @users} %>
+    <section style="width: 50%; display: inline-block;">
+    <%= render partial: 'users/partial_profile' %>
+     </section>
   </section>
 
   <section class="project-showcase">
