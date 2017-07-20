@@ -43,12 +43,36 @@
     width: 100%
   }
 
-  .container_mentor_projects {
+  .container_mentee_skills {
     border: 1px solid #e3e3e3;
     width: 100%;
   }
 
-  .container_mentee_skills {
+}
+
+.user_projects {
+  display: flex;
+
+  .as_mentor {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .as_mentee {
+    width: 35%;
+    border: 1px solid #000000;
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .title {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .container_mentor_projects {
     border: 1px solid #e3e3e3;
     width: 100%;
   }

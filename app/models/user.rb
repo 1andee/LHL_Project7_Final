@@ -39,7 +39,6 @@ class User < ApplicationRecord
   # end
 
   def self.search_by_skill(query)
-    puts "skills!!!"
     if !query.blank?
       skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
       user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
