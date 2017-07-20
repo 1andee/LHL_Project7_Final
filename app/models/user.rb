@@ -30,15 +30,15 @@ class User < ApplicationRecord
   end
 
 
-  # def self.search_by_skill(query)
-  #   if !query.blank?
-  #     skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
-  #     user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
-  #     return User.where(id: user_ids)
-  #   else
-  #     user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
-  #     return User.where(id: user_ids)
-  #   end
-  # end
+  def self.search_by_skill(query)
+    if !query.blank?
+      skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
+      user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
+      return User.where(id: user_ids)
+    else
+      user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
+      return User.where(id: user_ids)
+    end
+  end
 
 end
