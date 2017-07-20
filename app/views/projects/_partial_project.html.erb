@@ -1,6 +1,6 @@
 <article>
-  <% @users.each do |user| %>
-   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+<!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+  <% @project_users.each do |user| %>
     <% (user.mentor_projects).each do |mentor_project| %>
       <section style="max-width: 600px; margin: 0 auto">
         <% if mentor_project &&  mentor_project.mentor_id =  user.id && mentor_project.public == true %>

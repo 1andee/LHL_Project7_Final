@@ -88,17 +88,9 @@
   <span class="as_mentor">
     <span class="title">Projects - as mentor:</span>
     <span class="mentor_projects">
-        <%= link_to 'Add project', project_path(@user) if owner %>
+        <%= link_to 'Add project', project_path(@user)%>
       <span>
-        <ul id="container_mentor_projects">
-          <% if !@mentor_projects.blank? %>
-            <% @mentor_projects.each do |p| %>
-              <li id='<%= p.id %>'><%= p.name %></li>
-            <% end %>
-          <% else %>
-            No projects as mentor.
-          <% end %>
-        </ul>
+        <%= render 'projects/partial_project' %>
       </span>
     </span>
   </span>

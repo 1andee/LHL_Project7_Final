@@ -19,6 +19,8 @@ class UsersController < ApplicationController
     @mentor_projects = Project.where(mentor_id: @user.id)
 
     @mentee_projects = Project.where(mentee_id: @user.id)
+
+    @project_users = Project.includes([:user,:skills, :skill_users, :mentee_projects, :mentor_projects])
   end
 
   # GET /users/new
