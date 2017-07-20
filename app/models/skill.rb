@@ -11,5 +11,11 @@ class Skill < ApplicationRecord
   # validates :skill_name, presence: true
   # validates :skill_name, :uniqueness => {:case_sensitive => false}
 
+  def self.get_user_skills(user_id, mentor)
+    skill_ids = SkillUser.where(user_id: user_id, mentor: mentor).pluck(:skill_id)
+    skill_names = Skill.where(id: skill_ids)
+    return skill_names
+  end
+
 
 end
