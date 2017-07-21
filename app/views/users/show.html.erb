@@ -27,6 +27,7 @@
       <% if owner %>
         <%= form_tag('/skills', method: :post, remote: false) do %>
           <input type=hidden name="mentor" value=true>
+          <input type=hidden name="origin" value="user">
           <%= text_field_tag(:skill_name) %>
           <%= submit_tag("Add skill") %>
         <% end %>
@@ -37,7 +38,7 @@
             <% @mentor_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
                 <% if owner %>
-                  <%= link_to skill_path(id: s.id, mentor: true), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to skill_path(id: s.id, mentor: true, origin: "user"), class: 'btn btn-xs btn-danger', method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
                 <% end %>
@@ -57,6 +58,7 @@
       <% if owner %>
         <%= form_tag('/skills', method: :post, remote: false) do %>
           <input type=hidden name="mentor" value=false>
+          <input type=hidden name="origin" value="user">
           <%= text_field_tag(:skill_name) %>
           <%= submit_tag("Add skill") %>
         <% end %>
@@ -67,7 +69,7 @@
             <% @mentee_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
               <% if owner %>
-                <%= link_to skill_path(id: s.id, mentor: false), class: 'btn btn-xs btn-danger', method: :delete do %>
+                <%= link_to skill_path(id: s.id, mentor: false, origin: "user"), class: 'btn btn-xs btn-danger', method: :delete do %>
                   <i class="fa fa-times" aria-hidden="true"></i>
                 <% end %>
               <% end %>
