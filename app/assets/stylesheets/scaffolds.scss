@@ -12,6 +12,14 @@ p, ol, ul, td, h1 {
   margin: 0 0 15px;
 }
 
+.btn {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -19,6 +27,7 @@ pre {
 }
 
 a {
+  text-decoration: none;
   color: #000;
 
   &:visited {
@@ -85,6 +94,7 @@ label {
 
 .navbar {
   position: fixed; top: 0; left: 0;
+  z-index: 1;
   width: 100%;
   box-sizing: border-box;
   background: #000;
@@ -149,16 +159,29 @@ main {
 }
 
 .home-projects-sidebar {
+  overflow: scroll;
   position: fixed;
   top: 49px;
   vertical-align: top;
   float: left;
   width: 25%;
-  height: 100%;
+  height: calc(100% - 49px);
   box-sizing: border-box;
-  padding: 30px;
+  padding: 20px 30px;
   background: #eee;
   border-right: 1px solid #ddd;
+
+  h2, h3 {
+    padding-top: 20px;
+    margin: 0 0 20px;
+    clear: both;
+  }
+
+  a {
+    margin-bottom: 5px;
+    float: left;
+    clear: both;
+  }
 }
 
 .home-user-feed {
