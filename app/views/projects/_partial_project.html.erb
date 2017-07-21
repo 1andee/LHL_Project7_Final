@@ -5,7 +5,7 @@
     <section class="as_mentor"  style="width: 50%; display: inline-block;">
       <h1 class="title"> Projects - As Mentor:</h1>
       <% if @owner %>
-        <button><%= link_to 'Add New Project', project_path(@user)%></button>
+        <button><%= link_to 'Add New Project', new_project_path(@user)%></button>
       <% end %>
 
       <article>
@@ -14,14 +14,23 @@
           <% (user.mentor_projects).each do |mentor_project| %>
             <section style="max-width: 600px; margin: 0 auto">
               <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
+
+              <% if mentor_project.mentee_id.present?%>
                 <% mentee = User.get_user(mentor_project.mentee_id)%>
+                <% mentee_name = mentee.name %>
+                <%= mentee_avatar = mentee.avatar%>
+              <% else %>
+                <% mentee_name = "No Mentee For This Project" %>
+                <%= mentee_avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= user.avatar%>
+                  <%= user.avatar %>
                   <h5>  <%= user.name%></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= mentee.avatar%>
-                  <h5>  <%= mentee.name%></h5>
+                  <%= mentee_avatar %>
+                  <h5>  <%= mentee_name%></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
                   <div style="width: 100;">
@@ -32,7 +41,7 @@
                     <% mentor_project.skills.each do |project_skill|%>
                       <h5><%= project_skill.skill_name %></h5>
                     <% end %>
-                    <button>See This Project</button>
+                    <button><%= link_to 'View Project', project_path(@user)%></button>
                   </div>
                 </section>
               <% elsif !mentor_project.present?%>
@@ -48,7 +57,7 @@
   <section class="as_mentee" style="width: 50%; display: inline-block;">
   <h1 class="title">Projects - As Mentee:</h1>
       <% if @owner %>
-        <button><%= link_to 'Add New Project', project_path(@user)%></button>
+        <button><%= link_to 'Add New Project', new_project_path(@user)%></button>
       <% end %>
        <article>
       <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
@@ -57,10 +66,20 @@
             <section style="max-width: 600px; margin: 0 auto">
               <% if mentee_project &&  mentee_project.mentor_id =  user.id %>
                 <% mentor = User.get_user(mentee_project.mentor_id)%>
+
+              <% if mentee_project.mentor_id.present?%>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+                <% mentor_name = mentor.name %>
+                 <%= mentor_avatar = mentor.avatar%>
+              <% else %>
+                <% mentor_name = "No Mentor For This Project" %>
+                <%= mentor_avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
                   <%= mentor.avatar%>
-                  <h5>  <%= mentor.name%></h5>
+                  <h5>  <%= mentor_name %></h5>
                   <h5>  Mentee On This Project </h5>
                   <%= user.avatar%>
                   <h5>  <%= user.name%></h5>
@@ -74,7 +93,7 @@
                     <% mentee_project.skills.each do |project_skill|%>
                       <h5><%= project_skill.skill_name %></h5>
                     <% end %>
-                    <button>See This Project</button>
+                    <button><%= link_to 'View Project', project_path(@user)%>s</button>
                   </div>
                 </section>
               <% elsif !mentee_project.present? %>
@@ -95,7 +114,7 @@
   <% @project_users.each do |user| %>
     <% (user.mentor_projects).each do |mentor_project| %>
       <section style="max-width: 600px; margin: 0 auto">
-        <% if mentor_project &&  mentor_project.mentor_id =  user.id && mentor_project.public == true %>
+        <% if mentor_project && mentor_project.mentee_id.present? && mentor_project.mentor_id =  user.id && mentor_project.public == true %>
           <% mentee = User.get_user(mentor_project.mentee_id)%>
           <section style="width: 33%; display: inline-block; vertical-align: top">
             <h5>  Mentor On This Project </h5>
