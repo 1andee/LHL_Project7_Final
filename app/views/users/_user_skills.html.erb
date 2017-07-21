@@ -1,0 +1,61 @@
+<% current_user.id == @user.id ? owner = true : owner = false %>
+
+ <span class="as_mentor">
+    <span class="title">Skills - as mentor:</span>
+    <span class="mentor_skills">
+      <% if owner %>
+        <%= form_tag('/skills', method: :post, remote: false) do %>
+          <input type=hidden name="mentor" value=true>
+          <%= text_field_tag(:skill_name) %>
+          <%= submit_tag("Add skill") %>
+        <% end %>
+      <% end %>
+      <span>
+        <ul id="container_mentor_skills">
+          <% if !@mentor_skills.blank? %>
+            <% @mentor_skills.each do |s| %>
+              <li id='<%= s.id %>'><%= s.skill_name %>
+                <% if owner %>
+                  <%= link_to skill_path(id: s.id, mentor: true), class: 'btn btn-xs btn-danger', method: :delete do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          <% else %>
+            No skills as mentor
+          <% end %>
+        </ul>
+      </span>
+    </span>
+  </span>
+
+  <span class="as_mentee">
+    <span class="title">Skills - as mentee:</span>
+    <span class="mentee_skills">
+      <% if owner %>
+        <%= form_tag('/skills', method: :post, remote: false) do %>
+          <input type=hidden name="mentor" value=false>
+          <%= text_field_tag(:skill_name) %>
+          <%= submit_tag("Add skill") %>
+        <% end %>
+      <% end %>
+      <span>
+        <ul id="container_mentee_skills">
+          <% if !@mentee_skills.blank? %>
+            <% @mentee_skills.each do |s| %>
+              <li id='<%= s.id %>'><%= s.skill_name %>
+              <% if owner %>
+                <%= link_to skill_path(id: s.id, mentor: false), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+              </li>
+            <% end %>
+          <% else %>
+            No skills as mentee
+          <% end %>
+        </ul>
+      </span>
+    </span>
+  </span>

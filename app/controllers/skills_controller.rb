@@ -5,17 +5,39 @@ class SkillsController < ApplicationController
   def create
   # /1231/skills?name=guitar&type=mentee
   # /1231/skills?name=rails&type=mentor
-    @skill = Skill.find_by(skill_name: params[:skill_name])
-    if @skill.blank?
-      @skill = Skill.create(skill_name: params[:skill_name])
-    end
 
-    @skill_user = SkillUser.find_by(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+    origin = params[:origin]
 
-    if @skill_user.blank?
-      @user_skill = SkillUser.create!(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+    if origin == "user"
+
+      @skill = Skill.find_by(skill_name: params[:skill_name])
+      if @skill.blank?
+        @skill = Skill.create(skill_name: params[:skill_name])
+      end
+
+      @skill_user = SkillUser.find_by(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+
+      if @skill_user.blank?
+        @user_skill = SkillUser.create!(skill_id: @skill.id, user_id: current_user.id, mentor: params[:mentor])
+      end
+      redirect_to user_path(current_user.id)
+
+    else
+      project_id = params[:project_id]
+
+      @skill = Skill.find_by(skill_name: params[:skill_name])
+      if @skill.blank?
+        @skill = Skill.create(skill_name: params[:skill_name])
+      end
+
+      @project_skill = ProjectSkill.find_by(skill_id: @skill.id, project_id: project_id)
+
+      if @project_skill.blank?
+        @project_skill = ProjectSkill.create!(skill_id: @skill.id, project_id: project_id)
+      end
+      redirect_to project_path(project_id)
+
     end
-    redirect_to user_path(current_user.id)
     # render 'skill_created'
     # return
     # // /skills/skill_created.js.erb
@@ -28,10 +50,26 @@ class SkillsController < ApplicationController
   # /1231/skills/1231
   # /1231/skills/12412
 
-    user_skill = SkillUser.find_by(skill_id: params[:id], mentor: params[:mentor], user_id: current_user.id)
-    user_skill.destroy
+    origin = params[:origin]
 
-    redirect_to user_path(current_user.id)
+    if origin == "user"
+
+      user_skill = SkillUser.find_by(skill_id: params[:id], mentor: params[:mentor], user_id: current_user.id)
+      user_skill.destroy
+
+      redirect_to user_path(current_user.id)
+
+    else
+
+      project_id = params[:project_id]
+
+      project_skill = ProjectSkill.find_by(skill_id: params[:id], project_id: project_id)
+      project_skill.destroy
+
+      redirect_to project_path(project_id)
+
+    end
+
   end
 
 end

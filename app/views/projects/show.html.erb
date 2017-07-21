@@ -1,1 +1,88 @@
-<p><strong>Name:</strong><%= @project.name %></p>
+<section class="project-page">
+
+  <h4>Project informations - Project ID: <%= @project.id %></h4>
+
+
+</section>
+
+<section class="skills">
+
+    <span class="title">Skills:</span>
+    <span class="project_skills">
+      <!--% if owner %-->
+        <%= form_tag('/skills', method: :post, remote: false) do %>
+          <input type=hidden name="origin" value="project">
+          <input type=hidden name="project_id" value="<%= @project.id %>">
+          <%= text_field_tag(:skill_name) %>
+          <%= submit_tag("Add skill") %>
+        <% end %>
+      <!--% end %-->
+      <span>
+        <ul id="container_project_skills">
+          <% if !@project_skills.blank? %>
+            <% @project_skills.each do |s| %>
+              <li id='<%= s.id %>'><%= s.skill_name %>
+                <!--% if owner %-->
+                  <%= link_to skill_path(id: s.id, origin: "project", project_id: @project.id), class: 'btn btn-xs btn-danger', method: :delete do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                  <% end %>
+                <!--% end %-->
+              </li>
+            <% end %>
+          <% else %>
+            This project has no skill associated
+          <% end %>
+        </ul>
+      </span>
+    </span>
+  </span>
+
+
+</section>
+
+
+<section class="goals">
+
+    <span class="title">Goals:</span>
+    <span class="project_goals">
+      <!--% if owner %-->
+        <%= form_tag(project_goals_path(@project.id), method: :post, remote: false) do %>
+          <%= text_field_tag(:goal_title) %>
+          <%= submit_tag("Add goal") %>
+        <% end %>
+      <!--% end %-->
+      <span>
+        <ul id="container_project_goals">
+          <% if !@project_goals.blank? %>
+            <% @project_goals.each do |g| %>
+
+              <li id='<%= g.id %>'><strong>Title:</strong> <%= g.title %>
+
+                <!--% if owner %-->
+
+
+                  <%= link_to project_goal_path(goal_id: g.id, project_id: @project.id), class: 'btn btn-xs btn-danger', method: :delete do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                  <% end %>
+
+
+                <!--% end %-->
+              </li>
+            <% end %>
+          <% else %>
+            This project has no goal associated
+          <% end %>
+        </ul>
+
+        <% if !flash[:warning].nil? %>
+          <% flash.each do |key, value| %>
+            <div class="error_alert"><%= value %></div>
+          <% end %>
+        <% end %>
+
+      </span>
+    </span>
+  </span>
+
+
+</section>

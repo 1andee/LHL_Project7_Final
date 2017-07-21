@@ -20,107 +20,11 @@
 </section>
 
 <section class="user_skills">
-
-  <span class="as_mentor">
-    <span class="title">Skills - as mentor:</span>
-    <span class="mentor_skills">
-      <% if owner %>
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="mentor" value=true>
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <% end %>
-      <span>
-        <ul id="container_mentor_skills">
-          <% if !@mentor_skills.blank? %>
-            <% @mentor_skills.each do |s| %>
-              <li id='<%= s.id %>'><%= s.skill_name %>
-                <% if owner %>
-                  <%= link_to skill_path(id: s.id, mentor: true), class: 'btn btn-xs btn-danger', method: :delete do %>
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                  <% end %>
-                <% end %>
-              </li>
-            <% end %>
-          <% else %>
-            No skills as mentor
-          <% end %>
-        </ul>
-      </span>
-    </span>
-  </span>
-
-  <span class="as_mentee">
-    <span class="title">Skills - as mentee:</span>
-    <span class="mentee_skills">
-      <% if owner %>
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="mentor" value=false>
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <% end %>
-      <span>
-        <ul id="container_mentee_skills">
-          <% if !@mentee_skills.blank? %>
-            <% @mentee_skills.each do |s| %>
-              <li id='<%= s.id %>'><%= s.skill_name %>
-              <% if owner %>
-                <%= link_to skill_path(id: s.id, mentor: false), class: 'btn btn-xs btn-danger', method: :delete do %>
-                  <i class="fa fa-times" aria-hidden="true"></i>
-                <% end %>
-              <% end %>
-              </li>
-            <% end %>
-          <% else %>
-            No skills as mentee
-          <% end %>
-        </ul>
-      </span>
-    </span>
-  </span>
-
+  <%= render 'users/user_skills' %>
 </section>
 
 <section class="user_projects">
-
-  <span class="as_mentor">
-    <span class="title">Projects - as mentor:</span>
-    <span class="mentor_projects">
-        <%= link_to 'Add project', project_path(@user) if owner %>
-      <span>
-        <ul id="container_mentor_projects">
-          <% if !@mentor_projects.blank? %>
-            <% @mentor_projects.each do |p| %>
-              <li id='<%= p.id %>'><%= p.name %></li>
-            <% end %>
-          <% else %>
-            No projects as mentor.
-          <% end %>
-        </ul>
-      </span>
-    </span>
-  </span>
-
-<span class="as_mentee">
-  <span class="title">Projects - as mentee:</span>
-    <span class="mentee_projects">
-        <%= link_to 'Add project', project_path(@user) if owner %>
-      <span>
-        <ul id="container_mentee_projects">
-          <% if !@mentee_projects.blank? %>
-            <% @mentee_projects.each do |p| %>
-              <li id='<%= p.id %>'><%= p.name %> (<%= p.completion_status%>)</li>
-            <% end %>
-          <% else %>
-            No projects as mente.
-          <% end %>
-        </ul>
-      </span>
-    </span>
-  </span>
-
+ <%= render 'projects/partial_project' %>
 </section>
 
 
