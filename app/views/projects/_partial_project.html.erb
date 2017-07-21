@@ -1,3 +1,93 @@
+<% if current_user.present? %>
+  <% current_user.id == @user.id ? @owner = true : @owner = false %>
+
+
+    <section class="as_mentor"  style="width: 50%; display: inline-block;">
+      <h1 class="title"> Projects - As Mentor:</h1>
+      <% if @owner %>
+        <button><%= link_to 'Add New Project', project_path(@user)%></button>
+      <% end %>
+
+      <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+        <% @project_users.each do |user| %>
+          <% (user.mentor_projects).each do |mentor_project| %>
+            <section style="max-width: 600px; margin: 0 auto">
+              <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
+                <% mentee = User.get_user(mentor_project.mentee_id)%>
+                <section style="width: 33%; display: inline-block; vertical-align: top">
+                  <h5>  Mentor On This Project </h5>
+                  <%= user.avatar%>
+                  <h5>  <%= user.name%></h5>
+                  <h5>  Mentee On This Project </h5>
+                  <%= mentee.avatar%>
+                  <h5>  <%= mentee.name%></h5>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5> Project Name </h5>
+                    <h4><%= mentor_project.name%> </h4>
+                    <h5> Project Description </h5>
+                    <h4><%= mentor_project.description%> </h4>
+                    <h5> Skills To Learn </h5>
+                    <h4>Project Skills</h4>
+                    <button>See This Project</button>
+                  </div>
+                </section>
+              <% elsif !mentor_project.present?%>
+               <div> <h3> You Have No Projects As A Mentor! </h3> </div>
+              <% end %>
+            <% end %>
+          </section>
+        <% end %>
+      </article>
+  </section>
+
+
+  <section class="as_mentee" style="width: 50%; display: inline-block;">
+  <h1 class="title">Projects - As Mentee:</h1>
+      <% if @owner %>
+        <button><%= link_to 'Add New Project', project_path(@user)%></button>
+      <% end %>
+       <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+        <% @project_users.each do |user| %>
+          <% (user.mentee_projects).each do |mentee_project| %>
+            <section style="max-width: 600px; margin: 0 auto">
+              <% if mentee_project &&  mentee_project.mentor_id =  user.id %>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+                <section style="width: 33%; display: inline-block; vertical-align: top">
+                  <h5>  Mentor On This Project </h5>
+                  <%= mentor.avatar%>
+                  <h5>  <%= mentor.name%></h5>
+                  <h5>  Mentee On This Project </h5>
+                  <%= user.avatar%>
+                  <h5>  <%= user.name%></h5>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5> Project Name </h5>
+                    <h4><%= mentee_project.name%> </h4>
+                    <h5> Project Description </h5>
+                    <h4><%= mentee_project.description%> </h4>
+                    <h5> Skills To Learn </h5>
+                    <h4>Project Skills</h4>
+                    <button>See This Project</button>
+                  </div>
+                </section>
+              <% elsif !mentee_project.present? %>
+                <div> <h3> You Have No Projects As A Mentee! </h3> </div>
+              <% end %>
+            <% end %>
+          </section>
+        <% end %>
+      </article>
+    </section>
+<% end %>
+
+
+<!-- to set partial profile for archive view we can use if current.user && request.fullpath == "/archive" to set logic-->
+
 <article>
 <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
   <% @project_users.each do |user| %>
@@ -15,13 +105,14 @@
           </section>
           <section style="width: 66%; display: inline-block;">
             <div style="width: 100;">
-              <h5> Project Name </h5>
-              <h4><%= mentor_project.name%> </h4>
-              <h5> Project Description </h5>
-              <h4><%= mentor_project.description%> </h4>
-              <h5> Skills To Learn </h5>
-              <h4>Project Skills</h4>
-              <button>See This Project</button>
+              <h4> Project Name </h4>
+              <h5><%= mentor_project.name%> </h5>
+              <h4> Project Description </h4>
+              <h5><%= mentor_project.description%> </h5>
+              <h4> Skills To Learn </h4>
+              <% mentor_project.skills.each do |project_skill|%>
+              <h5><%= project_skill.skill_name %></h5>
+              <% end %>
             </div>
           </section>
         <% end %>
