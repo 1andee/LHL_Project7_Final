@@ -37,6 +37,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :mentor_id, "Are you a mentor for this project?" %>
+    <%= f.select :mentor_id, [['Mentor', "Mentor"], ['Mentee', "Mentee"]] %>
+  </div>
+
+  <div class="field">
     <%= f.label :public, "Is this a public project?" %>
     <%= f.select :public, [['Yes', true], ['No', false]] %>
   </div>
@@ -45,3 +50,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= console %>

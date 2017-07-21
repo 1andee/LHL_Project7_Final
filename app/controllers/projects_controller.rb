@@ -1,8 +1,10 @@
+# IF ANY CHANGES ARE MADE HERE, RESTART SERVER
+
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @project = Projects.all
+    @projects = Project.all
   end
 
   def show
@@ -16,14 +18,15 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+     if project_params[:mentor_id] == "Mentor"
+        @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentee_pending: true, mentor_pending: false, mentor_id: current_user.id})
+    else
+       @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentee_pending: false, mentor_pending: true, mentee_id: current_user.id})
+    end
 
     if @project.save!
-      # If project is successfully added to table
-      # temporary redirect to authenticate until pages are built out
       flash[:success] = 'Your account has been created'
       redirect_to(@project, :show => 'Project was successfully created.')
-      # redirect_back(fallback_location: root_path)
     else
       # If the project can't be added
       Rails.logger.info("-------------------------------")
@@ -34,9 +37,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # FROM ORIGINAL RAILS INITIALIZATION / SETUP:
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
@@ -49,9 +49,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # FROM ORIGINAL RAILS INITIALIZATION / SETUP:
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project.destroy
     respond_to do |format|
@@ -61,13 +58,12 @@ class ProjectsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_project
     @project = Project.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:name, :description, :project_url, :start_date, :finish_date, :public)
+    params.require(:project).permit(:name, :description, :project_url, :start_date, :finish_date, :mentor_id, :public)
   end
 end
