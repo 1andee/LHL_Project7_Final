@@ -2,6 +2,12 @@
   <%= render 'user_feed' %>
 <% else %>
 
+  <section class="register-login">
+   <h1>Welcome To Our App</h1>
+    <h2>Register Login Form Here</h2>
+    <!-- add links to register and log in -->
+  </section>
+
   <section class="home-search">
     <div class="search-input">
       <%= form_tag home_index_path, :method => 'get' do %>

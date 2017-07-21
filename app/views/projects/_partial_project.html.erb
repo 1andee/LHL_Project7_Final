@@ -29,8 +29,9 @@
                     <h4><%= mentor_project.name%> </h4>
                     <h5> Project Description </h5>
                     <h4><%= mentor_project.description%> </h4>
-                    <h5> Skills To Learn </h5>
-                    <h4>Project Skills</h4>
+                    <% mentor_project.skills.each do |project_skill|%>
+                      <h5><%= project_skill.skill_name %></h5>
+                    <% end %>
                     <button>See This Project</button>
                   </div>
                 </section>
@@ -70,8 +71,9 @@
                     <h4><%= mentee_project.name%> </h4>
                     <h5> Project Description </h5>
                     <h4><%= mentee_project.description%> </h4>
-                    <h5> Skills To Learn </h5>
-                    <h4>Project Skills</h4>
+                    <% mentee_project.skills.each do |project_skill|%>
+                      <h5><%= project_skill.skill_name %></h5>
+                    <% end %>
                     <button>See This Project</button>
                   </div>
                 </section>
