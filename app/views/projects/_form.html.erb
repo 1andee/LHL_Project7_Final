@@ -16,7 +16,39 @@
     <%= f.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :project_url, "Project URL" %>
+    <%= f.text_field :project_url %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_date, "Start Date" %>
+    <%= f.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :finish_date, "Finish Date" %>
+    <%= f.date_field :finish_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :mentor_id, "Are you a mentor for this project?" %>
+    <%= f.select :mentor_id, [['Mentor', "Mentor"], ['Mentee', "Mentee"]] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :public, "Is this a public project?" %>
+    <%= f.select :public, [['Yes', true], ['No', false]] %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= console %>

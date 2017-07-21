@@ -10,17 +10,6 @@ class Project < ApplicationRecord
   has_many :skills, through: :project_skills
 
   # adds association to alias of mentee_id and mentor_id
-  belongs_to :mentee, :class_name => 'User'
-  belongs_to :mentor, :class_name => 'User'
-
-  # def self.get_user_projects(user_id, mentor)
-  #   if mentor
-  #     project_ids = Project.where(mentor: user_id)
-  #   else
-  #     project_ids = Project.where(mentee: user_id)
-  #   end
-  #   return project_ids
-  # end
-
-
+  belongs_to :mentee, :class_name => 'User', optional: true
+  belongs_to :mentor, :class_name => 'User', optional: true
 end
