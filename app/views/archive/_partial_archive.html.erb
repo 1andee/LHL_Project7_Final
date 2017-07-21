@@ -1,5 +1,4 @@
-<% if current_user.present? %>
-  <% current_user.id == @user.id ? @owner = true : @owner = false %>
+<% if current_user.id == @user.id %>
 
     <section class="as_mentor"  style="width: 50%; display: inline-block;">
       <h1 class="title"> Archived Projects - As Mentor:</h1>
@@ -81,4 +80,6 @@
         <% end %>
       </article>
     </section>
+<% else %>
+Not authorized.
 <% end %>
