@@ -2,8 +2,6 @@ class ArchiveController < ApplicationController
 
   before_action :user_lookup
 
-  private
-
   def user_lookup
     @user = User.find(params[:user_id])
   end
