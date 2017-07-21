@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
-  resources :users
+  resources :users do
+    resources :archive, :only => [:index]
+  end
   resources :skills, :only => [:create, :destroy]
   resources :sessions, :only => [:create, :destroy]
   resources :projects do

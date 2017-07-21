@@ -7,6 +7,9 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
+  def archive
+  end
+
   def show
   end
 
