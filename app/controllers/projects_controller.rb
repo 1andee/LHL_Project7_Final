@@ -8,6 +8,15 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
+    @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
+
+    @project_goals = Goal
+                    .joins("INNER JOIN completion_statuses ON goals.completion_status_id = completion_statuses.id")
+                    .select("goals.*, completion_statuses.name")
+                    .where(project_id: @project.id)
+                    .order(id: :desc)
+
   end
 
   def new
@@ -65,24 +74,6 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :description, :project_url, :start_date, :finish_date, :mentor_id, :public)
-  end
-
-  def show
-    @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
-    @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
-
-    @project_goals = Goal
-                    .joins("INNER JOIN completion_statuses ON goals.completion_status_id = completion_statuses.id")
-                    .select("goals.*, completion_statuses.name")
-                    .where(project_id: @project.id)
-                    .order(id: :desc)
-
-  end
-
-private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_project
-    @project = Project.find(params[:id])
   end
 
 end
