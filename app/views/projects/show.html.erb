@@ -2,13 +2,23 @@
 
   <h4>Project information</h4>
 
+  <% if current_user.id == @project.mentor_id %>
+    <p>I'm a mentor</p>
+  <% else %>
+    <p>I'm a mentee</p>
+ <% end %>
+
   <p><%= @project.name %><p>
+  <p><%= @project.description %><p>
+  <p><%= @project.project_url %><p>
+  <p><%= @project.start_date %><p>
+  <p><%= @project.finish_date %><p>
 
 </section>
 
 <section class="skills">
 
-    <span class="title">Skills:</span>
+    <span class="title">Skills: testing</span>
     <span class="project_skills">
       <!--% if owner %-->
         <%= form_tag('/skills', method: :post, remote: false) do %>
@@ -87,3 +97,5 @@
 
 
 </section>
+
+<% console %>
