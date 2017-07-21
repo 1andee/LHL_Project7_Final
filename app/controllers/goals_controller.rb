@@ -3,6 +3,8 @@ class GoalsController < ApplicationController
 
   def create
     @goal = Goal.create(title: params[:goal_title], project_id: params[:project_id], completion_status_id: 1)
+    message = "<p>[Project #{params[:project_name]}] User #{current_user.name} added the goal #{params[:goal_title]}.</p>"
+    Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     if @goal.save
       # If goal is successfully added to table
@@ -37,6 +39,9 @@ class GoalsController < ApplicationController
 
     if !goal_comments.present?
       @goal.destroy
+      message = "<p>[Project #{params[:project_name]}] User #{current_user.name} deleted the goal #{params[:goal_title]}.</p>"
+      Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
+
     else
       flash[:warning] = "The goal '#{@goal.title}' has comments and can not be deleted. Try to change the status."
     end

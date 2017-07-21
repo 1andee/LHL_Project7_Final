@@ -47,6 +47,28 @@
 
 }
 
+.comments {
+  width: 35%;
+  border: 1px solid #000000;
+  margin: 5px;
+  padding: 5px;
+
+  .title {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .add_comments {
+    width: 100%
+  }
+
+  .show_comments {
+    width: 100%
+  }
+
+
+}
+
 .error_alert {
   color: red;
 }

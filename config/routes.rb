@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :sessions, :only => [:create, :destroy]
   resources :projects do
     resources :goals, :only => [:create, :destroy, :update]
+    resources :comments, :only => [:create, :destroy]
   end
 
 

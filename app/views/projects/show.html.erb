@@ -13,6 +13,7 @@
         <%= form_tag('/skills', method: :post, remote: false) do %>
           <input type=hidden name="origin" value="project">
           <input type=hidden name="project_id" value="<%= @project.id %>">
+          <input type=hidden name="project_name" value="<%= @project.name %>">
           <%= text_field_tag(:skill_name) %>
           <%= submit_tag("Add skill") %>
         <% end %>
@@ -21,16 +22,16 @@
         <ul id="container_project_skills">
           <% if !@project_skills.blank? %>
             <% @project_skills.each do |s| %>
-              <li id='<%= s.id %>'><%= s.skill_name %>
+              <li id='<%= s.id %>' ><%= s.skill_name %>
                 <!--% if owner %-->
-                  <%= link_to skill_path(id: s.id, origin: "project", project_id: @project.id), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
                 <!--% end %-->
               </li>
             <% end %>
           <% else %>
-            This project has no skill associated
+            This project has no skills attached.
           <% end %>
         </ul>
       </span>
@@ -47,6 +48,7 @@
     <span class="project_goals">
       <!--% if owner %-->
         <%= form_tag(project_goals_path(@project.id), method: :post, remote: false) do %>
+          <input type=hidden name="project_name" value="<%= @project.name %>">
           <%= text_field_tag(:goal_title) %>
           <%= submit_tag("Add goal") %>
         <% end %>
@@ -61,7 +63,7 @@
                 <!--% if owner %-->
 
 
-                  <%= link_to project_goal_path(goal_id: g.id, project_id: @project.id), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
 
@@ -86,3 +88,5 @@
 
 
 </section>
+
+
