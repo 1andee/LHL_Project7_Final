@@ -1,9 +1,11 @@
-<div class="search-input">
-  <%= form_tag users_path, :method => 'get' do %>
-    <input id="searchbar" name="query" placeholder="Search mentors by skill">
-    <%= submit_tag "Search" %>
-  <% end %>
-</div>
-
-
-<%= render partial: 'users/users', locals: {users: @users} %>
+<section class=“user-search”>
+  <div class=“search-input”>
+    <%= form_tag users_path, :method => ‘get’ do %>
+      <input id=“searchbar” name=“query” placeholder=“Search mentors by skill”>
+      <%= submit_tag “Search” %>
+    <% end %>
+  </div>
+  <section style=“width: 50%; display: inline-block;“>
+    <%= render ‘users/partial_profile’ %>
+  </section>
+</section>

@@ -4,15 +4,19 @@
 
   <% if current_user.id == @project.mentor_id %>
     <p>I'm a mentor</p>
+    <p><%= link_to "Add Mentee", users_path %><p>
   <% else %>
     <p>I'm a mentee</p>
- <% end %>
+    <p><%= link_to "Add Mentor", users_path %><p>
+  <% end %>
 
-  <p><%= @project.name %><p>
-  <p><%= @project.description %><p>
-  <p><%= @project.project_url %><p>
-  <p><%= @project.start_date %><p>
-  <p><%= @project.finish_date %><p>
+  <hr>
+
+  <p>Name: <%= @project.name %><p>
+  <p>Description: <%= @project.description %><p>
+  <p>Project URL: <%= @project.project_url %><p>
+  <p>Start date: <%= @project.start_date %><p>
+  <p>Finish date: <%= @project.finish_date %><p>
 
 </section>
 
@@ -99,5 +103,3 @@
 
 
 </section>
-
-
