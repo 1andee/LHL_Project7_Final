@@ -1,0 +1,70 @@
+<% if current_user.present? %>
+  <% @project.mentor_id == current_user.id || @project.mentee_id == current_user.id ? mentor_mentee = true : mentor_mentee = false %>
+<% else %>
+  <% mentor_mentee = false %>
+<% end %>
+
+<span class="title">Comments:</span><br>
+  <span class="add_comments">
+    <% if mentor_mentee %>
+      <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
+        <%= text_area_tag(:comment, nil, cols: 80, rows: 5) %>
+        <%= check_box_tag(:action_required) %> Answer required?
+
+        <% if @project_goals.present? %>
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
+          <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
+        <% else %>
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
+          <br>This project has no goals. The comment will be attached to the project in general.
+        <% end %>
+
+        <br><%= submit_tag("Add comment") %>
+      <% end %>
+    <% end %>
+  </span>
+  <br>
+  <span class="show_comments">
+
+      <strong>Comments attached to project:</strong>
+        <div class="container_comments">
+          <% if @comments.where(goal_id: nil).present? %>
+            <ul>
+              <% @comments.where(goal_id: nil).each do |c| %>
+                <li id='<%= c.id %>'>
+                  <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                  <% if c.action_required %>
+                    <span class="alert_message">Answer required.</span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            No comments attached to this project.
+          <% end %>
+        </div>
+
+        <% if @project_goals.present? %>
+          <% @project_goals.each do |g| %>
+            <strong>Comments attached to goal '<%= g.title %>':</strong>
+            <div class="container_comments">
+              <% if @comments.where(goal_id: g.id).present? %>
+                <ul>
+                  <% @comments.where(goal_id: g.id).each do |c| %>
+                    <li id='<%= c.id %>'>
+                      <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                      <% if c.action_required %>
+                        <span class="alert_message">Answer required.</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                No comments attached to this goal.
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+  </span>
+
+</span>

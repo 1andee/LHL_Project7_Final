@@ -1,127 +1,30 @@
+<% if current_user.present? %>
+  <% @project.mentor_id == current_user.id || @project.mentee_id == current_user.id ? mentor_mentee = true : mentor_mentee = false %>
+<% else %>
+  <% mentor_mentee = false %>
+<% end %>
+
+<% if @project.public || mentor_mentee %>
+
+
 <section class="project-page">
-
   <h4>Project information</h4>
-
   <p><%= @project.name %><p>
-
-
 </section>
 
 <section class="skills">
-
-    <span class="title">Skills:</span>
-    <span class="project_skills">
-      <!--% if owner %-->
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="origin" value="project">
-          <input type=hidden name="project_id" value="<%= @project.id %>">
-          <input type=hidden name="project_name" value="<%= @project.name %>">
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <!--% end %-->
-      <span>
-        <ul id="container_project_skills">
-          <% if !@project_skills.blank? %>
-            <% @project_skills.each do |s| %>
-              <li id='<%= s.id %>' ><%= s.skill_name %>
-                <!--% if owner %-->
-                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), method: :delete do %>
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                  <% end %>
-                <!--% end %-->
-              </li>
-            <% end %>
-          <% else %>
-            This project has no skills attached.
-          <% end %>
-        </ul>
-      </span>
-    </span>
-  </span>
-
-
+    <%= render 'projects/project_skills' %>
 </section>
 
-
 <section class="goals">
-
-    <span class="title">Goals:</span>
-    <span class="project_goals">
-      <!--% if owner %-->
-        <%= form_tag(project_goals_path(@project.id), method: :post, remote: false) do %>
-          <input type=hidden name="project_name" value="<%= @project.name %>">
-          <%= text_field_tag(:goal_title) %>
-          <%= submit_tag("Add goal") %>
-        <% end %>
-      <!--% end %-->
-      <span>
-        <ul id="container_project_goals">
-          <% if !@project_goals.blank? %>
-            <% @project_goals.each do |g| %>
-
-              <li id='<%= g.id %>'><strong>Title:</strong> <%= g.title %>
-
-                <!--% if owner %-->
-
-
-                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                  <% end %>
-
-
-                <!--% end %-->
-              </li>
-            <% end %>
-          <% else %>
-            This project has no goals attached.
-          <% end %>
-        </ul>
-
-        <% if !flash[:warning].nil? %>
-          <% flash.each do |key, value| %>
-            <div class="alert_message"><%= value %></div>
-          <% end %>
-        <% end %>
-
-      </span>
-    </span>
-  </span>
-
-
+  <%= render 'projects/project_goals' %>
 </section>
 
 <section class="comments">
-
-  <span class="title">Write comments:</span>
-  <span class="add_comments">
-    <!--% if owner %-->
-      <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
-        <%= text_area_tag(:comment) %>
-        <%= check_box_tag(:action_required) %> Answer required?
-
-        <% if @project_goals.present? %>
-          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
-          <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
-        <% else %>
-          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
-          <br>This project has no goals. The comment will be attached to the project in general.
-        <% end %>
-
-        <br><%= submit_tag("Add comment") %>
-      <% end %>
-    <!--% end %-->
-  </span>
-  <br>
-  <span class="title">Read comments:</span>
-  <span class="show_comments">
-
-    <!--% if owner %-->
-    <!--% end %-->
-
-  </span>
-
-</span>
-
-
+  <%= render 'projects/project_comments' %>
 </section>
+
+
+<% else %>
+  <h4>This is a private project, you have no permission to access it.</h4>
+<% end %>

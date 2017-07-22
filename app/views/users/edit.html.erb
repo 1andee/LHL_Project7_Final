@@ -1,6 +1,19 @@
+<% if current_user.present? %>
+  <% current_user.id == @user.id ? owner = true : owner = false %>
+<% else %>
+  <% owner = false %>
+<% end %>
+
 <h1>Editing User</h1>
 
-<%= render 'form', user: @user %>
+<% if owner %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', :back %>
+  <%= render 'form', user: @user %>
+
+  <%= link_to 'Show', @user %>
+
+<% else %>
+
+  <h4>You have no permission to edit this user.</h4>
+
+<% end %>
