@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
       @comment = Comment.new({comment: comment, action_required: action_required, user_id: user_id, project_id: project_id})
 
       if action_required
-        message = "<p class='#{background_class}'>[Project #{project.name}] User #{current_user.name} added a new comment.<%= link_to project_path(#{project_id}) do %><span class='alert_message'>ANSWER REQUIRED - click to answer.</span><% end %></p>"
+        message = "<p class='#{background_class}'>[Project #{project.name}] User #{current_user.name} added a new comment. <a href='/projects/#{project_id}' class='alert_message'>ANSWER REQUIRED - click to answer.</a></p>"
       else
         message = "<p class='#{background_class}'>[Project #{project.name}] User #{current_user.name} added a new comment.</p>"
       end
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
       goal_title = Goal.find(goal_id).title
 
       if action_required
-        message = "<p class='#{background_class}'>[Project #{project.name} - Goal #{goal_title}] User #{current_user.name} added a new comment.<%= link_to project_path(#{project_id}) do %><span class='alert_message'>ANSWER REQUIRED - click to answer.</span><% end %></p>"
+        message = "<p class='#{background_class}'>[Project #{project.name} - Goal #{goal_title}] User #{current_user.name} added a new comment. <a href='/projects/#{project_id}' class='alert_message'>ANSWER REQUIRED - click to answer.</a></p>"
 
       else
         message = "<p class='#{background_class}'>[Project #{project.name} - Goal #{goal_title}] User #{current_user.name} added a new comment.</p>"
