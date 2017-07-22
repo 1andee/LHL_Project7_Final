@@ -17,6 +17,13 @@ class ProjectsController < ApplicationController
                     .where(project_id: @project.id)
                     .order(id: :desc)
 
+    @comments = Comment
+                .joins("INNER JOIN users ON comments.user_id = users.id")
+                .joins("LEFT OUTER JOIN goals ON comments.goal_id = goals.id")
+                .select("comments.*, users.name, goals.title")
+                .where(project_id: @project.id)
+                .order(created_at: :desc)
+
 
   end
 

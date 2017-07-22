@@ -4,7 +4,7 @@
 
 
 .skills {
-  width: 35%;
+  width: 80%;
   border: 1px solid #000000;
   margin: 5px;
   padding: 5px;
@@ -26,7 +26,7 @@
 }
 
 .goals {
-  width: 35%;
+  width: 80%;
   border: 1px solid #000000;
   margin: 5px;
   padding: 5px;
@@ -49,7 +49,7 @@
 
 
 .comments {
-  width: 35%;
+  width: 80%;
   border: 1px solid #000000;
   margin: 5px;
   padding: 5px;
@@ -60,11 +60,19 @@
   }
 
   .add_comments {
-    width: 100%
+    width: 100%;
   }
 
   .show_comments {
-    width: 100%
+    width: 600px;
+  }
+
+  .container_comments {
+    width: 100%;
+    height: 100px;
+    overflow: scroll;
+    border: 1px solid #000000;
+    margin-bottom: 10px;
   }
 
   .mentor {

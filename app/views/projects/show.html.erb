@@ -1,3 +1,5 @@
+<% @project.mentor_id == current_user.id || @project.mentee_id == current_user.id ? mentor_mentee = true : mentor_mentee = false %>
+
 <section class="project-page">
 
   <h4>Project information</h4>
@@ -11,7 +13,7 @@
 
     <span class="title">Skills:</span>
     <span class="project_skills">
-      <!--% if owner %-->
+      <% if mentor_mentee %>
         <%= form_tag('/skills', method: :post, remote: false) do %>
           <input type=hidden name="origin" value="project">
           <input type=hidden name="project_id" value="<%= @project.id %>">
@@ -19,17 +21,17 @@
           <%= text_field_tag(:skill_name) %>
           <%= submit_tag("Add skill") %>
         <% end %>
-      <!--% end %-->
+      <% end %>
       <span>
         <ul id="container_project_skills">
           <% if !@project_skills.blank? %>
             <% @project_skills.each do |s| %>
               <li id='<%= s.id %>' ><%= s.skill_name %>
-                <!--% if owner %-->
+                <% if mentor_mentee %>
                   <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
-                <!--% end %-->
+                <% end %>
               </li>
             <% end %>
           <% else %>
@@ -48,29 +50,23 @@
 
     <span class="title">Goals:</span>
     <span class="project_goals">
-      <!--% if owner %-->
+      <% if mentor_mentee %>
         <%= form_tag(project_goals_path(@project.id), method: :post, remote: false) do %>
           <input type=hidden name="project_name" value="<%= @project.name %>">
           <%= text_field_tag(:goal_title) %>
           <%= submit_tag("Add goal") %>
         <% end %>
-      <!--% end %-->
+      <% end %>
       <span>
         <ul id="container_project_goals">
           <% if !@project_goals.blank? %>
             <% @project_goals.each do |g| %>
-
               <li id='<%= g.id %>'><strong>Title:</strong> <%= g.title %>
-
-                <!--% if owner %-->
-
-
+                <% if mentor_mentee %>
                   <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
-
-
-                <!--% end %-->
+                <% end %>
               </li>
             <% end %>
           <% else %>
@@ -93,11 +89,11 @@
 
 <section class="comments">
 
-  <span class="title">Write comments:</span>
+  <span class="title">Comments:</span><br>
   <span class="add_comments">
-    <!--% if owner %-->
+    <% if mentor_mentee %>
       <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
-        <%= text_area_tag(:comment) %>
+        <%= text_area_tag(:comment, nil, cols: 80, rows: 5) %>
         <%= check_box_tag(:action_required) %> Answer required?
 
         <% if @project_goals.present? %>
@@ -110,18 +106,54 @@
 
         <br><%= submit_tag("Add comment") %>
       <% end %>
-    <!--% end %-->
+    <% end %>
   </span>
   <br>
-  <span class="title">Read comments:</span>
   <span class="show_comments">
 
-    <!--% if owner %-->
-    <!--% end %-->
+      <strong>Comments attached to project:</strong>
+        <div class="container_comments">
+          <% if @comments.where(goal_id: nil).present? %>
+            <ul>
+              <% @comments.where(goal_id: nil).each do |c| %>
+                <li id='<%= c.id %>'>
+                  <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                  <% if c.action_required %>
+                    <span class="alert_message">Answer required.</span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            No comments attached to this project.
+          <% end %>
+        </div>
 
+        <% if @project_goals.present? %>
+          <% @project_goals.each do |g| %>
+            <strong>Comments attached to goal '<%= g.title %>':</strong>
+            <div class="container_comments">
+              <% if @comments.where(goal_id: g.id).present? %>
+                <ul>
+                  <% @comments.where(goal_id: g.id).each do |c| %>
+                    <li id='<%= c.id %>'>
+                      <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                      <% if c.action_required %>
+                        <span class="alert_message">Answer required.</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                No comments attached to this goal.
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
   </span>
 
 </span>
 
 
 </section>
+
