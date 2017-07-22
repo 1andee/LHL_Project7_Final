@@ -1,0 +1,36 @@
+<% if current_user.present? %>
+  <% @project.mentor_id == current_user.id || @project.mentee_id == current_user.id ? mentor_mentee = true : mentor_mentee = false %>
+<% else %>
+  <% mentor_mentee = false %>
+<% end %>
+
+<span class="title">Skills:</span>
+    <span class="project_skills">
+      <% if mentor_mentee %>
+        <%= form_tag('/skills', method: :post, remote: false) do %>
+          <input type=hidden name="origin" value="project">
+          <input type=hidden name="project_id" value="<%= @project.id %>">
+          <input type=hidden name="project_name" value="<%= @project.name %>">
+          <%= text_field_tag(:skill_name) %>
+          <%= submit_tag("Add skill") %>
+        <% end %>
+      <% end %>
+      <span>
+        <ul id="container_project_skills">
+          <% if !@project_skills.blank? %>
+            <% @project_skills.each do |s| %>
+              <li id='<%= s.id %>' ><%= s.skill_name %>
+                <% if mentor_mentee %>
+                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), method: :delete do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          <% else %>
+            This project has no skills attached.
+          <% end %>
+        </ul>
+      </span>
+    </span>
+  </span>

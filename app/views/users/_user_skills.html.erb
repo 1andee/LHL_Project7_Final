@@ -1,4 +1,9 @@
-<% current_user.id == @user.id ? owner = true : owner = false %>
+<% if current_user.present? %>
+  <% current_user.id == @user.id ? owner = true : owner = false %>
+<% else %>
+  <% owner = false %>
+<% end %>
+
 
  <span class="as_mentor">
     <span class="title">Skills - as mentor:</span>
@@ -17,7 +22,7 @@
             <% @mentor_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
                 <% if owner %>
-                  <%= link_to skill_path(id: s.id, mentor: true, origin: "user"), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to skill_path(id: s.id, mentor: true, origin: "user"), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
                 <% end %>
@@ -48,7 +53,7 @@
             <% @mentee_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
               <% if owner %>
-                <%= link_to skill_path(id: s.id, mentor: false, origin: "user"), class: 'btn btn-xs btn-danger', method: :delete do %>
+                <%= link_to skill_path(id: s.id, mentor: false, origin: "user"), method: :delete do %>
                   <i class="fa fa-times" aria-hidden="true"></i>
                 <% end %>
               <% end %>
