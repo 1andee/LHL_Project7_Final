@@ -6,10 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
   end
-
-  def archive
-  end
-
+  
   def show
     @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
     @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
