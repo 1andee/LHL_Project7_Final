@@ -10,7 +10,6 @@ class GoalsController < ApplicationController
       # If goal is successfully added to table
       Rails.logger.info(@goal)
       Rails.logger.info(@goal.id)
-      session[:user_id] = @goal.id
       Rails.logger.info(session[:goal_id])
       Rails.logger.info("--------------------------------------------")
       Rails.logger.info("created new goal, redirecting...")

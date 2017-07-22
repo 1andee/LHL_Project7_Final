@@ -4,6 +4,7 @@
 
   <p><%= @project.name %><p>
 
+
 </section>
 
 <section class="skills">
@@ -90,4 +91,36 @@
 
 </section>
 
+<section class="comments">
 
+  <span class="title">Write comments:</span>
+  <span class="add_comments">
+    <!--% if owner %-->
+      <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
+        <input type=hidden name="project_name" value="<%= @project.name %>">
+        <%= text_area_tag(:comment) %>
+        <%= check_box_tag(:action_required) %> Action required?
+
+        <% if @project_goals.present? %>
+          <br><%= radio_button_tag(:project_or_goal, "project") %>About the project in general
+          <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
+        <% else %>
+          <br><%= radio_button_tag(:project_or_goal, "project") %>About the project in general
+          <br>This project has no goals. The comment will be attached to the project in general.
+        <% end %>
+
+        <br><%= submit_tag("Add comment") %>
+      <% end %>
+    <!--% end %-->
+  </span>
+  <br>
+  <span class="title">Read comments:</span>
+  <span class="show_comments">
+    <!--% if owner %-->
+    <!--% end %-->
+  </span>
+
+</span>
+
+
+</section>
