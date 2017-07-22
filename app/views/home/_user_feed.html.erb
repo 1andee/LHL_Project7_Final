@@ -1,39 +1,31 @@
 <%= render 'projects_sidebar' %>
+
 <section class="home-user-feed">
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
-  <h1>User Feed</h1>
+
+  <section class="comment-box">
+    <h1>Create A Comment</h1>
+    <input type="textarea" name="in-feed-comment">Enter Comment</h1>
+  </section>
+
+  <section class="feed-list">
+    <h1>User Feed</h1>
+
+    <% @projects.each do |project|%>
+      <% if current_user.id == ( project.mentor_id || project.mentee_id) && !project.feeds.empty? %>
+        <% project.feeds.each do |activity|%>
+          <article>
+          <%=raw activity.message%>
+          </article>
+        <% end %>
+      <% end %>
+    <% end %>
+      <button> <%= link_to "Reload", root_path %> </button>
+      <article>
+        <h1>No Activities In Your Projects</h1>
+      </article>
+  </section>
+
+<%= console %>
 </section>
+
+
