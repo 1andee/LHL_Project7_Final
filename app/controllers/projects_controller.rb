@@ -6,10 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
   end
-
-  def archive
-  end
-
+  
   def show
   end
 
