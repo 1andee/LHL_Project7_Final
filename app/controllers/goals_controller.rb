@@ -42,7 +42,7 @@ class GoalsController < ApplicationController
       Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     else
-      flash[:warning] = "The goal '#{@goal.title}' has comments and can not be deleted. Try to change the status."
+      flash[:warning] = "The goal '#{@goal.title}' has comments and can not be deleted."
     end
 
     redirect_to project_path(params[:project_id])

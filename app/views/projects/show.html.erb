@@ -26,7 +26,7 @@
             <% @project_skills.each do |s| %>
               <li id='<%= s.id %>' ><%= s.skill_name %>
                 <!--% if owner %-->
-                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
                 <!--% end %-->
@@ -65,7 +65,7 @@
                 <!--% if owner %-->
 
 
-                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
 
@@ -74,13 +74,13 @@
               </li>
             <% end %>
           <% else %>
-            This project has no goal associated
+            This project has no goals attached.
           <% end %>
         </ul>
 
         <% if !flash[:warning].nil? %>
           <% flash.each do |key, value| %>
-            <div class="error_alert"><%= value %></div>
+            <div class="alert_message"><%= value %></div>
           <% end %>
         <% end %>
 
@@ -97,15 +97,14 @@
   <span class="add_comments">
     <!--% if owner %-->
       <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
-        <input type=hidden name="project_name" value="<%= @project.name %>">
         <%= text_area_tag(:comment) %>
-        <%= check_box_tag(:action_required) %> Action required?
+        <%= check_box_tag(:action_required) %> Answer required?
 
         <% if @project_goals.present? %>
-          <br><%= radio_button_tag(:project_or_goal, "project") %>About the project in general
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
           <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
         <% else %>
-          <br><%= radio_button_tag(:project_or_goal, "project") %>About the project in general
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
           <br>This project has no goals. The comment will be attached to the project in general.
         <% end %>
 
@@ -116,8 +115,10 @@
   <br>
   <span class="title">Read comments:</span>
   <span class="show_comments">
+
     <!--% if owner %-->
     <!--% end %-->
+
   </span>
 
 </span>
