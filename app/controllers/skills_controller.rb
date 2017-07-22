@@ -24,8 +24,10 @@ class SkillsController < ApplicationController
       redirect_to user_path(current_user.id)
 
     else
+      user_id = current_user.id
       project_id = params[:project_id]
-
+      project = Project.find(project_id)
+      project.mentor_id == user_id ? background_class = "mentor" : background_class = "mentee"
 
       @skill = Skill.find_by(skill_name: skill_name)
       if @skill.blank?
@@ -33,7 +35,7 @@ class SkillsController < ApplicationController
       end
 
       @project_skill = ProjectSkill.find_by(skill_id: @skill.id, project_id: project_id)
-      message = "<p>[Project #{params[:project_name]}] User #{current_user.name} added the skill #{skill_name}.</p>"
+      message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} added the skill #{skill_name}.</p>"
       Feed.create(user_id: current_user.id, project_id: project_id, message: message)
 
       if @project_skill.blank?
@@ -64,12 +66,14 @@ class SkillsController < ApplicationController
       redirect_to user_path(current_user.id)
 
     else
-
+      user_id = current_user.id
       project_id = params[:project_id]
+      project = Project.find(project_id)
+      project.mentor_id == user_id ? background_class = "mentor" : background_class = "mentee"
 
       project_skill = ProjectSkill.find_by(skill_id: params[:id], project_id: project_id)
       project_skill.destroy
-      message = "<p>[Project #{params[:project_name]}] User #{current_user.name} deleted the skill #{params[:skill_name]}.</p>"
+      message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} deleted the skill #{params[:skill_name]}.</p>"
       Feed.create(user_id: current_user.id, project_id: project_id, message: message)
 
 

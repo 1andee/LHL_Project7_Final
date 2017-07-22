@@ -2,8 +2,13 @@ class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
 
   def create
+    user_id = current_user.id
+    project_id = params[:project_id]
+    project = Project.find(project_id)
+    project.mentor_id == user_id ? background_class = "mentor" : background_class = "mentee"
+
     @goal = Goal.create(title: params[:goal_title], project_id: params[:project_id], completion_status_id: 1)
-    message = "<p>[Project #{params[:project_name]}] User #{current_user.name} added the goal #{params[:goal_title]}.</p>"
+    message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} added the goal #{params[:goal_title]}.</p>"
     Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     if @goal.save
@@ -33,12 +38,16 @@ class GoalsController < ApplicationController
   end
 
   def destroy
+    user_id = current_user.id
+    project_id = params[:project_id]
+    project = Project.find(project_id)
+    project.mentor_id == user_id ? background_class = "mentor" : background_class = "mentee"
     @goal = Goal.find(params[:goal_id])
     goal_comments = Comment.where(goal_id: @goal.id)
 
     if !goal_comments.present?
       @goal.destroy
-      message = "<p>[Project #{params[:project_name]}] User #{current_user.name} deleted the goal #{params[:goal_title]}.</p>"
+      message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} deleted the goal #{params[:goal_title]}.</p>"
       Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     else
