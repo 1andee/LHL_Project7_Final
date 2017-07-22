@@ -10,4 +10,5 @@
   <p>Yooo</p>
   <p>Yooo</p>
   <%= link_to 'New Project', new_project_path %>
+  <p><%= link_to 'My Archived Projects', user_archive_index_path(current_user.id) %></p>
 </section>
