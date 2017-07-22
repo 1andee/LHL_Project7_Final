@@ -1,9 +1,17 @@
 <% current_user.id == @user.id ? owner = true : owner = false %>
+<% project_id = params[:project_id] %>
 
 <section class="user-profile">
 
+  <% if project_id %>
+    <%= form_tag users_path, :method => 'get' do %>
+      <input type=hidden name=project_id value=<%= project_id %>>
+      <%= submit_tag "Add to project", { :class=>"btn" } %>
+    <% end %>
+  <% end %>
+
   <p id="notice"><%= notice %></p>
-  <p><%= image_tag @user.avatar.url(:thumb) %></p>
+  <div class="user-image"><%= image_tag @user.avatar.url(:thumb) %></div>
 
   <p><strong>Name:</strong><%= @user.name %></p>
   <p><strong>Email:</strong><%= @user.email %></p>
@@ -26,5 +34,3 @@
 <section class="user_projects">
  <%= render 'projects/partial_project' %>
 </section>
-
-

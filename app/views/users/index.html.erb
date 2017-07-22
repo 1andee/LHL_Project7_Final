@@ -1,11 +1,14 @@
-<section class=“user-search”>
-  <div class=“search-input”>
-    <%= form_tag users_path, :method => ‘get’ do %>
-      <input id=“searchbar” name=“query” placeholder=“Search mentors by skill”>
-      <%= submit_tag “Search” %>
+<% project_id = params[:project_id] %>
+
+<section class="user-search">
+  <div class="search-input">
+    <%= form_tag users_path, :method => 'get' do %>
+      <input type=hidden name=project_id value=<%= project_id %>>
+      <input id="searchbar" name="query" placeholder="Search mentors by skill">
+      <%= submit_tag "Search" %>
     <% end %>
   </div>
-  <section style=“width: 50%; display: inline-block;“>
-    <%= render ‘users/partial_profile’ %>
+  <section style="width: 50%; display: inline-block;">
+    <%= render 'users/partial_profile' %>
   </section>
 </section>

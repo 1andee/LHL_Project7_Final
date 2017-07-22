@@ -4,10 +4,10 @@
 
   <% if current_user.id == @project.mentor_id %>
     <p>I'm a mentor</p>
-    <p><%= link_to "Add Mentee", users_path %><p>
+    <p><%= link_to "Search for mentee", users_path(:project_id => @project.id), { :class=>"btn" } %><p>
   <% else %>
     <p>I'm a mentee</p>
-    <p><%= link_to "Add Mentor", users_path %><p>
+    <p><%= link_to "Search for mentor", users_path(:project_id => @project.id), { :class=>"btn" } %><p>
   <% end %>
 
   <hr>
