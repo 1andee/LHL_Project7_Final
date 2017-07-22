@@ -13,4 +13,6 @@
     <%= link_to project.name, project_path(project.id) %>
     <% end %>
   <% end %>
+  <h3>Archive</h3>
+  <%= link_to 'My Archived Projects', user_archive_index_path(current_user.id), { :class=>"btn" } %>
 </section>
