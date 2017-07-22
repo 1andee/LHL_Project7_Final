@@ -9,7 +9,6 @@
 
   <section class="feed-list">
     <h1>User Feed</h1>
-
     <% @projects.each do |project|%>
       <% if current_user.id == ( project.mentor_id || project.mentee_id) && !project.feeds.empty? %>
         <% project.feeds.each do |activity|%>
@@ -27,5 +26,7 @@
 
 <%= console %>
 </section>
+
+
 
 
