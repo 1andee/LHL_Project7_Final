@@ -1,309 +1,298 @@
-<% if current_user.id == @user.id %>
+<% if current_user.present? %>
 
+  <section class="as_mentor">
+    <h1 class="title"> Completed Projects - As Mentor:</h1>
 
-<section class="as_mentor">
-  <h1 class="title"> Completed Projects - As Mentor:</h1>
-
-  <article>
-    <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
-    <% @project_users_completed.each do |user| %>
-      <% (user.mentor_projects).each do |mentor_project| %>
-        <section class="mentor-project">
-        <% if mentor_project &&  mentor_project.mentor_id = user.id %>
-          <% if mentor_project.mentee_id.present?%>
-            <% mentee = User.get_user(mentor_project.mentee_id)%>
-            <% mentee_name = mentee.name %>
-            <% mentee_avatar = mentee.avatar%>
-            <section class="users">
-              <section class="user">
-                <h5>Mentor:</h5>
-                <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                <p><%= user.name%></p>
-              </section>
-              <section class="user">
-                <h5>Mentee:</h5>
-                <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
-                <p><%= mentee_name%></p>
-              </section>
-            </section>
-            <section style="width: 66%; display: inline-block;">
-              <div style="width: 100;">
-                <h5>Project Name:</h5>
-                <p><%= mentor_project.name%></p>
-                <h5>Project Description:</h5>
-                <p><%= mentor_project.description%></p>
-                <h5>Project Skills:</h5>
-                <% mentor_project.skills.each do |project_skill|%>
-                  <p><%= project_skill.skill_name %></p>
-                <% end %>
-                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-              </div>
-            </section>
-          <% else %>
-            <section class="users">
-              <section class="user">
-                <h5>Mentor:</h5>
-                <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                <p><%= user.name%></p>
-              </section>
-              <section class="user">
-                <h5>Mentee:</h5>
-                <div class="user-image"><%= image_tag("/images/missing.png") %></div>
-                <p>No mentee yet</p>
-              </section>
-            </section>
-            <section style="width: 66%; display: inline-block;">
-              <div style="width: 100;">
-                <h5>Project Name:</h5>
-                <p><%= mentor_project.name%></p>
-                <h5>Project Description:</h5>
-                <p><%= mentor_project.description%></p>
-                <h5>Project Skills:</h5>
-                <% mentor_project.skills.each do |project_skill|%>
-                  <p><%= project_skill.skill_name %></p>
-                <% end %>
-                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-              </div>
-            </section>
-          <% end %>
-
-          <% else !mentor_project.present?%>
-          <h3> You Have No Completed Projects As A Mentor! </h3>
-          <% end %>
-        </section>
-      <% end %>
-    <% end %>
-  </article>
-</section>
-
-
-<section class="as_mentee">
-  <h1 class="title"> Completed Projects - As Mentee:</h1>
-
-  <article>
-    <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
-    <% @project_users_completed.each do |user| %>
-      <% (user.mentee_projects).each do |mentee_project| %>
-        <section class="mentee-project">
-          <% if mentee_project &&  mentee_project.mentee_id = user.id %>
-            <% if mentee_project.mentor_id.present? %>
-              <% mentor = User.get_user(mentee_project.mentor_id)%>
-              <% mentor_name = mentor.name %>
-              <% mentor_avatar = mentor.avatar%>
+    <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+      <% @project_mentor_completed.each do |user| %>
+        <% (user.mentor_projects).each do |mentor_project| %>
+          <section class="mentor-project">
+          <% if mentor_project &&  mentor_project.mentor_id = user.id %>
+            <% if mentor_project.mentee_id.present?%>
+              <% mentee = User.get_user(mentor_project.mentee_id)%>
               <section class="users">
                 <section class="user">
                   <h5>Mentor:</h5>
-                  <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
-                  <p><%= mentor_name%></p>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                  <p><%= user.name%></p>
                 </section>
                 <section class="user">
                   <h5>Mentee:</h5>
-                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                  <p><%= user.name%></p>
+                  <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
+                  <p><%= mentee.name%></p>
                 </section>
               </section>
               <section style="width: 66%; display: inline-block;">
                 <div style="width: 100;">
                   <h5>Project Name:</h5>
-                  <p><%= mentee_project.name%></p>
+                  <p><%= mentor_project.name%></p>
                   <h5>Project Description:</h5>
-                  <p><%= mentee_project.description%></p>
+                  <p><%= mentor_project.description%></p>
                   <h5>Project Skills:</h5>
-                  <% mentee_project.skills.each do |project_skill|%>
+                  <% mentor_project.skills.each do |project_skill|%>
                     <p><%= project_skill.skill_name %></p>
                   <% end %>
-                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
                 </div>
               </section>
             <% else %>
               <section class="users">
                 <section class="user">
                   <h5>Mentor:</h5>
-                  <div class="user-image"><%= image_tag("/images/missing.png") %></div>
-                  <p>No mentor yet</p>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                  <p><%= user.name%></p>
                 </section>
                 <section class="user">
                   <h5>Mentee:</h5>
-                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                  <p><%= user.name%></p>
+                  <div class="user-image"><%= image_tag("/images/missing.png") %></div>
+                  <p>No mentee yet</p>
                 </section>
               </section>
               <section style="width: 66%; display: inline-block;">
                 <div style="width: 100;">
                   <h5>Project Name:</h5>
-                  <p><%= mentee_project.name%></p>
+                  <p><%= mentor_project.name%></p>
                   <h5>Project Description:</h5>
-                  <p><%= mentee_project.description%></p>
+                  <p><%= mentor_project.description%></p>
                   <h5>Project Skills:</h5>
-                  <% mentee_project.skills.each do |project_skill|%>
+                  <% mentor_project.skills.each do |project_skill|%>
                     <p><%= project_skill.skill_name %></p>
                   <% end %>
-                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
                 </div>
               </section>
             <% end %>
-          <% else !mentee_project.present?%>
-            <h3>You Have No Completed Projects As A Mentee!</h3>
-          <% end %>
-        </section>
+
+            <% else !mentor_project.present?%>
+            <h3> You Have No Completed Projects As Mentor! </h3>
+            <% end %>
+          </section>
+        <% end %>
       <% end %>
-    <% end %>
-  </article>
-</section>
+    </article>
+  </section>
 
 
-<section class="as_mentor">
-  <h1 class="title"> Cancelled Projects - As Mentor:</h1>
+  <section class="as_mentee">
+    <h1 class="title"> Completed Projects - As Mentee:</h1>
 
-  <article>
-    <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
-    <% @project_users_cancelled.each do |user| %>
-      <% (user.mentor_projects).each do |mentor_project| %>
-        <section class="mentor-project">
-        <% if mentor_project &&  mentor_project.mentor_id = user.id %>
-          <% if mentor_project.mentee_id.present?%>
-            <% mentee = User.get_user(mentor_project.mentee_id)%>
-            <% mentee_name = mentee.name %>
-            <% mentee_avatar = mentee.avatar%>
-            <section class="users">
-              <section class="user">
-                <h5>Mentor:</h5>
-                <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                <p><%= user.name%></p>
-              </section>
-              <section class="user">
-                <h5>Mentee:</h5>
-                <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
-                <p><%= mentee_name%></p>
-              </section>
-            </section>
-            <section style="width: 66%; display: inline-block;">
-              <div style="width: 100;">
-                <h5>Project Name:</h5>
-                <p><%= mentor_project.name%></p>
-                <h5>Project Description:</h5>
-                <p><%= mentor_project.description%></p>
-                <h5>Project Skills:</h5>
-                <% mentor_project.skills.each do |project_skill|%>
-                  <p><%= project_skill.skill_name %></p>
-                <% end %>
-                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-              </div>
-            </section>
-          <% else %>
-            <section class="users">
-              <section class="user">
-                <h5>Mentor:</h5>
-                <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                <p><%= user.name%></p>
-              </section>
-              <section class="user">
-                <h5>Mentee:</h5>
-                <div class="user-image"><%= image_tag("/images/missing.png") %></div>
-                <p>No mentee yet</p>
-              </section>
-            </section>
-            <section style="width: 66%; display: inline-block;">
-              <div style="width: 100;">
-                <h5>Project Name:</h5>
-                <p><%= mentor_project.name%></p>
-                <h5>Project Description:</h5>
-                <p><%= mentor_project.description%></p>
-                <h5>Project Skills:</h5>
-                <% mentor_project.skills.each do |project_skill|%>
-                  <p><%= project_skill.skill_name %></p>
-                <% end %>
-                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-              </div>
-            </section>
-          <% end %>
-
-          <% else !mentor_project.present?%>
-          <h3> You Have No Cancelled Projects As A Mentor! </h3>
-          <% end %>
-        </section>
+    <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+      <% @project_mentee_completed.each do |user| %>
+        <% (user.mentee_projects).each do |mentee_project| %>
+          <section class="mentee-project">
+            <% if mentee_project &&  mentee_project.mentee_id = user.id %>
+              <% if mentee_project.mentor_id.present? %>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+                <section class="users">
+                  <section class="user">
+                    <h5>Mentor:</h5>
+                    <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
+                    <p><%= mentor.name%></p>
+                  </section>
+                  <section class="user">
+                    <h5>Mentee:</h5>
+                    <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                    <p><%= user.name%></p>
+                  </section>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5>Project Name:</h5>
+                    <p><%= mentee_project.name%></p>
+                    <h5>Project Description:</h5>
+                    <p><%= mentee_project.description%></p>
+                    <h5>Project Skills:</h5>
+                    <% mentee_project.skills.each do |project_skill|%>
+                      <p><%= project_skill.skill_name %></p>
+                    <% end %>
+                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  </div>
+                </section>
+              <% else %>
+                <section class="users">
+                  <section class="user">
+                    <h5>Mentor:</h5>
+                    <div class="user-image"><%= image_tag("/images/missing.png") %></div>
+                    <p>No mentor yet</p>
+                  </section>
+                  <section class="user">
+                    <h5>Mentee:</h5>
+                    <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                    <p><%= user.name%></p>
+                  </section>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5>Project Name:</h5>
+                    <p><%= mentee_project.name%></p>
+                    <h5>Project Description:</h5>
+                    <p><%= mentee_project.description%></p>
+                    <h5>Project Skills:</h5>
+                    <% mentee_project.skills.each do |project_skill|%>
+                      <p><%= project_skill.skill_name %></p>
+                    <% end %>
+                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  </div>
+                </section>
+              <% end %>
+            <% else !mentee_project.present?%>
+              <h3>You Have No Completed Projects As Mentee!</h3>
+            <% end %>
+          </section>
+        <% end %>
       <% end %>
-    <% end %>
-  </article>
-</section>
+    </article>
+  </section>
 
 
-<section class="as_mentee">
-  <h1 class="title"> Cancelled Projects - As Mentee:</h1>
 
-  <article>
-    <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
-    <% @project_users_cancelled.each do |user| %>
-      <% (user.mentee_projects).each do |mentee_project| %>
-        <section class="mentee-project">
-          <% if mentee_project &&  mentee_project.mentee_id = user.id %>
-            <% if mentee_project.mentor_id.present? %>
-              <% mentor = User.get_user(mentee_project.mentor_id)%>
-              <% mentor_name = mentor.name %>
-              <% mentor_avatar = mentor.avatar%>
+  <section class="as_mentor">
+    <h1 class="title"> Cancelled Projects - As Mentor:</h1>
+
+    <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+      <% @project_mentor_cancelled.each do |user| %>
+        <% (user.mentor_projects).each do |mentor_project| %>
+          <section class="mentor-project">
+          <% if mentor_project &&  mentor_project.mentor_id = user.id %>
+            <% if mentor_project.mentee_id.present?%>
+              <% mentee = User.get_user(mentor_project.mentee_id)%>
               <section class="users">
                 <section class="user">
                   <h5>Mentor:</h5>
-                  <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
-                  <p><%= mentor_name%></p>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                  <p><%= user.name%></p>
                 </section>
                 <section class="user">
                   <h5>Mentee:</h5>
-                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                  <p><%= user.name%></p>
+                  <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
+                  <p><%= mentee.name%></p>
                 </section>
               </section>
               <section style="width: 66%; display: inline-block;">
                 <div style="width: 100;">
                   <h5>Project Name:</h5>
-                  <p><%= mentee_project.name%></p>
+                  <p><%= mentor_project.name%></p>
                   <h5>Project Description:</h5>
-                  <p><%= mentee_project.description%></p>
+                  <p><%= mentor_project.description%></p>
                   <h5>Project Skills:</h5>
-                  <% mentee_project.skills.each do |project_skill|%>
+                  <% mentor_project.skills.each do |project_skill|%>
                     <p><%= project_skill.skill_name %></p>
                   <% end %>
-                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
                 </div>
               </section>
             <% else %>
               <section class="users">
                 <section class="user">
                   <h5>Mentor:</h5>
-                  <div class="user-image"><%= image_tag("/images/missing.png") %></div>
-                  <p>No mentor yet</p>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                  <p><%= user.name%></p>
                 </section>
                 <section class="user">
                   <h5>Mentee:</h5>
-                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-                  <p><%= user.name%></p>
+                  <div class="user-image"><%= image_tag("/images/missing.png") %></div>
+                  <p>No mentee yet</p>
                 </section>
               </section>
               <section style="width: 66%; display: inline-block;">
                 <div style="width: 100;">
                   <h5>Project Name:</h5>
-                  <p><%= mentee_project.name%></p>
+                  <p><%= mentor_project.name%></p>
                   <h5>Project Description:</h5>
-                  <p><%= mentee_project.description%></p>
+                  <p><%= mentor_project.description%></p>
                   <h5>Project Skills:</h5>
-                  <% mentee_project.skills.each do |project_skill|%>
+                  <% mentor_project.skills.each do |project_skill|%>
                     <p><%= project_skill.skill_name %></p>
                   <% end %>
-                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
                 </div>
               </section>
             <% end %>
-          <% else !mentee_project.present?%>
-            <h3>You Have No Cancelled Projects As A Mentee!</h3>
-          <% end %>
-        </section>
+
+            <% else !mentor_project.present?%>
+            <h3> You Have No Completed Projects As Mentor! </h3>
+            <% end %>
+          </section>
+        <% end %>
       <% end %>
-    <% end %>
-  </article>
-</section>
+    </article>
+  </section>
 
 
+  <section class="as_mentee">
+    <h1 class="title"> Cancelled Projects - As Mentee:</h1>
 
-<% else %>
-Not authorized.
+    <article>
+      <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
+      <% @project_mentee_cancelled.each do |user| %>
+        <% (user.mentee_projects).each do |mentee_project| %>
+          <section class="mentee-project">
+            <% if mentee_project &&  mentee_project.mentee_id = user.id %>
+              <% if mentee_project.mentor_id.present? %>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+                <section class="users">
+                  <section class="user">
+                    <h5>Mentor:</h5>
+                    <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
+                    <p><%= mentor.name%></p>
+                  </section>
+                  <section class="user">
+                    <h5>Mentee:</h5>
+                    <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                    <p><%= user.name%></p>
+                  </section>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5>Project Name:</h5>
+                    <p><%= mentee_project.name%></p>
+                    <h5>Project Description:</h5>
+                    <p><%= mentee_project.description%></p>
+                    <h5>Project Skills:</h5>
+                    <% mentee_project.skills.each do |project_skill|%>
+                      <p><%= project_skill.skill_name %></p>
+                    <% end %>
+                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  </div>
+                </section>
+              <% else %>
+                <section class="users">
+                  <section class="user">
+                    <h5>Mentor:</h5>
+                    <div class="user-image"><%= image_tag("/images/missing.png") %></div>
+                    <p>No mentor yet</p>
+                  </section>
+                  <section class="user">
+                    <h5>Mentee:</h5>
+                    <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
+                    <p><%= user.name%></p>
+                  </section>
+                </section>
+                <section style="width: 66%; display: inline-block;">
+                  <div style="width: 100;">
+                    <h5>Project Name:</h5>
+                    <p><%= mentee_project.name%></p>
+                    <h5>Project Description:</h5>
+                    <p><%= mentee_project.description%></p>
+                    <h5>Project Skills:</h5>
+                    <% mentee_project.skills.each do |project_skill|%>
+                      <p><%= project_skill.skill_name %></p>
+                    <% end %>
+                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
+                  </div>
+                </section>
+              <% end %>
+            <% else !mentee_project.present?%>
+              <h3>You Have No Completed Projects As Mentee!</h3>
+            <% end %>
+          </section>
+        <% end %>
+      <% end %>
+    </article>
+  </section>
+
+
 <% end %>
