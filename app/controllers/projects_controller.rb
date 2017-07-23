@@ -63,9 +63,9 @@ class ProjectsController < ApplicationController
 
     @project = Project.find(params[:project_id])
 
-    mentor_request_message = "<p>User #{current_user.name} has requested mentorship for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+    mentor_request_message = "<p>#{current_user.name} has requested mentorship for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
 
-    mentee_request_message = "<p>User #{current_user.name} has requested you to be a mentee for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+    mentee_request_message = "<p>#{current_user.name} has requested you to be a mentee for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
 
     if params[:mentee_id]
         @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])

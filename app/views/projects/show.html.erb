@@ -7,11 +7,27 @@
 <% if @project.public || mentor_mentee %>
 
   <% if current_user.id == @project.mentor_id %>
-    <p>I'm a mentor</p>
-    <p><%= link_to "Search for mentee", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+
+    <p>Mentoring:</p>
+    <% if mentor_mentee && @project.mentee_id %>
+      <% mentee = User.get_user(@project.mentee_id)%>
+      <p><%= mentee.name %></p>
+      <div class="user-image"><%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id) %></div>
+    <% else %>
+      <p><%= link_to "Search for mentee", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+    <% end %>
+
   <% else %>
-    <p>I'm a mentee</p>
-    <p><%= link_to "Search for mentor", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+
+    <p>My Mentor:</p>
+    <% if mentor_mentee && @project.mentor_id %>
+      <% mentor = User.get_user(@project.mentor_id)%>
+      <p><%= mentor.name %></p>
+      <div class="user-image"><%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id) %></div>
+    <% else %>
+      <p><%= link_to "Search for mentor", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+    <% end %>
+
   <% end %>
 
   <hr>
