@@ -13,15 +13,17 @@
 
   <section class="feed-list">
     <h1>User Feed</h1>
-     <% @projects.each do |project|%>
+    <% @activity_list %>
+    <% @projects.each do |project|%>
       <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
-        <% project.feeds.each do |activity|%>
-          <article>
-          <%=raw activity.message%>
-          <%=activity.created_at%>
-          </article>
-        <% end %>
+        <% @activity_list = project.feeds.uniq {|activity| activity[:id]}%>
       <% end %>
+    <% end %>
+    <% @activity_list.each do |activity|%>
+      <article>
+        <%=raw activity.message%>
+        <%=raw activity.created_at%>
+      </article>
     <% end %>
       <button> <%= link_to "Reload", root_path %> </button>
   </section>
