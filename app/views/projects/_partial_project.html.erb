@@ -3,10 +3,7 @@
   <% current_user.id == @user.id ? @owner = true : @owner = false %>
 
   <section class="as_mentor">
-    <h1 class="title"> Projects - As Mentor:</h1>
-    <% if @owner %>
-      <%= link_to 'Add New Project', new_project_path, { :class=>"btn" } %>
-    <% end %>
+    <h1 class="title">As a mentor:</h1>
     <article>
       <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
       <% @project_users.each do |user| %>
@@ -29,18 +26,16 @@
                   <p><%= mentee_name%></p>
                 </section>
               </section>
-              <section style="width: 66%; display: inline-block;">
-                <div style="width: 100;">
-                  <h5>Project Name:</h5>
-                  <p><%= mentor_project.name%></p>
-                  <h5>Project Description:</h5>
-                  <p><%= mentor_project.description%></p>
-                  <h5>Project Skills:</h5>
-                  <% mentor_project.skills.each do |project_skill|%>
-                    <p><%= project_skill.skill_name %></p>
-                  <% end %>
-                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-                </div>
+              <section class="project-info">
+                <h5>Project Name:</h5>
+                <p><%= mentor_project.name%></p>
+                <h5>Project Description:</h5>
+                <p><%= mentor_project.description%></p>
+                <h5>Project Skills:</h5>
+                <% mentor_project.skills.each do |project_skill|%>
+                  <p><%= project_skill.skill_name %></p>
+                <% end %>
+                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
               </section>
             <% else %>
               <section class="users">
@@ -55,18 +50,16 @@
                   <p>No mentee yet</p>
                 </section>
               </section>
-              <section style="width: 66%; display: inline-block;">
-                <div style="width: 100;">
-                  <h5>Project Name:</h5>
-                  <p><%= mentor_project.name%></p>
-                  <h5>Project Description:</h5>
-                  <p><%= mentor_project.description%></p>
-                  <h5>Project Skills:</h5>
-                  <% mentor_project.skills.each do |project_skill|%>
-                    <p><%= project_skill.skill_name %></p>
-                  <% end %>
-                  <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
-                </div>
+              <section class="project-info">
+                <h5>Project Name:</h5>
+                <p><%= mentor_project.name%></p>
+                <h5>Project Description:</h5>
+                <p><%= mentor_project.description%></p>
+                <h5>Project Skills:</h5>
+                <% mentor_project.skills.each do |project_skill|%>
+                  <p><%= project_skill.skill_name %></p>
+                <% end %>
+                <%= link_to 'View Project', project_path(mentor_project), { :class=>"btn" } %>
               </section>
             <% end %>
 
@@ -81,10 +74,7 @@
 
 
   <section class="as_mentee">
-    <h1 class="title"> Projects - As Mentee:</h1>
-    <% if @owner %>
-      <%= link_to 'Add New Project', new_project_path, { :class=>"btn" } %>
-    <% end %>
+    <h1 class="title">As a mentee:</h1>
     <article>
       <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
       <% @project_users.each do |user| %>
@@ -107,18 +97,16 @@
                     <p><%= user.name%></p>
                   </section>
                 </section>
-                <section style="width: 66%; display: inline-block;">
-                  <div style="width: 100;">
-                    <h5>Project Name:</h5>
-                    <p><%= mentee_project.name%></p>
-                    <h5>Project Description:</h5>
-                    <p><%= mentee_project.description%></p>
-                    <h5>Project Skills:</h5>
-                    <% mentee_project.skills.each do |project_skill|%>
-                      <p><%= project_skill.skill_name %></p>
-                    <% end %>
-                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
-                  </div>
+                <section class="project-info">
+                  <h5>Project Name:</h5>
+                  <p><%= mentee_project.name%></p>
+                  <h5>Project Description:</h5>
+                  <p><%= mentee_project.description%></p>
+                  <h5>Project Skills:</h5>
+                  <% mentee_project.skills.each do |project_skill|%>
+                    <p><%= project_skill.skill_name %></p>
+                  <% end %>
+                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
                 </section>
               <% else %>
                 <section class="users">
@@ -133,18 +121,16 @@
                     <p><%= user.name%></p>
                   </section>
                 </section>
-                <section style="width: 66%; display: inline-block;">
-                  <div style="width: 100;">
-                    <h5>Project Name:</h5>
-                    <p><%= mentee_project.name%></p>
-                    <h5>Project Description:</h5>
-                    <p><%= mentee_project.description%></p>
-                    <h5>Project Skills:</h5>
-                    <% mentee_project.skills.each do |project_skill|%>
-                      <p><%= project_skill.skill_name %></p>
-                    <% end %>
-                    <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
-                  </div>
+                <section class="project-info">
+                  <h5>Project Name:</h5>
+                  <p><%= mentee_project.name%></p>
+                  <h5>Project Description:</h5>
+                  <p><%= mentee_project.description%></p>
+                  <h5>Project Skills:</h5>
+                  <% mentee_project.skills.each do |project_skill|%>
+                    <p><%= project_skill.skill_name %></p>
+                  <% end %>
+                  <%= link_to 'View Project', project_path(mentee_project), { :class=>"btn" } %>
                 </section>
               <% end %>
             <% else !mentee_project.present?%>
@@ -176,17 +162,15 @@
             <%= mentee.avatar%>
             <h5>  <%= mentee.name%></h5>
           </section>
-          <section style="width: 66%; display: inline-block;">
-            <div style="width: 100;">
-              <h4> Project Name </h4>
-              <h5><%= mentor_project.name%> </h5>
-              <h4> Project Description </h4>
-              <h5><%= mentor_project.description%> </h5>
-              <h4> Skills To Learn </h4>
-              <% mentor_project.skills.each do |project_skill|%>
-              <h5><%= project_skill.skill_name %></h5>
-              <% end %>
-            </div>
+          <section class="project-info">
+            <h4> Project Name </h4>
+            <h5><%= mentor_project.name%> </h5>
+            <h4> Project Description </h4>
+            <h5><%= mentor_project.description%> </h5>
+            <h4> Skills To Learn </h4>
+            <% mentor_project.skills.each do |project_skill|%>
+            <h5><%= project_skill.skill_name %></h5>
+            <% end %>
           </section>
         <% end %>
       <% end %>

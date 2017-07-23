@@ -51,17 +51,23 @@
 }
 
 .user_projects {
-  display: flex;
+  overflow: hidden;
+
+  h2 {
+    margin-top: 50px;
+    text-align: center;
+  }
 
   img {
     margin: 0;
   }
 
   .as_mentor {
+    display: inline-block;
+    float: left;
     width: 50%;
-    border: 1px solid #000;
+    border-right: 1px solid #ddd;
     box-sizing: border-box;
-    margin: 5px;
     padding: 5px 50px;
   }
 
@@ -70,13 +76,31 @@
     margin: 0 auto 20px;
     box-sizing: border-box;
     padding: 20px;
+    background-color: #fff;
     border: 1px solid #ddd;
 
     .users {
       width: 100%;
       display: inline-block;
       vertical-align: top;
-      text-align: center
+      text-align: center;
+    }
+
+    .project-info {
+
+      max-width: 225px;
+      margin: 0 auto;
+
+      h5 {
+        margin: 0;
+      }
+
+      a {
+        display: block;
+        margin: 30px auto;
+        width: 81px;
+      }
+
     }
 
     .user {
@@ -93,6 +117,7 @@
     margin: 0 auto 20px;
     box-sizing: border-box;
     padding: 20px;
+    background-color: #fff;
     border: 1px solid #ddd;
 
     .users {
@@ -100,6 +125,22 @@
       display: inline-block;
       vertical-align: top;
       text-align: center
+    }
+
+    .project-info {
+      max-width: 225px;
+      margin: 0 auto;
+
+      h5 {
+        margin: 0;
+      }
+
+      a {
+        display: block;
+        margin: 30px auto;
+        width: 81px;
+      }
+
     }
 
     .user {
@@ -112,10 +153,10 @@
   }
 
   .as_mentee {
+    display: inline-block;
+    float: left;
     width: 50%;
-    border: 1px solid #000;
     box-sizing: border-box;
-    margin: 5px;
     padding: 5px 50px;
   }
 
