@@ -11,23 +11,21 @@
 
   </section>
 
-
   <section class="feed-list">
     <h1>User Feed</h1>
+    <% @activity_list %>
     <% @projects.each do |project|%>
-      <% if ( current_user.id == project.mentor_id || project.mentee_id) && !project.feeds.empty? %>
-        <% project.feeds.each do |activity|%>
-          <article>
-          <%=raw activity.message%>
-          <%=activity.created_at%>
-          </article>
-        <% end %>
+      <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
+        <% @activity_list = project.feeds.uniq {|activity| activity[:id]}%>
       <% end %>
     <% end %>
-      <button> <%= link_to "Reload", root_path %> </button>
+    <% @activity_list.each do |activity|%>
       <article>
-        <h1>No Activities In Your Projects</h1>
+        <%=raw activity.message%>
+        <%=raw activity.created_at%>
       </article>
+    <% end %>
+      <button> <%= link_to "Reload", root_path %> </button>
   </section>
 
 </section>

@@ -17,7 +17,7 @@
           <h4> user.recieved_ratings </h4>
         </div>
         <div class="profile-skills">
-          <h4>Mentor In</h4>
+          <h3>Mentor In</h3>
            <!-- iterate of both arrays at once -->
           <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
             <% if user_skill.mentor == true && skill.id = user_skill.skill_id%>
@@ -25,11 +25,15 @@
             <% end %>
           <% end %>
 
-          <% (user.mentor_projects).each do |mentor_project| %>
-            <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
-              <h5> <%= mentor_project.id%></h5>
-            <% end %>
+          <!-- check mentor project count -->
+          <% if user.mentor_projects.count && user.mentor_projects.count > 1 %>
+            <h5> <%= user.mentor_projects.count%> Projects</h5>
+          <% elsif user.mentor_projects.count && user.mentor_projects.count == 1%>
+            <h5> <%= user.mentor_projects.count%> Project </h5>
+          <% else %>
+              <h5> No Project As Mentor </h5>
           <% end %>
+
         </div>
 
         <div class="profile-skills">
@@ -41,11 +45,15 @@
             <% end %>
           <% end %>
 
-          <% (user.mentee_projects).each do |mentee_project| %>
-            <% if mentee_project && mentee_project.mentor_id =  user.id%>
-              <h5> <%= mentee_project.id%></h5>
-            <% end %>
+          <!-- check mentee project count -->
+          <% if user.mentee_projects.count && user.mentee_projects.count > 1 %>
+            <h5> <%= user.mentee_projects.count%> Projects</h5>
+          <% elsif user.mentee_projects.count && user.mentee_projects.count == 1%>
+            <h5> <%= user.mentee_projects.count%> Project </h5>
+          <% else %>
+              <h5> No Project As Mentee </h5>
           <% end %>
+
         </div>
       </section>
         <%= link_to 'View Profile', user_path(user.id, :project_id => project_id, :mentee_id => mentee_id, :mentor_id => mentor_id), { :class=>"btn" } %>

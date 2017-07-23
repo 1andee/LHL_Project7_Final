@@ -150,8 +150,9 @@ label {
 /* MAIN */
 
 main {
-  margin: 49px 0 150px;
+  margin: 49px auto 150px;
   padding: 20px;
+  max-width: 1000px;
 }
 
 .home-page {
