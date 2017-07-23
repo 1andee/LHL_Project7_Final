@@ -35,34 +35,41 @@ class User < ApplicationRecord
   end
 
 
-  def self.search_by_skill(query)
-    if !query.blank?
-      # skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
-      skill_ids = Skill.where("skill_name ilike ?", "%#{query}%").pluck(:id)
-      user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
-      return User.where(id: user_ids)
-    else
-      user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
-      return User.where(id: user_ids)
-    end
-  end
+  # def self.search_by_skill(query)
+  #   if !query.blank?
+  #     # skill_ids = Skill.where("lower(skill_name) LIKE ?", "%#{query.downcase}%").pluck(:id)
+  #     skill_ids = Skill.where("skill_name ilike ?", "%#{query}%").pluck(:id)
+  #     user_ids = SkillUser.where(skill_id: skill_ids, mentor: true).pluck(:user_id)
+  #     return User.where(id: user_ids)
+  #   else
+  #     user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
+  #     return User.where(id: user_ids)
+  #   end
+  # end
 
-  def self.text_search(query)
+  def self.text_search(query, mentee_id, mentor_id)
     if query.present?
-      # if query.include? ' '
-      #   query.gsub!(" ", " | ")
-      # end
 
-      user_ids = User
+      if mentor_id.present?
+        user_ids = User
+                  .joins("INNER JOIN skill_users ON skill_users.user_id = users.id")
+                  .joins("INNER JOIN skills ON skills.id = skill_users.skill_id")
+                  .select("users.*, skill_users.mentor, skills.skill_name")
+                  .where("users.name @@ :q or skills.skill_name @@ :q and skill_users.mentor = false", q: query).distinct.pluck(:user_id)
+      else
+        user_ids = User
                   .joins("INNER JOIN skill_users ON skill_users.user_id = users.id")
                   .joins("INNER JOIN skills ON skills.id = skill_users.skill_id")
                   .select("users.*, skill_users.mentor, skills.skill_name")
                   .where("users.name @@ :q or skills.skill_name @@ :q and skill_users.mentor = true", q: query).distinct.pluck(:user_id)
-                  # .where("(to_tsvector(users.name) @@ to_tsquery(:q) or to_tsvector(skills.skill_name) @@ to_tsquery(:q)) and skill_users.mentor = true", q: query).distinct.pluck(:user_id)
-
+      end
       return User.where(id: user_ids)
     else
-      user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
+      if mentor_id.present?
+        user_ids = SkillUser.where(mentor: false).distinct.pluck(:user_id)
+      else
+        user_ids = SkillUser.where(mentor: true).distinct.pluck(:user_id)
+      end
       return User.where(id: user_ids)
     end
   end

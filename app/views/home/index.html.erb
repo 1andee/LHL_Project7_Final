@@ -12,7 +12,7 @@
     <div class="search-input">
       <%= form_tag home_index_path, :method => 'get' do %>
         <!--input id="searchbar" name="query" placeholder="Search mentors by skill"-->
-        <%= text_field_tag :query, nil, placeholder: "Find your mentor by name or skills...", size: 50 %>
+        <%= text_field_tag :query, nil, placeholder: "Find your mentor by name or skill...", size: 50 %>
         <%= submit_tag "Search" %>
       <% end %>
     </div>
