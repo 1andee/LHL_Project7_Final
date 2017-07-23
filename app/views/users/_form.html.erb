@@ -11,65 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :avatar %>
+
+  <p>
+    <strong>Avatar:</strong>
     <% if user.avatar.exists? %>
       <%= image_tag @user.avatar.url(:thumb) %>
     <% end %>
     <%= f.file_field :avatar %>
-  </div>
+  </p>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <p><strong>Name: (*)</strong><%= f.text_field :name %></p>
+  <p><strong>Email: (*)</strong><%= f.text_field :email %></p>
+  <p><strong>Password:</strong><%= f.password_field :password %></p>
+  <p><strong>Password_confirmation:</strong><%= f.password_field :password_confirmation %></p>
+  <p><strong>Location:</strong><%= f.text_field :location %></p>
+  <p><strong>Linkedin_url:</strong><%= f.text_field :linkedin_url %></p>
+  <p><strong>Github_url:</strong><%= f.text_field :github_url %></p>
+  <p><strong>Other_site:</strong><%= f.text_field :other_site %></p>
+  <p><strong>Twitter:</strong><%= f.text_field :twitter %></p>
+  <p><strong>Slack_name:</strong><%= f.text_field :slack_name %></p>
+  <p><%= f.submit %></p>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= f.label :linkedin_url %>
-    <%= f.text_field :linkedin_url %>
-  </div>
-
-  <div class="field">
-    <%= f.label :github_url %>
-    <%= f.text_field :github_url %>
-  </div>
-
-  <div class="field">
-    <%= f.label :other_site %>
-    <%= f.text_field :other_site %>
-  </div>
-
-  <div class="field">
-    <%= f.label :twitter %>
-    <%= f.text_field :twitter %>
-  </div>
-
-  <div class="field">
-    <%= f.label :slack_name %>
-    <%= f.text_field :slack_name %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

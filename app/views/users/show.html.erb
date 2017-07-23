@@ -1,4 +1,9 @@
-<% current_user.id == @user.id ? owner = true : owner = false %>
+<% if current_user.present? %>
+  <% current_user.id == @user.id ? owner = true : owner = false %>
+<% else %>
+  <% owner = false %>
+<% end %>
+
 <% project_id = params[:project_id] %>
 <% mentee_id = params[:mentee_id] %>
 <% mentor_id = params[:mentor_id] %>

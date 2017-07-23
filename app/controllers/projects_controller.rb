@@ -6,10 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
   end
-
-  def archive
-  end
-
+  
   def show
     @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
     @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
@@ -19,6 +16,13 @@ class ProjectsController < ApplicationController
                     .select("goals.*, completion_statuses.name")
                     .where(project_id: @project.id)
                     .order(id: :desc)
+
+    @comments = Comment
+                .joins("INNER JOIN users ON comments.user_id = users.id")
+                .joins("LEFT OUTER JOIN goals ON comments.goal_id = goals.id")
+                .select("comments.*, users.name, goals.title")
+                .where(project_id: @project.id)
+                .order(created_at: :desc)
 
 
   end

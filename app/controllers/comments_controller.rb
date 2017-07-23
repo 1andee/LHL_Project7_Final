@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 
   def create
+
     project_id = params[:project_id].to_i
     project = Project.find(project_id)
     comment = params[:comment]

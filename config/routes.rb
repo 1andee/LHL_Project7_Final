@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :archive, :only => [:index]
   end
   resources :skills, :only => [:create, :destroy]
+  resources :feeds, :only => [:create]
   resources :sessions, :only => [:create, :destroy]
   resources :projects do
     resources :goals, :only => [:create, :destroy, :update]
