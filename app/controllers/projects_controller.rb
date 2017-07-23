@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @user = User.all
     @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
     @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
 

@@ -39,6 +39,9 @@ gem "paperclip", "~> 5.0.0"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Rating systems gem https://github.com/wazery/ratyrate
+gem 'ratyrate'
+
 
 gem 'font-awesome-sass'
 gem 'kaminari'
