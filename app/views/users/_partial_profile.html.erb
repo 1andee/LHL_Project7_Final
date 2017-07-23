@@ -1,20 +1,20 @@
 <!-- not working yet -->
 <% project_id = params[:project_id] %>
+<% mentee_id = params[:mentee_id] %>
+<% mentor_id = params[:mentor_id] %>
 
-<article class="user-">
-  <h1>User Profile</h1>
   <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
   <% @users.each do |user| %>
-    <section style="max-width: 600px; margin: 0 auto">
+    <section class="partial-profile">
       <section style="width: 33%; display: inline-block; vertical-align: top">
-        <%= user.avatar %>
+        <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
         <h2> <%= user.name %></h2>
       </section>
       <section style="width: 66%; display: inline-block;">
         <div style="width: 100;">
           <h4> user.recieved_ratings </h4>
         </div>
-        <div style="width: 49%; display: inline-block;">
+        <div class="profile-skills">
           <h4>Mentor In</h4>
            <!-- iterate of both arrays at once -->
           <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
@@ -30,7 +30,7 @@
           <% end %>
         </div>
 
-        <div style="width: 49%; display: inline-block;">
+        <div class="profile-skills">
           <h3>Mentee In</h3>
            <!-- iterate of both arrays at once -->
           <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
@@ -46,7 +46,6 @@
           <% end %>
         </div>
       </section>
-        <%= link_to 'View Profile', user_path(user.id, :project_id => project_id), { :class=>"btn" } %>
+        <%= link_to 'View Profile', user_path(user.id, :project_id => project_id, :mentee_id => mentee_id, :mentor_id => mentor_id), { :class=>"btn" } %>
       </section>
   <% end %>
-</article>

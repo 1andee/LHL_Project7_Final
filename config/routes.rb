@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
-  resources :users
+  resources :users do
+    resources :archive, :only => [:index]
+  end
   resources :skills, :only => [:create, :destroy]
   resources :sessions, :only => [:create, :destroy]
   resources :projects do
     resources :goals, :only => [:create, :destroy, :update]
-    resources :comments, :only => [:create, :destroy]
+    resources :comments, :only => [:create]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

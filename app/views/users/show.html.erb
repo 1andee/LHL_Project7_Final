@@ -1,12 +1,23 @@
 <% current_user.id == @user.id ? owner = true : owner = false %>
 <% project_id = params[:project_id] %>
+<% mentee_id = params[:mentee_id] %>
+<% mentor_id = params[:mentor_id] %>
 
 <section class="user-profile">
 
-  <% if project_id %>
-    <%= form_tag users_path, :method => 'get' do %>
+  <% if project_id && mentee_id %>
+    <%= form_tag project_path(project_id), :method => 'put' do %>
+      <input type=hidden name=mentee_id value=<%= mentee_id %>>
       <input type=hidden name=project_id value=<%= project_id %>>
-      <%= submit_tag "Add to project", { :class=>"btn" } %>
+      <input type=hidden name=set_mentor_id value=<%= @user.id %>>
+      <%= submit_tag "Send Mentor request", { :class=>"btn" } %>
+    <% end %>
+  <% elsif project_id && mentor_id%>
+    <%= form_tag project_path(project_id), :method => 'put' do %>
+      <input type=hidden name=mentor_id value=<%= mentor_id %>>
+      <input type=hidden name=project_id value=<%= project_id %>>
+      <input type=hidden name=set_mentee_id value=<%= @user.id %>>
+      <%= submit_tag "Send Mentee request", { :class=>"btn" } %>
     <% end %>
   <% end %>
 

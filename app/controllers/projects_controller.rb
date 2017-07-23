@@ -7,6 +7,9 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
+  def archive
+  end
+
   def show
     @project_skills_id = Project.find(@project.id).project_skills.pluck(:skill_id)
     @project_skills = Skill.where(id: @project_skills_id).order(skill_name: :asc)
@@ -29,9 +32,9 @@ class ProjectsController < ApplicationController
 
   def create
      if project_params[:mentor_id] == "Mentor"
-        @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentee_pending: true, mentor_pending: false, mentor_id: current_user.id})
+        @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentor_pending: false, mentor_id: current_user.id})
     else
-       @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentee_pending: false, mentor_pending: true, mentee_id: current_user.id})
+       @project = Project.new({name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], mentee_pending: false, mentee_id: current_user.id})
     end
 
     if @project.save!
@@ -48,15 +51,47 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
+    puts "project updated"
+    puts params[:mentee_id]
+    puts params[:project_id]
+    puts params[:set_mentee_id]
+    puts params[:set_mentor_id]
+
+    @project = Project.find(params[:project_id])
+
+    mentor_request_message = "<p>User #{current_user.name} has requested mentorship for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+
+    mentee_request_message = "<p>User #{current_user.name} has requested you to be a mentee for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+
+    if params[:mentee_id]
+        @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
+      if @project.save!
+          puts 'request sent'
+          Feed.create(user_id: params[:mentee_id], project_id: params[:project_id], message: mentor_request_message)
+        else
+          puts 'Your comment couldn''t be saved.....'
+      end
+
+    else
+        @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
+      if @project.save!
+        puts 'request sent'
+        Feed.create(user_id: params[:mentor_id], project_id: params[:project_id], message: mentee_request_message)
       else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        puts 'Your comment couldn''t be saved.....'
       end
     end
+
+    puts "updated"
+    # respond_to do |format|
+    #   if @project.update(project_params)
+    #     format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @project }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @project.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def destroy

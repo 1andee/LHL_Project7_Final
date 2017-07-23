@@ -4,10 +4,10 @@
 
   <% if current_user.id == @project.mentor_id %>
     <p>I'm a mentor</p>
-    <p><%= link_to "Search for mentee", users_path(:project_id => @project.id), { :class=>"btn" } %><p>
+    <p><%= link_to "Search for mentee", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
   <% else %>
     <p>I'm a mentee</p>
-    <p><%= link_to "Search for mentor", users_path(:project_id => @project.id), { :class=>"btn" } %><p>
+    <p><%= link_to "Search for mentor", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
   <% end %>
 
   <hr>
@@ -17,6 +17,8 @@
   <p>Project URL: <%= @project.project_url %><p>
   <p>Start date: <%= @project.start_date %><p>
   <p>Finish date: <%= @project.finish_date %><p>
+
+  <%= link_to 'Edit', edit_project_path(@project) %>
 
 </section>
 
@@ -39,7 +41,7 @@
             <% @project_skills.each do |s| %>
               <li id='<%= s.id %>' ><%= s.skill_name %>
                 <!--% if owner %-->
-                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to skill_path(id: s.id, skill_name: s.skill_name, origin: "project", project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
                 <!--% end %-->
@@ -78,7 +80,7 @@
                 <!--% if owner %-->
 
 
-                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), class: 'btn btn-xs btn-danger', method: :delete do %>
+                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
                       <i class="fa fa-times" aria-hidden="true"></i>
                   <% end %>
 
@@ -87,19 +89,54 @@
               </li>
             <% end %>
           <% else %>
-            This project has no goal associated
+            This project has no goals attached.
           <% end %>
         </ul>
 
         <% if !flash[:warning].nil? %>
           <% flash.each do |key, value| %>
-            <div class="error_alert"><%= value %></div>
+            <div class="alert_message"><%= value %></div>
           <% end %>
         <% end %>
 
       </span>
     </span>
   </span>
+
+
+</section>
+
+<section class="comments">
+
+  <span class="title">Write comments:</span>
+  <span class="add_comments">
+    <!--% if owner %-->
+      <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
+        <%= text_area_tag(:comment) %>
+        <%= check_box_tag(:action_required) %> Answer required?
+
+        <% if @project_goals.present? %>
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
+          <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
+        <% else %>
+          <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
+          <br>This project has no goals. The comment will be attached to the project in general.
+        <% end %>
+
+        <br><%= submit_tag("Add comment") %>
+      <% end %>
+    <!--% end %-->
+  </span>
+  <br>
+  <span class="title">Read comments:</span>
+  <span class="show_comments">
+
+    <!--% if owner %-->
+    <!--% end %-->
+
+  </span>
+
+</span>
 
 
 </section>

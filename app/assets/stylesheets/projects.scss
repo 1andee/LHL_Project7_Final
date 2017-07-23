@@ -44,8 +44,9 @@
   .fa-times {
     color: red;
   }
-
 }
+
+
 
 .comments {
   width: 35%;
@@ -66,9 +67,20 @@
     width: 100%
   }
 
+  .mentor {
+    background-color: #c2dac3;
+  }
+
+  .mentee {
+
+  }
 
 }
 
-.error_alert {
+.feed-project-link {
+  text-decoration: underline;
+}
+
+.alert_message {
   color: red;
 }

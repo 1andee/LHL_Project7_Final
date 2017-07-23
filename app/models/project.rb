@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
 
+  has_many :feeds
   has_one :completion_status
   has_many :goals
   has_many :comments
@@ -12,4 +13,5 @@ class Project < ApplicationRecord
   # adds association to alias of mentee_id and mentor_id
   belongs_to :mentee, :class_name => 'User', optional: true
   belongs_to :mentor, :class_name => 'User', optional: true
+
 end
