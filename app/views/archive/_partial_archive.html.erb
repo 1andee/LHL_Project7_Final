@@ -8,15 +8,22 @@
         <% @project_users_completed.each do |user| %>
           <% (user.mentor_projects).each do |mentor_project| %>
             <section style="max-width: 600px; margin: 0 auto">
-              <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
+              <% if mentor_project && mentor_project.mentor_id = user.id %>
+
+              <% if mentor_project.mentee_id.present? %>
                 <% mentee = User.get_user(mentor_project.mentee_id)%>
+              <% else %>
+                <% mentee.name = "No Mentee For This Project" %>
+                <% mentee.avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= user.avatar%>
-                  <h5>  <%= user.name%></h5>
+                  <%= user.avatar %>
+                  <h5>  <%= user.name %></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= mentee.avatar%>
-                  <h5>  <%= mentee.name%></h5>
+                  <%= mentee.avatar %>
+                  <h5>  <%= mentee.name %></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
                   <div style="width: 100;">
@@ -48,8 +55,16 @@
         <% @project_users_completed.each do |user| %>
           <% (user.mentee_projects).each do |mentee_project| %>
             <section style="max-width: 600px; margin: 0 auto">
-              <% if mentee_project &&  mentee_project.mentor_id =  user.id %>
+              <% if mentee_project && mentee_project.mentor_id = user.id %>
                 <% mentor = User.get_user(mentee_project.mentor_id)%>
+
+              <% if mentee_project.mentor_id.present?%>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+              <% else %>
+                <% mentor.name = "No Mentor For This Project" %>
+                <% mentor.avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
                   <%= mentor.avatar%>
@@ -89,14 +104,21 @@
           <% (user.mentor_projects).each do |mentor_project| %>
             <section style="max-width: 600px; margin: 0 auto">
               <% if mentor_project &&  mentor_project.mentor_id =  user.id %>
-                <% mentee = User.get_user(mentor_project.mentee_id)%>
+
+              <% if mentor_project.mentee_id.present?%>
+              <% mentee = User.get_user(mentor_project.mentee_id)%>
+            <% else %>
+              <% mentee.name = "No Mentee For This Project" %>
+              <% mentee.avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
                   <%= user.avatar%>
                   <h5>  <%= user.name%></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= mentee.avatar%>
-                  <h5>  <%= mentee.name%></h5>
+                  <%= mentee.avatar %>
+                  <h5>  <%= mentee.name %></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
                   <div style="width: 100;">
@@ -130,6 +152,14 @@
             <section style="max-width: 600px; margin: 0 auto">
               <% if mentee_project &&  mentee_project.mentor_id =  user.id %>
                 <% mentor = User.get_user(mentee_project.mentor_id)%>
+
+              <% if mentee_project.mentor_id.present?%>
+                <% mentor = User.get_user(mentee_project.mentor_id)%>
+              <% else %>
+                <% mentor.name = "No Mentor For This Project" %>
+                <% mentor.avatar = "No Avatar" %>
+              <% end %>
+
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
                   <%= mentor.avatar%>
