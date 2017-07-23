@@ -53,23 +53,76 @@
 .user_projects {
   display: flex;
 
+  img {
+    margin: 0;
+  }
+
   .as_mentor {
-    width: 35%;
-    border: 1px solid #000000;
+    width: 50%;
+    border: 1px solid #000;
+    box-sizing: border-box;
     margin: 5px;
-    padding: 5px;
+    padding: 5px 50px;
+  }
+
+  .mentor-project {
+    max-width: 400px;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #ddd;
+
+    .users {
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center
+    }
+
+    .user {
+      width: 100px;
+      vertical-align: top;
+      margin: 0 10px;
+      display: inline-block;
+      text-align: center
+    }
+  }
+
+  .mentee-project {
+    max-width: 400px;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #ddd;
+
+    .users {
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center
+    }
+
+    .user {
+      width: 100px;
+      vertical-align: top;
+      margin: 0 10px;
+      display: inline-block;
+      text-align: center
+    }
   }
 
   .as_mentee {
-    width: 35%;
-    border: 1px solid #000000;
+    width: 50%;
+    border: 1px solid #000;
+    box-sizing: border-box;
     margin: 5px;
-    padding: 5px;
+    padding: 5px 50px;
   }
 
   .title {
     font-weight: bold;
-    text-decoration: underline;
+    text-align: center;
+    margin-top: 20px;
   }
 
   .container_mentor_projects {
