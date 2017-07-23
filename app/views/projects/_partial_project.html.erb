@@ -18,15 +18,15 @@
               <% if mentor_project.mentee_id.present?%>
                 <% mentee = User.get_user(mentor_project.mentee_id)%>
                 <% mentee_name = mentee.name %>
-                <%= mentee_avatar = mentee.avatar%>
+                <% mentee_avatar = mentee.avatar%>
               <% else %>
                 <% mentee_name = "No Mentee For This Project" %>
-                <%= mentee_avatar = "No Avatar" %>
+                <% mentee_avatar = "No Avatar" %>
               <% end %>
 
-                <section style="width: 33%; display: inline-block; vertical-align: top">
+                <section style="width: 32%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= user.avatar %>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
                   <h5>  <%= user.name%></h5>
                   <h5>  Mentee On This Project </h5>
                   <%= mentee_avatar %>
@@ -76,7 +76,7 @@
                 <%= mentor_avatar = "No Avatar" %>
               <% end %>
 
-                <section style="width: 33%; display: inline-block; vertical-align: top">
+                <section style="width: 32%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
                   <%= mentor.avatar%>
                   <h5>  <%= mentor_name %></h5>

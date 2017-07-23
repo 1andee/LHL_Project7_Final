@@ -4,10 +4,30 @@
   <% owner = false %>
 <% end %>
 
+<% project_id = params[:project_id] %>
+<% mentee_id = params[:mentee_id] %>
+<% mentor_id = params[:mentor_id] %>
+
 <section class="user-profile">
 
+  <% if project_id && mentee_id %>
+    <%= form_tag project_path(project_id), :method => 'put' do %>
+      <input type=hidden name=mentee_id value=<%= mentee_id %>>
+      <input type=hidden name=project_id value=<%= project_id %>>
+      <input type=hidden name=set_mentor_id value=<%= @user.id %>>
+      <%= submit_tag "Send Mentor request", { :class=>"btn" } %>
+    <% end %>
+  <% elsif project_id && mentor_id%>
+    <%= form_tag project_path(project_id), :method => 'put' do %>
+      <input type=hidden name=mentor_id value=<%= mentor_id %>>
+      <input type=hidden name=project_id value=<%= project_id %>>
+      <input type=hidden name=set_mentee_id value=<%= @user.id %>>
+      <%= submit_tag "Send Mentee request", { :class=>"btn" } %>
+    <% end %>
+  <% end %>
+
   <p id="notice"><%= notice %></p>
-  <p><%= image_tag @user.avatar.url(:thumb) %></p>
+  <div class="user-image"><%= image_tag @user.avatar.url(:thumb) %></div>
 
   <p><strong>Name:</strong><%= @user.name %></p>
   <p><strong>Email:</strong><%= @user.email %></p>
@@ -30,5 +50,3 @@
 <section class="user_projects">
  <%= render 'projects/partial_project' %>
 </section>
-
-

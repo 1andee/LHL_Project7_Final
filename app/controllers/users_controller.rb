@@ -86,5 +86,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:avatar, :name, :email, :password, :password_confirmation, :location, :linkedin_url, :github_url, :other_site, :twitter, :slack_name)
   end
 end
-
-
