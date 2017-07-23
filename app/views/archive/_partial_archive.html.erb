@@ -19,10 +19,10 @@
 
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= user.avatar %>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
                   <h5>  <%= user.name %></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= mentee.avatar %>
+                  <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
                   <h5>  <%= mentee.name %></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
@@ -67,10 +67,10 @@
 
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= mentor.avatar%>
+                  <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
                   <h5>  <%= mentor.name%></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= user.avatar%>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
                   <h5>  <%= user.name%></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
@@ -114,10 +114,10 @@
 
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= user.avatar%>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
                   <h5>  <%= user.name%></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= mentee.avatar %>
+                  <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
                   <h5>  <%= mentee.name %></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
@@ -162,10 +162,10 @@
 
                 <section style="width: 33%; display: inline-block; vertical-align: top">
                   <h5>  Mentor On This Project </h5>
-                  <%= mentor.avatar%>
+                  <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
                   <h5>  <%= mentor.name%></h5>
                   <h5>  Mentee On This Project </h5>
-                  <%= user.avatar%>
+                  <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
                   <h5>  <%= user.name%></h5>
                 </section>
                 <section style="width: 66%; display: inline-block;">
