@@ -1,14 +1,13 @@
 <% if current_user.present? %>
 
-  <section class="as_mentor">
-    <h1 class="title"> Completed Projects - As Mentor:</h1>
-
+<% if !@project_mentor_completed.blank? %>
+<section class="as_mentor">
+    <h1 class="title">Completed Projects - As Mentor:</h1>
     <article>
       <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
       <% @project_mentor_completed.each do |user| %>
         <% (user.mentor_projects).each do |mentor_project| %>
           <section class="mentor-project">
-          <% if mentor_project &&  mentor_project.mentor_id = user.id %>
             <% if mentor_project.mentee_id.present?%>
               <% mentee = User.get_user(mentor_project.mentee_id)%>
               <section class="users">
@@ -63,17 +62,15 @@
                 </div>
               </section>
             <% end %>
-
-            <% else !mentor_project.present?%>
-            <h3> You Have No Completed Projects As Mentor! </h3>
-            <% end %>
           </section>
         <% end %>
       <% end %>
     </article>
   </section>
+  <% end %>
 
 
+  <% if !@project_mentee_completed.blank? %>
   <section class="as_mentee">
     <h1 class="title"> Completed Projects - As Mentee:</h1>
 
@@ -82,7 +79,6 @@
       <% @project_mentee_completed.each do |user| %>
         <% (user.mentee_projects).each do |mentee_project| %>
           <section class="mentee-project">
-            <% if mentee_project &&  mentee_project.mentee_id = user.id %>
               <% if mentee_project.mentor_id.present? %>
                 <% mentor = User.get_user(mentee_project.mentor_id)%>
                 <section class="users">
@@ -137,18 +133,18 @@
                   </div>
                 </section>
               <% end %>
-            <% else !mentee_project.present?%>
-              <h3>You Have No Completed Projects As Mentee!</h3>
-            <% end %>
           </section>
         <% end %>
       <% end %>
     </article>
   </section>
+  <% end %>
 
 
 
+  <% if !@project_mentor_cancelled.blank? %>
   <section class="as_mentor">
+
     <h1 class="title"> Cancelled Projects - As Mentor:</h1>
 
     <article>
@@ -156,7 +152,6 @@
       <% @project_mentor_cancelled.each do |user| %>
         <% (user.mentor_projects).each do |mentor_project| %>
           <section class="mentor-project">
-          <% if mentor_project &&  mentor_project.mentor_id = user.id %>
             <% if mentor_project.mentee_id.present?%>
               <% mentee = User.get_user(mentor_project.mentee_id)%>
               <section class="users">
@@ -212,17 +207,17 @@
               </section>
             <% end %>
 
-            <% else !mentor_project.present?%>
-            <h3> You Have No Completed Projects As Mentor! </h3>
-            <% end %>
           </section>
         <% end %>
       <% end %>
     </article>
   </section>
+  <% end %>
 
 
+  <% if !@project_mente_cancelled.blank? %>
   <section class="as_mentee">
+
     <h1 class="title"> Cancelled Projects - As Mentee:</h1>
 
     <article>
@@ -230,7 +225,6 @@
       <% @project_mentee_cancelled.each do |user| %>
         <% (user.mentee_projects).each do |mentee_project| %>
           <section class="mentee-project">
-            <% if mentee_project &&  mentee_project.mentee_id = user.id %>
               <% if mentee_project.mentor_id.present? %>
                 <% mentor = User.get_user(mentee_project.mentor_id)%>
                 <section class="users">
@@ -285,14 +279,12 @@
                   </div>
                 </section>
               <% end %>
-            <% else !mentee_project.present?%>
-              <h3>You Have No Completed Projects As Mentee!</h3>
-            <% end %>
           </section>
         <% end %>
       <% end %>
     </article>
   </section>
+  <% end %>
 
 
 <% end %>
