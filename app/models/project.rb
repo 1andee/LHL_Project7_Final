@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
 
-  has_many :feeds
+  has_many :feeds, -> {order(created_at: :desc)}
   has_one :completion_status
   has_many :goals
   has_many :comments

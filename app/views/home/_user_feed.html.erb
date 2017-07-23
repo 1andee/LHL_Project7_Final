@@ -11,11 +11,10 @@
 
   </section>
 
-
   <section class="feed-list">
     <h1>User Feed</h1>
-    <% @projects.each do |project|%>
-      <% if ( current_user.id == project.mentor_id || project.mentee_id) && !project.feeds.empty? %>
+     <% @projects.each do |project|%>
+      <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
         <% project.feeds.each do |activity|%>
           <article>
           <%=raw activity.message%>
@@ -25,9 +24,6 @@
       <% end %>
     <% end %>
       <button> <%= link_to "Reload", root_path %> </button>
-      <article>
-        <h1>No Activities In Your Projects</h1>
-      </article>
   </section>
 
 </section>
