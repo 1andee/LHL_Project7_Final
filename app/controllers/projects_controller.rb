@@ -65,15 +65,19 @@ class ProjectsController < ApplicationController
     mentee_request_message = "<p>#{current_user.name} has sent you an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
 
     if params[:mentee_id]
+      @mentor = User.find(params[:set_mentor_id])
         @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
       if @project.save!
-          puts 'request sent'
           Feed.create(user_id: params[:mentee_id], project_id: params[:project_id], message: mentor_request_message)
+          redirect_to user_path(:id), :action => 'show'
+          flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for the project."
         else
-          puts 'Your comment couldn''t be saved.....'
+          flash[:success] = "Sent invitation to be a mentor for the project."
+          puts 'Invitation could not be sent.'
       end
 
     elsif params[:mentor_id]
+      @mentee = User.find(params[:set_mentee_id])
         @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
       if @project.save!
         puts 'request sent'
@@ -85,7 +89,6 @@ class ProjectsController < ApplicationController
     elsif params[:mentee_pending]
       @project.update(mentee_pending: false)
       if @project.save!
-        puts 'project updated'
         redirect_to :action => 'show'
         flash[:success] = "Accepted invitation to be a mentee for this project."
       else
