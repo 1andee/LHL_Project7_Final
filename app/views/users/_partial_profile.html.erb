@@ -14,7 +14,11 @@
       </section>
       <section style="width: 66%; display: inline-block;">
         <div style="width: 100;">
-          <h4> user.recieved_ratings </h4>
+          <h3> User Reputation</h3>
+          <h4> Knowledge Accuracy</h4>
+          <h5> <%= user.received_ratings.average(:accuracy).to_f%></h5>
+          <h4> User Availability</h4>
+          <h5> <%= user.received_ratings.average(:availability).to_f%></h5>
         </div>
         <div class="profile-skills">
           <h3>Mentor In</h3>

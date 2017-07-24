@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_many :comments
 
   # resource pointing to all ratings user received or given
-  # #  (call using User.received_ratings or User.given_ratings)
-  # has_many :received_ratings, :class_name => 'Rating', :foreign_key => 'receiver_id'
-  # has_many :given_ratings, :class_name => 'Rating', :foreign_key => 'giver_id'
+  #  (call using User.received_ratings or User.given_ratings)
+  has_many :received_ratings, :class_name => 'Rating', :foreign_key => 'receiver_id'
+  has_many :given_ratings, :class_name => 'Rating', :foreign_key => 'giver_id'
 
   # resource pointing to all projects where user is either or given
   #  (call using User.mentor_projects or User.mentee_projects)
