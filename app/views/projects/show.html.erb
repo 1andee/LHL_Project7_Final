@@ -8,12 +8,11 @@
 
 <% if @project.public || mentor_mentee %>
 
-<% flash.each do |key, value| %>
-  <p class="alert alert-<%= key %>"><%= value %></p>
-<% end %>
+  <% flash.each do |key, value| %>
+    <p class="alert alert-<%= key %>"><%= value %></p>
+  <% end %>
 
   <% if current_user.id == @project.mentor_id %>
-
 
     <% if mentor_mentee && @project.mentee_id %>
 
@@ -29,7 +28,14 @@
         <%= form_tag project_path(project_id), :method => 'put' do %>
           <input type=hidden name=project_id value=<%= project_id %>>
           <input type=hidden name=mentor_pending value="false">
+          <input type=hidden name=accepted value=true>
           <%= submit_tag "Accept invitation to be a mentor", { :class=>"btn" } %>
+        <% end %>
+        <%= form_tag project_path(project_id), :method => 'put' do %>
+          <input type=hidden name=project_id value=<%= project_id %>>
+          <input type=hidden name=mentor_pending value="false">
+          <input type=hidden name=accepted value=false>
+          <%= submit_tag "Decline invitation to be a mentor", { :class=>"btn" } %>
         <% end %>
       <% end %>
 
@@ -39,7 +45,8 @@
 
     <% end %>
 
-  <% else %>
+  <% end %>
+  <% if current_user.id == @project.mentee_id %>
 
 
     <% if mentor_mentee && @project.mentor_id %>
@@ -56,6 +63,12 @@
           <input type=hidden name=project_id value=<%= project_id %>>
           <input type=hidden name=mentee_pending value="false">
           <%= submit_tag "Accept invitation to be a mentee", { :class=>"btn" } %>
+        <% end %>
+        <%= form_tag project_path(project_id), :method => 'put' do %>
+          <input type=hidden name=project_id value=<%= project_id %>>
+          <input type=hidden name=mentee_pending value="false">
+          <input type=hidden name=accepted value="false">
+          <%= submit_tag "Decline invitation to be a mentee", { :class=>"btn" } %>
         <% end %>
       <% end %>
     <% else %>
@@ -125,3 +138,5 @@
 <% else %>
   <h4>This is a private project, you have no permission to access it.</h4>
 <% end %>
+
+<% console %>

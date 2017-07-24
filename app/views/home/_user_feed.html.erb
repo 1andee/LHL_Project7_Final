@@ -13,21 +13,11 @@
 
   <section class="feed-list">
     <h1>User Feed</h1>
-    <% @activity_list = [] %>
-    <% @projects.each do |project|%>
-      <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
-        <% project.feeds.each do |activity| %>
-          <% @activity_list.push(activity) %>
-        <% end %>
-      <% end %>
-    <% end %>
-    <% if !@activity_list.empty? %>
-      <% @activity_list.uniq!{|activity| activity.message}%>
+    <% if @activity_list.present? %>
       <% @activity_list.each do |activity|%>
-        <article>
-          <%=raw activity.message%>
-          <%=raw activity.created_at%>
-        </article>
+          <article class="feed-message">
+           [<%=raw activity.created_at%>] <%=raw activity.message %>
+          </article>
       <% end %>
     <% else %>
       <article>
@@ -38,3 +28,5 @@
   </section>
 
 </section>
+
+<%= console%>

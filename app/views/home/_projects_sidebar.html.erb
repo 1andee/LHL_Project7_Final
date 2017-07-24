@@ -4,13 +4,17 @@
   <h3>Mentor</h3>
   <% @projects.each do |project| %>
     <% if current_user.id == project.mentor_id %>
-      <%= link_to project.name, project_path(project.id) %>
+      <% if project.completion_status_id == 1 %>
+        <%= link_to project.name, project_path(project.id) %>
+      <% end %>
     <% end %>
   <% end %>
   <h3>Mentee</h3>
   <% @projects.each do |project| %>
     <% if current_user.id == project.mentee_id %>
-    <%= link_to project.name, project_path(project.id) %>
+      <% if project.completion_status_id == 1 %>
+        <%= link_to project.name, project_path(project.id) %>
+      <% end %>
     <% end %>
   <% end %>
   <h3>Archive</h3>
