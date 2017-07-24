@@ -56,16 +56,13 @@ class ProjectsController < ApplicationController
 
   def update
     puts "project updated"
-    puts params[:mentee_id]
-    puts params[:project_id]
-    puts params[:set_mentee_id]
-    puts params[:set_mentor_id]
+    puts params[:mentee_pending]
 
     @project = Project.find(params[:project_id])
 
-    mentor_request_message = "<p>#{current_user.name} has requested mentorship for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+    mentor_request_message = "<p>#{current_user.name} has requested mentorship for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
 
-    mentee_request_message = "<p>#{current_user.name} has requested you to be a mentee for <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
+    mentee_request_message = "<p>#{current_user.name} has sent you an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
 
     if params[:mentee_id]
         @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
@@ -76,7 +73,7 @@ class ProjectsController < ApplicationController
           puts 'Your comment couldn''t be saved.....'
       end
 
-    else
+    elsif params[:mentor_id]
         @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
       if @project.save!
         puts 'request sent'
@@ -84,6 +81,28 @@ class ProjectsController < ApplicationController
       else
         puts 'Your comment couldn''t be saved.....'
       end
+
+    elsif params[:mentee_pending]
+      @project.update(mentee_pending: false)
+      if @project.save!
+        puts 'project updated'
+        redirect_to :action => 'show'
+        flash[:success] = "Accepted invitation to be a mentee for this project."
+      else
+        render :action => 'show'
+      end
+
+    elsif params[:mentor_pending]
+      @project.update(mentor_pending: false)
+      if @project.save
+        flash[:success] = "Accepted invitation to be a mentor for this project."
+        redirect_to :action => 'show'
+      else
+        render :action => 'show'
+      end
+
+    else
+
     end
 
     puts "updated"
@@ -115,7 +134,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :description, :project_url, :start_date, :finish_date, :mentor_id, :public)
+    params.require(:project).permit(:name, :description, :project_url, :start_date, :finish_date, :mentee_pending, :mentor_pending, :mentee_id, :mentor_id, :public)
   end
 
 end
