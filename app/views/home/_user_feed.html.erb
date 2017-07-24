@@ -17,13 +17,13 @@
     <% @projects.each do |project|%>
       <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
         <% @activity_list = project.feeds.uniq {|activity| activity[:id]}%>
+        <% @activity_list.each do |activity|%>
+        <article>
+          <%=raw activity.message%>
+          <%=raw activity.created_at%>
+        </article>
       <% end %>
     <% end %>
-    <% @activity_list.each do |activity|%>
-      <article>
-        <%=raw activity.message%>
-        <%=raw activity.created_at%>
-      </article>
     <% end %>
       <button> <%= link_to "Reload", root_path %> </button>
   </section>
