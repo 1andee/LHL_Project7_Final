@@ -18,7 +18,7 @@
     <% if mentor_mentee && @project.mentee_id %>
 
       <% mentee = User.get_user(@project.mentee_id)%>
-      <% if @project.mentor_pending %>
+      <% if @project.mentee_pending %>
         <p>Mentee pending:</p>
       <% else %>
           <p>Mentee:</p>

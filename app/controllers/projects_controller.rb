@@ -85,7 +85,7 @@ class ProjectsController < ApplicationController
         flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for the project."
       else
         flash[:error] = "Invitation could not be sent."
-        puts 'Your comment couldn''t be saved.....'
+        puts 'Invitation could not be sent.'
       end
 
     elsif params[:mentee_pending]
