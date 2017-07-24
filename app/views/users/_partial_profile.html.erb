@@ -14,6 +14,7 @@
       </section>
       <section style="width: 66%; display: inline-block;">
         <div style="width: 100;">
+        <!-- Show average recieved ratings for user -->
           <h3> User Reputation</h3>
           <h4> Knowledge Accuracy</h4>
           <h5> <%= user.received_ratings.average(:accuracy).to_f%></h5>
