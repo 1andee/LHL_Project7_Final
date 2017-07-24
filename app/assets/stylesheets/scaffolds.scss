@@ -9,17 +9,21 @@ body {
 
 p, ol, ul, td, h1 {
   font-family: verdana, arial, helvetica, sans-serif;
-  margin: 0 0 15px;
+  margin: 0 0 20px;
 }
 
 .btn {
   display: inline-block;
   background-color: #fff;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 10px 0 0;
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #000;
+}
+
+.clear {
+  clear: both;
 }
 
 pre {
@@ -150,9 +154,12 @@ label {
 /* MAIN */
 
 main {
-  margin: 49px auto 150px;
+  margin: 49px 0 150px;
   padding: 20px;
-  max-width: 1000px;
+}
+
+.register-login {
+  text-align: center;
 }
 
 .home-page {
@@ -189,11 +196,13 @@ main {
   }
 }
 
+.search-results {
+  text-align: center;
+}
+
 .user-image {
-  img {
-    max-width: 100px;
-    margin: 0 0 15px;
-  }
+  max-width: 100px;
+  margin: 0 0 15px;
 }
 
 .home-user-feed {
@@ -207,36 +216,133 @@ main {
   box-sizing: border-box;
 }
 
-.user-profile {
-}
-
-.search-input {
+.search-form {
+  width: 225px;
+  margin: 0 auto;
   text-align: center;
-  margin-bottom: 20px;
+
+  input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 5px 7px 5px;
+    font-size: 13px;
+    border-radius: 5px;
+    width: 210px;
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    margin: 15px 15px 10px;
+    padding: 4px 14px 4px;
+    font-size: 13px;
+    border-radius: 5px;
+  }
+
 }
 
 .partial-profile {
-  max-width: 600px;
-  margin: 0 auto 20px;
+  position: relative;
+  font-size: 11px;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 355px;
+  min-height: 268px;
+  margin: 10px;
   box-sizing: border-box;
   padding: 20px;
   border: 1px solid #ddd;
+  border-radius: 5px;
+
+  p {
+    margin: 0;
+  }
+
+  .user-info {
+
+    p {
+      display: inline-block;
+      text-align: left;
+      margin: 0 0 1px 20px;
+      width: calc(100% - 120px);
+    }
+
+  }
+
+  .user-image {
+    float: left;
+  }
 
   .profile-skills {
-    width: 49%;
     display: inline-block;
     vertical-align: top;
+    float: left;
+    box-sizing: border-box;
+    padding-right: 10px;
+    width: 50%;
+
+    ul.user-skills {
+      padding: 0;
+      margin: 0;
+      li {
+        list-style: none;
+        display: inline-block;
+      }
+    }
+
   }
+
+  .view-profile-space {
+    height: 40px;
+  }
+
+  a {
+    position: absolute;
+    bottom: 20px;
+  }
+
 }
 
-.home-search {
+.pagination {
   text-align: center;
-  min-height: 300px;
+  margin: 25px 0;
+
+  .first, .prev {
+    a {
+      letter-spacing: 1px;
+      font-size: 10px;
+      font-style: italic;
+      padding-right: 10px;
+      color: #999;
+    }
+  }
+
+  .next, .last {
+    a {
+      letter-spacing: 1px;
+      font-size: 10px;
+      font-style: italic;
+      padding-left: 10px;
+      color: #999;
+    }
+  }
+
+  .page {
+    padding: 5px 5px 6px 10px;
+    border: 1px solid #ddd;
+  }
+
+  .current {
+    background: #eee;
+  }
+
 }
 
 .project-showcase {
-  background: #eee;
-  border: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding-top: 25px;
   min-height: 300px;
 
   h1 {

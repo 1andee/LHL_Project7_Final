@@ -1,67 +1,69 @@
-<%= paginate @users %>
-
 <% project_id = params[:project_id] %>
 <% mentee_id = params[:mentee_id] %>
 <% mentor_id = params[:mentor_id] %>
 
   <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
   <% @users.each do |user| %>
+
     <section class="partial-profile">
-      <section style="width: 33%; display: inline-block; vertical-align: top">
-        <div class="user-image"><%= image_tag user.avatar.url(:thumb) %></div>
-        <h2> <%= user.name %></h2>
-      </section>
-      <section style="width: 66%; display: inline-block;">
-        <div style="width: 100;">
-        <!-- Show average recieved ratings for user -->
-          <h3> User Reputation</h3>
-          <h4> Knowledge Accuracy</h4>
-          <h5> <%= user.received_ratings.average(:accuracy).to_f%></h5>
-          <span class='star-rating' data-score=<%= user.received_ratings.average(:accuracy).to_f%>></span>
-          <h4> User Availability</h4>
-          <h5> <%= user.received_ratings.average(:availability).to_f%></h5>
-          <span class='star-rating' data-score=<%= user.received_ratings.average(:availability).to_f%>></span>
-        </div>
-        <div class="profile-skills">
-          <h3>Mentor In</h3>
-           <!-- iterate of both arrays at once -->
-          <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
-            <% if user_skill.mentor == true && skill.id = user_skill.skill_id%>
-              <h5> <%= skill.skill_name%></h5>
-            <% end %>
+
+      <div class="user-info">
+        <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+        <p><strong><%= user.name %></strong></p>
+        <p>Knowledge Accuracy:</p>
+        <p>Average: <%= user.received_ratings.average(:accuracy).to_f%> <span class='star-rating' data-score=<%= user.received_ratings.average(:accuracy).to_f%>></span></p>
+        <p>User Availability:</p>
+        <p>Average: <%= user.received_ratings.average(:availability).to_f%> <span class='star-rating' data-score=<%= user.received_ratings.average(:availability).to_f%>></span></p>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="profile-skills">
+        <p><strong>Mentor In</strong></p>
+        <!-- iterate of both arrays at once -->
+        <ul class="user-skills">
+        <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+          <% if user_skill.mentor == true && skill.id = user_skill.skill_id%>
+            <li><%= skill.skill_name%></li>
           <% end %>
+        <% end %>
+        </ul>
+        <!-- check mentor project count -->
+        <% if user.mentor_projects.count && user.mentor_projects.count > 1 %>
+          <p><em> <%= user.mentor_projects.count%> Projects</em></p>
+        <% elsif user.mentor_projects.count && user.mentor_projects.count == 1%>
+          <p><em> <%= user.mentor_projects.count%> Project </em></p>
+        <% else %>
+            <p><em> No Project As Mentor </em></p>
+        <% end %>
+      </div>
 
-          <!-- check mentor project count -->
-          <% if user.mentor_projects.count && user.mentor_projects.count > 1 %>
-            <h5> <%= user.mentor_projects.count%> Projects</h5>
-          <% elsif user.mentor_projects.count && user.mentor_projects.count == 1%>
-            <h5> <%= user.mentor_projects.count%> Project </h5>
-          <% else %>
-              <h5> No Project As Mentor </h5>
+      <div class="profile-skills">
+        <p><strong>Mentee In</strong></p>
+        <!-- iterate of both arrays at once -->
+        <ul class="user-skills">
+        <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
+          <% if !user_skill.mentor && skill.id = user_skill.skill_id%>
+            <li><%= skill.skill_name%></li>
           <% end %>
+        <% end %>
+        </ul>
+        <!-- check mentee project count -->
+        <% if user.mentee_projects.count && user.mentee_projects.count > 1 %>
+          <p><em> <%= user.mentee_projects.count%> Projects</em></p>
+        <% elsif user.mentee_projects.count && user.mentee_projects.count == 1%>
+          <p><em> <%= user.mentee_projects.count%> Project </em></p>
+        <% else %>
+            <p><em> No Project As Mentee </em></p>
+        <% end %>
+      </div>
 
-        </div>
+      <div class="clear view-profile-space"></div>
 
-        <div class="profile-skills">
-          <h3>Mentee In</h3>
-           <!-- iterate of both arrays at once -->
-          <% (user.skills).zip(user.skill_users).each do |skill, user_skill| %>
-            <% if !user_skill.mentor && skill.id = user_skill.skill_id%>
-              <h5> <%= skill.skill_name%></h5>
-            <% end %>
-          <% end %>
+      <%= link_to 'View Profile', user_path(user.id, :project_id => project_id, :mentee_id => mentee_id, :mentor_id => mentor_id), { :class=>"btn" } %>
 
-          <!-- check mentee project count -->
-          <% if user.mentee_projects.count && user.mentee_projects.count > 1 %>
-            <h5> <%= user.mentee_projects.count%> Projects</h5>
-          <% elsif user.mentee_projects.count && user.mentee_projects.count == 1%>
-            <h5> <%= user.mentee_projects.count%> Project </h5>
-          <% else %>
-              <h5> No Project As Mentee </h5>
-          <% end %>
+    </section>
 
-        </div>
-      </section>
-        <%= link_to 'View Profile', user_path(user.id, :project_id => project_id, :mentee_id => mentee_id, :mentor_id => mentor_id), { :class=>"btn" } %>
-      </section>
   <% end %>
+
+  <%= paginate @users %>

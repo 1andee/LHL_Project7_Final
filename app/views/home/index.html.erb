@@ -3,26 +3,24 @@
 <% else %>
 
   <section class="register-login">
-   <h1>Welcome To Our App</h1>
-    <h2>Register Login Form Here</h2>
-    <!-- add links to register and log in -->
+    <h1>Find A Mentor In Your Field</h1>
   </section>
 
   <section class="home-search">
     <div class="search-input">
-      <%= form_tag home_index_path, :method => 'get' do %>
+      <%= form_tag home_index_path, :method => 'get', :class=>"search-form" do %>
         <!--input id="searchbar" name="query" placeholder="Search mentors by skill"-->
-        <%= text_field_tag :query, nil, placeholder: "Find your mentor by name or skill...", size: 50 %>
+        <%= text_field_tag :query, nil, placeholder: "Find a mentor by name or skill..." %>
         <%= submit_tag "Search" %>
       <% end %>
     </div>
-    <section style="width: 50%; display: inline-block;">
-    <%= render 'users/partial_profile' %>
-     </section>
+    <section class="search-results">
+      <%= render 'users/partial_profile' %>
+    </section>
   </section>
 
   <section class="project-showcase">
-    <h1>Projects</h1>
+    <h1>Example Projects</h1>
     <%= render 'projects/partial_project' %>
   </section>
 <% end %>
