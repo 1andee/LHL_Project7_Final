@@ -4,6 +4,10 @@
   <% owner = false %>
 <% end %>
 
+<% flash.each do |key, value| %>
+  <p class="alert alert-<%= key %>"><%= value %></p>
+<% end %>
+
 <% project_id = params[:project_id] %>
 <% mentee_id = params[:mentee_id] %>
 <% mentor_id = params[:mentor_id] %>
@@ -40,14 +44,14 @@
   <p id="notice"><%= notice %></p>
   <div class="user-image"><%= image_tag @user.avatar.url(:thumb) %></div>
 
-  <p><strong>Name:</strong><%= @user.name %></p>
-  <p><strong>Email:</strong><%= @user.email %></p>
-  <p><strong>Location:</strong><%= @user.location %></p>
-  <p><strong>Linkedin url:</strong><%= @user.linkedin_url %></p>
-  <p><strong>Github url:</strong><%= @user.github_url %></p>
-  <p><strong>Other site:</strong><%= @user.other_site %></p>
-  <p><strong>Twitter:</strong><%= @user.twitter %></p>
-  <p><strong>Slack name:</strong><%= @user.slack_name %></p>
+  <p><strong>Name: </strong><%= @user.name %></p>
+  <p><strong>Email: </strong><%= @user.email %></p>
+  <p><strong>Location: </strong><%= @user.location %></p>
+  <p><strong>Linkedin url: </strong><%= @user.linkedin_url %></p>
+  <p><strong>Github url: </strong><%= @user.github_url %></p>
+  <p><strong>Other site: </strong><%= @user.other_site %></p>
+  <p><strong>Twitter: </strong><%= @user.twitter %></p>
+  <p><strong>Slack name: </strong><%= @user.slack_name %></p>
 
 
   <%= link_to 'Edit', edit_user_path(@user) if owner %>
@@ -59,5 +63,6 @@
 </section>
 
 <section class="user_projects">
+  <h2>Current Projects</h2>
  <%= render 'projects/partial_project' %>
 </section>

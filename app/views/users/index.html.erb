@@ -5,14 +5,17 @@
 <section class="user-search">
   <div class="search-input">
     <%= form_tag users_path, :method => 'get' do %>
+      <% placeholder = "Find your mentor by name or skill..." %>
       <input type=hidden name=project_id value=<%= project_id %>>
       <% if params[:mentee_id].present? %>
         <input type=hidden name=mentee_id value=<%= mentee_id %>>
       <% end %>
       <% if params[:mentor_id].present? %>
         <input type=hidden name=mentor_id value=<%= mentor_id %>>
+        <% placeholder = "Find your mentee by name or skill..." %>
       <% end %>
-      <input id="searchbar" name="query" placeholder="Search mentors by skill">
+      <!--input id="searchbar" name="query" placeholder="Find your mentor/mentee by name or skill..."-->
+      <%= text_field_tag :query, nil, placeholder: placeholder, size: 50 %>
       <%= submit_tag "Search" %>
     <% end %>
   </div>

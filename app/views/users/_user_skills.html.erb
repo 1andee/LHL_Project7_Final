@@ -6,7 +6,7 @@
 
 
  <span class="as_mentor">
-    <span class="title">Skills - as mentor:</span>
+    <span class="title">I'm a mentor in:</span>
     <span class="mentor_skills">
       <% if owner %>
         <%= form_tag('/skills', method: :post, remote: false) do %>
@@ -37,7 +37,7 @@
   </span>
 
   <span class="as_mentee">
-    <span class="title">Skills - as mentee:</span>
+    <span class="title">I'm being mentored in:</span>
     <span class="mentee_skills">
       <% if owner %>
         <%= form_tag('/skills', method: :post, remote: false) do %>

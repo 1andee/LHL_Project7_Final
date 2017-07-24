@@ -1,9 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <ul class="nav-left">
     <li><%= link_to 'Home', :root %></li>
-    <li><%= link_to 'Messages', :root %></li>
-    <li><%= link_to 'Search', :root %></li>
-    <li><%= link_to 'Projects', :projects %></li>
+    <li><%= link_to 'Search', users_path %></li>
+    <li><%= link_to 'New Project', new_project_path %></li>
   </ul>
   <ul class="nav-right">
     <% if current_user %>
