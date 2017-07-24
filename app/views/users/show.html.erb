@@ -4,6 +4,10 @@
   <% owner = false %>
 <% end %>
 
+<% flash.each do |key, value| %>
+  <p class="alert alert-<%= key %>"><%= value %></p>
+<% end %>
+
 <% project_id = params[:project_id] %>
 <% mentee_id = params[:mentee_id] %>
 <% mentor_id = params[:mentor_id] %>
