@@ -21,6 +21,15 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  # Adds rating power to user model
+  ratyrate_rater
+
+  # # Adds starring capabilities to projects for two categories
+  # ratyrate_rateable 'accuracy', 'availability'
+    #  (call using User.received_ratings or User.given_ratings)
+  # has_many :received_ratings, :class_name => 'Rate', :foreign_key => 'receiver_id'
+  # has_many :given_ratings,  ratyrate_rater
+
   validates_presence_of :name, :email
   validates :email, uniqueness: true, :email_format => { :message => 'is invalid' }
 

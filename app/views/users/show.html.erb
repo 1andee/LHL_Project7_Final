@@ -13,7 +13,18 @@
 <% mentor_id = params[:mentor_id] %>
 
 <section class="user-profile">
-
+  <section class="reputation-system">
+     <div style="width: 100;">
+          <!-- Show average recieved ratings for user -->
+        <h3> User Reputation</h3>
+        <h4> Knowledge Accuracy</h4>
+        <h5> <%= @user.received_ratings.average(:accuracy).to_f%></h5>
+        <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).to_f%>></span>
+        <h4> User Availability</h4>
+        <h5> <%= @user.received_ratings.average(:availability).to_f%></h5>
+        <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).to_f%>></span>
+    </div>
+  </section>
   <% if project_id && mentee_id %>
     <%= form_tag project_path(project_id), :method => 'put' do %>
       <input type=hidden name=mentee_id value=<%= mentee_id %>>

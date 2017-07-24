@@ -91,6 +91,36 @@
   <%= render 'projects/project_comments' %>
 </section>
 
+<!-- Add mentor and mentee actual names -->
+<section class="rating-section">
+<% if current_user &&  current_user.id == @project.mentor_id %>
+  <h1> Rate MenteeNameHere As Mentee On This Project </h1>
+  <div class="row">
+    <div class="small-2 large-4 columns">
+      <% if current_user %>
+        Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+        <br>
+        Availability: <%= rating_for @project, "availability", stars: 5  %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+
+<% elsif current_user && current_user.id == @project.mentee_id  %>
+  <h1> Rate MentorNameHere As Mentor On This Project </h1>
+    <div class="row">
+      <div class="small-2 large-4 columns">
+        <% if current_user %>
+          Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+          <br>
+          Availability: <%= rating_for @project, "availability", stars: 5  %>
+          <br>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+</section>
+
 
 <% else %>
   <h4>This is a private project, you have no permission to access it.</h4>

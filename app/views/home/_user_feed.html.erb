@@ -13,17 +13,26 @@
 
   <section class="feed-list">
     <h1>User Feed</h1>
-    <% @activity_list %>
+    <% @activity_list = [] %>
     <% @projects.each do |project|%>
       <% if (!project.feeds.empty? && (current_user.id == project.mentor_id) || (current_user.id == project.mentee_id)) %>
-        <% @activity_list = project.feeds.uniq {|activity| activity[:id]}%>
-        <% @activity_list.each do |activity|%>
+        <% project.feeds.each do |activity| %>
+          <% @activity_list.push(activity) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if !@activity_list.empty? %>
+      <% @activity_list.uniq!{|activity| activity.message}%>
+      <% @activity_list.each do |activity|%>
         <article>
           <%=raw activity.message%>
           <%=raw activity.created_at%>
         </article>
       <% end %>
-    <% end %>
+    <% else %>
+      <article>
+          <p> You Have No Activites, Create A New Project [Link To Create Project Page].</p>
+        </article>
     <% end %>
       <button> <%= link_to "Reload", root_path %> </button>
   </section>

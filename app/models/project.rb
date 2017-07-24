@@ -14,4 +14,8 @@ class Project < ApplicationRecord
   belongs_to :mentee, :class_name => 'User', optional: true
   belongs_to :mentor, :class_name => 'User', optional: true
 
+  # Adds starring capabilities to projects for two categories
+  ratyrate_rateable 'accuracy', 'availability'
+
+
 end
