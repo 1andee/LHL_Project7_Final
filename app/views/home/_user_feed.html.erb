@@ -22,9 +22,7 @@
       <% end %>
     <% end %>
     <% if !@activity_list.empty? %>
-      <%= @activity_list.count%>
       <% @activity_list.uniq!{|activity| activity.message}%>
-      <%= @activity_list.count%>
       <% @activity_list.each do |activity|%>
         <article>
           <%=raw activity.message%>
