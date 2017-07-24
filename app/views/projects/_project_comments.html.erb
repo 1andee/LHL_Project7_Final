@@ -13,7 +13,7 @@
 
         <% if @project_goals.present? %>
           <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
-          <br><%= radio_button_tag(:project_or_goal, "goal") %>About one especific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
+          <br><%= radio_button_tag(:project_or_goal, "goal") %>About a specific goal: <%= select_tag(:goal_id, options_from_collection_for_select(@project_goals, :id, :title)) %>
         <% else %>
           <br><%= radio_button_tag(:project_or_goal, "project", true) %>About the project in general
           <br>This project has no goals. The comment will be attached to the project in general.
