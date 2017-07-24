@@ -69,10 +69,10 @@ class ProjectsController < ApplicationController
         @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
       if @project.save!
           Feed.create(user_id: params[:mentee_id], project_id: params[:project_id], message: mentor_request_message)
-          redirect_to user_path(:id), :action => 'show'
+          redirect_to project_path(@project), :action => 'show'
           flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for the project."
         else
-          flash[:success] = "Sent invitation to be a mentor for the project."
+          flash[:error] = "Invitation could not be sent."
           puts 'Invitation could not be sent.'
       end
 
@@ -80,9 +80,11 @@ class ProjectsController < ApplicationController
       @mentee = User.find(params[:set_mentee_id])
         @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
       if @project.save!
-        puts 'request sent'
         Feed.create(user_id: params[:mentor_id], project_id: params[:project_id], message: mentee_request_message)
+        redirect_to project_path(@project), :action => 'show'
+        flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for the project."
       else
+        flash[:error] = "Invitation could not be sent."
         puts 'Your comment couldn''t be saved.....'
       end
 
