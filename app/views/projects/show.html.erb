@@ -35,8 +35,7 @@
         <% end %>
         <%= form_tag project_path(project_id), :method => 'put' do %>
           <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentor_pending value="false">
-          <input type=hidden name=accepted value=false>
+          <input type=hidden name=purpose value="mentor_decline">
           <%= submit_tag "Decline invitation to be a mentor", { :class=>"btn" } %>
         <% end %>
       <% end %>
@@ -68,8 +67,7 @@
         <% end %>
         <%= form_tag project_path(project_id), :method => 'put' do %>
           <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentee_pending value="false">
-          <input type=hidden name=accepted value="false">
+          <input type=hidden name=purpose value="mentee_decline">
           <%= submit_tag "Decline invitation to be a mentee", { :class=>"btn" } %>
         <% end %>
       <% end %>
@@ -200,4 +198,3 @@
   <h4>This is a private project, you need permission to access it.</h4>
 <% end %>
 
-<%= console %>

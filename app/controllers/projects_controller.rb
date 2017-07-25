@@ -60,52 +60,45 @@ class ProjectsController < ApplicationController
     purpose = params[:purpose]
 
     if purpose == "update_mentor_feedback"
-      Project.update_mentor_feedback(params[:project_id], params[:mentor_feedback], current_user)
-      redirect_to :action => 'show'
-    elsif purpose == "update_mentee_feedback"
-      Project.update_mentee_feedback(params[:project_id], params[:mentee_feedback], current_user)
-      redirect_to :action => 'show'
-    else
-
-    if params[:project_id].present?
-      @project = Project.find(params[:project_id])
-    end
-    project_id = @project.id
-    accepted = params[:accepted]
-
-
-    if accepted.present? && accepted == "false"
-    # it cames from show project
-    # user has declined the mentorship
-      if params[:mentor_pending].present?
-        # "mentor declined"
-        @project.update(mentor_pending: nil, mentor_id: nil)
-        if @project.save
-          flash[:success] = "Declined invitation to be a mentor for this project."
-          mentor_declined_message = "<p>#{current_user.name} has declined the invitation to be a mentor for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: current_user.id, project_id: project_id, message: mentor_declined_message)
-          redirect_to :action => 'show'
-        else
-          flash[:error] = "Error. Your decline could not be sent."
-          render :action => 'show'
-        end
-
-      elsif params[:mentee_pending].present?
-        # "mentee decline"
-        @project.update(mentee_pending: nil, mentee_id: nil)
-        if @project.save
-          flash[:success] = "Declined invitation to be a mentee for this project."
-          mentee_declined_message = "<p>#{current_user.name} has declined the invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: current_user.id, project_id: project_id, message: mentee_declined_message)
-          redirect_to :action => 'show'
-        else
-          flash[:error] = "Error. Your decline could not be sent."
-          render :action => 'show'
-        end
+      result = Project.update_mentor_feedback(params[:project_id], params[:mentor_feedback], current_user)
+      if result == "success"
+        flash[:success] = "Feedback for your mentee was updated."
+      else
+        flash[:error] = "Error. Feedback could not be updated."
       end
+      redirect_to :action => 'show'
 
-    else
-    # it cames from profile page
+    elsif purpose == "update_mentee_feedback"
+      result = Project.update_mentee_feedback(params[:project_id], params[:mentee_feedback], current_user)
+      if result == "success"
+        flash[:success] = "Feedback for your mentor was updated."
+      else
+        flash[:error] = "Error. Feedback could not be updated."
+      end
+      redirect_to :action => 'show'
+
+    elsif purpose == "mentor_decline"
+      result = Project.mentor_decline(params[:project_id], current_user)
+      if result == "success"
+        flash[:success] = "Your decline was sent."
+      else
+        flash[:error] = "Error. Decline could not be sent."
+      end
+      redirect_to home_index_path, :action => 'index'
+
+    elsif purpose == "mentee_decline"
+      result = Project.mentee_decline(params[:project_id], current_user)
+      if result == "success"
+        flash[:success] = "Your decline was sent."
+      else
+        flash[:error] = "Error. Decline could not be sent."
+      end
+      redirect_to home_index_path, :action => 'index'
+
+    elsif params[:mentee_id].present? || params[:mentor_id].present? || params[:mentee_pending].present? || params[:mentor_pending].present?
+    # invite to mentor; invite to mentee; mentor acceptance; mentee acceptance
+
+      @project = Project.find(params[:project_id])
 
       if params[:mentee_id]
       # ask for mentor
@@ -113,7 +106,7 @@ class ProjectsController < ApplicationController
           @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
         if @project.save!
             mentor_request_message = "<p>#{current_user.name} has requested #{@mentor.name} to be mentor for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-            Feed.create(user_id: params[:mentee_id], project_id: project_id, message: mentor_request_message)
+            Feed.create(user_id: params[:mentee_id], project_id: @project_id, message: mentor_request_message)
             redirect_to project_path(@project), :action => 'show'
             flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for the project."
           else
@@ -127,7 +120,7 @@ class ProjectsController < ApplicationController
           @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
         if @project.save!
           mentee_request_message = "<p>#{current_user.name} has sent to #{@mentee.name} an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: params[:mentor_id], project_id: project_id, message: mentee_request_message)
+          Feed.create(user_id: params[:mentor_id], project_id: @project_id, message: mentee_request_message)
           redirect_to project_path(@project), :action => 'show'
           flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for the project."
         else
@@ -141,7 +134,7 @@ class ProjectsController < ApplicationController
         @mentee = User.find(@project.mentee_id)
         if @project.save!
           mentee_response_message = "<p>#{@mentee.name} has accepted an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: @mentee.id, project_id: project_id, message: mentee_response_message)
+          Feed.create(user_id: @mentee.id, project_id: @project_id, message: mentee_response_message)
           redirect_to :action => 'show'
           flash[:success] = "Accepted invitation to be a mentee for this project."
         else
@@ -155,18 +148,19 @@ class ProjectsController < ApplicationController
         @mentor = User.find(@project.mentor_id)
         if @project.save
           mentor_response_message = "<p>#{@mentor.name} has accepted an invitation to be a mentor for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: @mentor.id, project_id: project_id, message: mentor_response_message)
+          Feed.create(user_id: @mentor.id, project_id: @project_id, message: mentor_response_message)
           flash[:success] = "Accepted invitation to be a mentor for this project."
           redirect_to :action => 'show'
         else
           flash[:error] = "Error. Your acceptance could not be sent."
           render :action => 'show'
         end
+      end
 
-      else
-      # It cames from edit page
+    else
+    # It cames from edit page
         @project.update(name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], completion_status_id: project_params[:completion_status_id])
-puts "editing project"
+
         if @project.save
           flash[:success] = "Project updated."
           redirect_to :action => 'show'
@@ -175,11 +169,7 @@ puts "editing project"
           render :action => 'show'
         end
 
-      end
-
     end
-  end
-
 
     puts "updated"
 
@@ -193,12 +183,6 @@ puts "editing project"
     #   end
     # end
 
-  end
-
-  def update_feedback
-    puts "update feedback"
-    puts "mentor feedback: #{@mentor_feedback}"
-    puts "project_id: #{@project_id}"
   end
 
   def destroy

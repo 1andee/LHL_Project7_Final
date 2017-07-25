@@ -20,17 +20,51 @@ class Project < ApplicationRecord
   def self.update_mentor_feedback(project_id, feedback, current_user)
     @project = Project.find(project_id)
     @project.update(mentor_feedback: feedback)
-    mentee_name = User.find(@project.mentee_id).name
-    feed_message = "<p>#{current_user.name} has updated the feedback to mentee #{mentee_name} on the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
-    Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+    if @project.save!
+      mentee_name = User.find(@project.mentee_id).name
+      feed_message = "<p>#{current_user.name} has updated the feedback to mentee #{mentee_name} on the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
+      Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+      return "success"
+    else
+      return "fail"
+    end
   end
 
   def self.update_mentee_feedback(project_id, feedback, current_user)
     @project = Project.find(project_id)
     @project.update(mentee_feedback: feedback)
-    mentor_name = User.find(@project.mentor_id).name
-    feed_message = "<p>#{current_user.name} has updated the feedback to mentor #{mentor_name} on the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
-    Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+    if @project.save!
+      mentor_name = User.find(@project.mentor_id).name
+      feed_message = "<p>#{current_user.name} has updated the feedback to mentor #{mentor_name} on the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
+      Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+      return "success"
+    else
+      return "fail"
+    end
+  end
+
+  def self.mentor_decline(project_id, current_user)
+    @project = Project.find(project_id)
+    @project.update(mentor_pending: nil, mentor_id: nil)
+    if @project.save!
+      feed_message = "<p>#{current_user.name} has declined the invitation to be a mentor for the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
+      Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+      return "success"
+    else
+      return "fail"
+    end
+  end
+
+  def self.mentee_decline(project_id, current_user)
+    @project = Project.find(project_id)
+    @project.update(mentee_pending: nil, mentee_id: nil)
+    if @project.save!
+      feed_message = "<p>#{current_user.name} has declined the invitation to be a mentee for the following project: <a href='/projects/#{project_id}' class='feed-project-link'>#{@project.name}</a></p>"
+      Feed.create(user_id: current_user.id, project_id: project_id, message: feed_message)
+      return "success"
+    else
+      return "fail"
+    end
   end
 
 end
