@@ -6,6 +6,7 @@
 
 <% project_id = params[:id] %>
 
+
 <% if @project.public || mentor_mentee %>
 
   <% flash.each do |key, value| %>
@@ -14,6 +15,7 @@
 
   <% if current_user %>
 
+  <!-- if user is mentor, show only the mentee avatar -->
   <% if current_user.id == @project.mentor_id %>
 
     <% if mentor_mentee && @project.mentee_id %>
@@ -47,8 +49,9 @@
     <% end %>
 
   <% end %>
-  <% if current_user.id == @project.mentee_id %>
 
+  <!-- if user is mentee, show only the mentor avatar -->
+  <% if current_user.id == @project.mentee_id %>
 
     <% if mentor_mentee && @project.mentor_id %>
       <% mentor = User.get_user(@project.mentor_id)%>
@@ -79,6 +82,18 @@
 
   <% end %>
 
+  <!-- if user is not mentee or mentor or if is anonymous user, show both avatars -->
+  <% if !mentor_mentee %>
+    <% mentor = User.get_user(@project.mentor_id)%>
+    <% mentee = User.get_user(@project.mentee_id)%>
+    <p>Mentee:</p>
+    <p><%= mentee.name %></p>
+    <div class="user-image"><%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id) %></div>
+    <p>Mentor:</p>
+    <p><%= mentor.name %></p>
+    <div class="user-image"><%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id) %></div>
+  <% end %>
+
   <hr>
 
   <p>Name: <%= @project.name %><p>
@@ -90,12 +105,10 @@
   <p>Completion status: <%= CompletionStatus.find(@project.completion_status_id).name %>
 
 <br><br>
-  <%= link_to 'Edit', edit_project_path(@project) %>
+  <% if mentor_mentee %>
+    <%= link_to 'Edit', edit_project_path(@project) %>
+  <% end %>
 
-<section class="project-page">
-  <h4>Project information</h4>
-  <p><%= @project.name %><p>
-</section>
 
 <section class="skills">
   <%= render 'projects/project_skills' %>
