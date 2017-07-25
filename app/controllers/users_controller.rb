@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     # @users = User.search_by_skill(params[:query]).includes([:skills, :skill_users, :mentee_projects, :mentor_projects]).page(params[:page]).per(3)
-    @users = User.text_search(params[:query], params[:mentee_id], params[:mentor_id]).includes([:skills, :skill_users, :mentee_projects, :mentor_projects]).page(params[:page]).per(3)
+    @users = User.text_search(params[:query], params[:mentee_id], params[:mentor_id]).includes([:skills, :skill_users, :mentee_projects, :mentor_projects]).page(params[:page]).per(9)
   end
 
   def show
