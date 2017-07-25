@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   belongs_to :mentor, :class_name => 'User', optional: true
 
   # Adds starring capabilities to projects for two categories
-  ratyrate_rateable 'accuracy', 'availability'
+  ratyrate_rateable 'accuracy_mentor', 'availability_mentor', 'accuracy_mentee', 'availability_mentee'
 
   def self.update_mentor_feedback(project_id, feedback, current_user)
     @project = Project.find(project_id)
