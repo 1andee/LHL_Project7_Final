@@ -5,16 +5,27 @@
   <!-- iterate of @users instance variable which includes * from skills and skills_users table -->
   <% @users.each do |user| %>
 
-    <section class="partial-profile">
+    <section class="partial-profile animated fadeIn">
 
       <div class="user-info">
         <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
         <p><strong><%= user.name %></strong></p>
         <% if !user.received_ratings.blank? %>
-        <p>Knowledge Accuracy:</p>
-        <p>Average: <%= user.received_ratings.average(:accuracy).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:accuracy).round(2) %>></span></p>
-        <p>User Availability:</p>
-        <p>Average: <%= user.received_ratings.average(:availability).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:availability).round(2) %>></span></p>
+
+          <p>Knowledge Accuracy:</p>
+            <% if !user.received_ratings.average(:accuracy).blank? %>
+              <p>Average: <%= user.received_ratings.average(:accuracy).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:accuracy).round(2) %>></span></p>
+              <% else %>
+              <p><em> Not yet rated </em></p>
+            <% end %>
+
+          <p>User Availability:</p>
+            <% if !user.received_ratings.average(:availability).blank? %>
+              <p>Average: <%= user.received_ratings.average(:availability).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:availability).round(2) %>></span></p>
+              <% else %>
+              <p><em> Not yet rated </em></p>
+            <% end %>
+
         <% else %>
         <p><em> Not yet rated </em></p>
         <% end %>
@@ -34,11 +45,11 @@
         </ul>
         <!-- check mentor project count -->
         <% if user.mentor_projects.count && user.mentor_projects.count > 1 %>
-          <p><em> <%= user.mentor_projects.count%> Projects</em></p>
+          <p><em> <%= user.mentor_projects.count%> Current projects</em></p>
         <% elsif user.mentor_projects.count && user.mentor_projects.count == 1%>
-          <p><em> <%= user.mentor_projects.count%> Project </em></p>
+          <p><em> <%= user.mentor_projects.count%> Current project</em></p>
         <% else %>
-            <p><em> No Project As Mentor </em></p>
+            <p><em>No projects As mentor right now.</em></p>
         <% end %>
       </div>
 
@@ -54,11 +65,11 @@
         </ul>
         <!-- check mentee project count -->
         <% if user.mentee_projects.count && user.mentee_projects.count > 1 %>
-          <p><em> <%= user.mentee_projects.count%> Projects</em></p>
+          <p><em> <%= user.mentee_projects.count%> Current projects</em></p>
         <% elsif user.mentee_projects.count && user.mentee_projects.count == 1%>
-          <p><em> <%= user.mentee_projects.count%> Project </em></p>
+          <p><em> <%= user.mentee_projects.count%> Current project</em></p>
         <% else %>
-            <p><em> No Project As Mentee </em></p>
+            <p><em>No projects As mentee right now.</em></p>
         <% end %>
       </div>
 
