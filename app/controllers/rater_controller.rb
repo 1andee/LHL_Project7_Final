@@ -20,13 +20,13 @@ class RaterController < ApplicationController
         puts "==========YES IT DID======="
 
         if current_user.id == @project.mentor_id
-          if params[:dimension] == "availability"
+          if params[:dimension] == "availability_mentee"
             Rating.create(project_id: @project.id, giver_id: current_user.id, receiver_id: @project.mentee_id, availability: params[:score].to_f )
           else
             Rating.create(project_id: @project.id, giver_id: current_user.id, receiver_id: @project.mentee_id, accuracy: params[:score].to_f )
           end
         else
-          if params[:dimension] == "availability"
+          if params[:dimension] == "availability_mentor"
             Rating.create(project_id: @project.id, giver_id: current_user.id, receiver_id: @project.mentor_id, availability: params[:score].to_f )
           else
             Rating.create(project_id: @project.id, giver_id: current_user.id, receiver_id: @project.mentor_id, accuracy: params[:score].to_f )

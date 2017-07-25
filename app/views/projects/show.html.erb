@@ -136,7 +136,9 @@
       <h1> <%= mentee_name %>'s rating as mentee on this project </h1>
       <div class="row">
         <div class="small-2 large-4 columns">
-          Availability: <%= rating_for @project, "availability", stars: 5  %>
+          Accuracy: <%= rating_for @project, "accuracy_mentee", stars: 5 %>
+          <br>
+          Availability: <%= rating_for @project, "availability_mentee", stars: 5  %>
         </div>
       </div>
       <div>
@@ -153,9 +155,9 @@
       <h1> <%= current_user.name %>'s rating as mentor on this project </h1>
       <div class="row">
         <div class="small-2 large-4 columns">
-          Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+          Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
           <br>
-          Availability: <%= rating_for @project, "availability", stars: 5  %>
+          Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %>
         </div>
       <div>
         Feedback for mentor:<br>
@@ -169,22 +171,24 @@
       <h1> <%= current_user.name %>'s rating as mentee on this project </h1>
       <div class="row">
         <div class="small-2 large-4 columns">
-          Availability: <%= rating_for @project, "availability", stars: 5  %>
+          Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
+          <br>
+          Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %>
         </div>
       </div>
       <div>
         Feedback for mentee:<br>
         <textarea cols="80" rows="5" disabled>
-          <%=@project.mentor_feedback%>
+          <%= @project.mentor_feedback %>
         </textarea>
       </div>
       <% mentor_name = User.find(@project.mentor_id).name %>
       <h1> <%= mentor_name %>'s rating as mentor on this project </h1>
       <div class="row">
         <div class="small-2 large-4 columns">
-            Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+            Accuracy: <%= rating_for @project, "accuracy_mentor", stars: 5 %>
             <br>
-            Availability: <%= rating_for @project, "availability", stars: 5  %>
+            Availability: <%= rating_for @project, "availability_mentor", stars: 5  %>
         </div>
       </div>
       <div>
@@ -205,3 +209,4 @@
   <h4>This is a private project, you need permission to access it.</h4>
 <% end %>
 
+<% console %>
