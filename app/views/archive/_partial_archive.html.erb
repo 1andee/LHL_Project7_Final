@@ -11,12 +11,12 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-           <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+           <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-           <%= image_tag mentee.avatar.url(:thumb), { :class=>"user-image" } %>
+           <%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id), { :class=>"user-image" } %>
           <p><%= mentee.name%></p>
         </section>
       </section>
@@ -37,7 +37,7 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
@@ -83,12 +83,12 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <%= image_tag mentor.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id), { :class=>"user-image" } %>
           <p><%= mentor.name%></p>
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
       </section>
@@ -114,7 +114,7 @@
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
       </section>
@@ -158,12 +158,12 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <%= image_tag mentee.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id), { :class=>"user-image" } %>
           <p><%= mentee.name%></p>
         </section>
       </section>
@@ -184,7 +184,7 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
@@ -232,12 +232,12 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <%= image_tag mentor.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id), { :class=>"user-image" } %>
           <p><%= mentor.name%></p>
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
       </section>
@@ -263,7 +263,7 @@
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb)), user_path(user.id), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
       </section>
