@@ -88,7 +88,10 @@
   <p>Project URL: <%= @project.project_url %><p>
   <p>Start date: <%= @project.start_date %><p>
   <p>Finish date: <%= @project.finish_date %><p>
+  <p>Public project: <%= @project.public ? "Yes" : "No, this project is private." %>
+  <p>Completion status: <%= CompletionStatus.find(@project.completion_status_id).name %>
 
+<br><br>
   <%= link_to 'Edit', edit_project_path(@project) %>
 
 <section class="project-page">
@@ -142,3 +145,5 @@
 <% else %>
   <h4>This is a private project, you have no permission to access it.</h4>
 <% end %>
+
+<%= console %>
