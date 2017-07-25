@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <ul class="nav-left">
-    <li><%= link_to 'Home', :root %></li>
+    <li><%= link_to 'PairWise', :root, { :class=>"logo" } %></li>
     <li><%= link_to 'Search', users_path %></li>
     <% if current_user %>
     <li><%= link_to 'New Project', new_project_path %></li>

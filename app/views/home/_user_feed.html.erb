@@ -4,7 +4,7 @@
 
   <section class="comment-box">
 
-  <%= form_tag(feeds_path, method: :post, remote: false) do %>
+  <%= form_tag(feeds_path, method: :post, :class=>"user-post-form", remote: false) do %>
     <%= text_area_tag(:post) %>
     <%= submit_tag("Post Message") %>
   <% end %>
@@ -28,5 +28,3 @@
   </section>
 
 </section>
-
-<%= console%>
