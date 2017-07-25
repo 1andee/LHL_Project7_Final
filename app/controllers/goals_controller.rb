@@ -8,7 +8,7 @@ class GoalsController < ApplicationController
     project.mentor_id == user_id ? background_class = "mentor" : background_class = "mentee"
 
     @goal = Goal.create(title: params[:goal_title], project_id: params[:project_id], completion_status_id: 1)
-    message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} added the goal #{params[:goal_title]}.</p>"
+    message = "<p>[Project <a href='/projects/#{project_id}' class='feed-project-link'>#{project.name}</a>] User #{current_user.name} has added the goal #{params[:goal_title]}.</p>"
     Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     if @goal.save
@@ -47,7 +47,7 @@ class GoalsController < ApplicationController
 
     if !goal_comments.present?
       @goal.destroy
-      message = "<p class='#{background_class}'>[Project #{params[:project_name]}] User #{current_user.name} deleted the goal #{params[:goal_title]}.</p>"
+      message = "<p>[Project <a href='/projects/#{project_id}' class='feed-project-link'>#{project.name}</a>] User #{current_user.name} has deleted the goal #{params[:goal_title]}.</p>"
       Feed.create(user_id: current_user.id, project_id: params[:project_id], message: message)
 
     else

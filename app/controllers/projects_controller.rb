@@ -105,8 +105,8 @@ class ProjectsController < ApplicationController
         @mentor = User.find(params[:set_mentor_id])
           @project.update(mentor_pending: true, mentor_id: params[:set_mentor_id])
         if @project.save!
-            mentor_request_message = "<p>#{current_user.name} has requested #{@mentor.name} to be mentor for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-            Feed.create(user_id: params[:mentee_id], project_id: @project_id, message: mentor_request_message)
+            mentor_request_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{current_user.name} has requested #{@mentor.name} to be mentor.</p>"
+            Feed.create(user_id: params[:mentee_id], project_id: @project.id, message: mentor_request_message)
             redirect_to project_path(@project), :action => 'show'
             flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for the project."
           else
@@ -119,8 +119,8 @@ class ProjectsController < ApplicationController
         @mentee = User.find(params[:set_mentee_id])
           @project.update(mentee_pending: true, mentee_id: params[:set_mentee_id])
         if @project.save!
-          mentee_request_message = "<p>#{current_user.name} has sent to #{@mentee.name} an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: params[:mentor_id], project_id: @project_id, message: mentee_request_message)
+          mentee_request_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{current_user.name} has sent to #{@mentee.name} an invitation to be a mentee.</p>"
+          Feed.create(user_id: params[:mentor_id], project_id: @project.id, message: mentee_request_message)
           redirect_to project_path(@project), :action => 'show'
           flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for the project."
         else
@@ -133,8 +133,8 @@ class ProjectsController < ApplicationController
         @project.update(mentee_pending: false)
         @mentee = User.find(@project.mentee_id)
         if @project.save!
-          mentee_response_message = "<p>#{@mentee.name} has accepted an invitation to be a mentee for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: @mentee.id, project_id: @project_id, message: mentee_response_message)
+          mentee_response_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{@mentee.name} has accepted an invitation to be a mentee.</p>"
+          Feed.create(user_id: @mentee.id, project_id: @project.id, message: mentee_response_message)
           redirect_to :action => 'show'
           flash[:success] = "Accepted invitation to be a mentee for this project."
         else
@@ -147,8 +147,8 @@ class ProjectsController < ApplicationController
         @project.update(mentor_pending: false)
         @mentor = User.find(@project.mentor_id)
         if @project.save
-          mentor_response_message = "<p>#{@mentor.name} has accepted an invitation to be a mentor for the following project: <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a></p>"
-          Feed.create(user_id: @mentor.id, project_id: @project_id, message: mentor_response_message)
+          mentor_response_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{@mentor.name} has accepted an invitation to be a mentor.</p>"
+          Feed.create(user_id: @mentor.id, project_id: @project.id, message: mentor_response_message)
           flash[:success] = "Accepted invitation to be a mentor for this project."
           redirect_to :action => 'show'
         else
@@ -162,6 +162,8 @@ class ProjectsController < ApplicationController
         @project.update(name: project_params[:name], description: project_params[:description], project_url: project_params[:project_url], start_date: project_params[:start_date], finish_date: project_params[:finish_date], public: project_params[:public], completion_status_id: project_params[:completion_status_id])
 
         if @project.save
+          feed_message = "<p>[Project <a href='/projects/#{@project.id}' class='feed-project-link'>#{@project.name}</a>] #{current_user.name} has changed project information.</p>"
+          Feed.create(user_id: current_user.id, project_id: @project.id, message: feed_message)
           flash[:success] = "Project updated."
           redirect_to :action => 'show'
         else
