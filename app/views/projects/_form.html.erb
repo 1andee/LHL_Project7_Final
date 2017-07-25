@@ -37,16 +37,34 @@
   </div>
 
   <div class="field">
+    <%= f.label :public, "Is this a public project?" %>
+    <%= f.select :public, [['Yes', true], ['No', false]] %>
+  </div>
+
+
+<% if !@project.id.present? %>
+<!-- Project is being created -->
+
+  <div class="field">
     <%= f.label :mentor_id, "Are you a mentor for this project?" %>
     <%= f.select :mentor_id, [['Yes', "Mentor"], ['No', "Mentee"]] %>
   </div>
 
+<% else %>
+<!-- Project is being edited -->
+
   <div class="field">
-    <%= f.label :public, "Is this a public project?" %>
-    <%= f.select :public, [['Yes', true], ['No', false]] %>
+    <%= f.label :completion_status_id, "Completion status:" %>
+    <%= f.select :completion_status_id, [["In Progress", 1], ["Complete", 2], ['Cancelled', 3]] %>
   </div>
+
+<% end %>
+
+
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
