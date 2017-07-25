@@ -6,12 +6,12 @@
       <section class="users">
         <section class="user">
           <h5>Mentor:</h5>
-          <div class="user-image"><%= image_tag mentor.avatar.url(:thumb) %></div>
-          <p><%= mentee.name %></p>
+          <%= image_tag mentor.avatar.url(:thumb), { :class=>"user-image" } %>
+          <p><%= mentor.name %></p>
         </section>
         <section class="user">
           <h5>Mentee:</h5>
-          <div class="user-image"><%= image_tag mentee.avatar.url(:thumb) %></div>
+          <%= image_tag mentee.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= mentee.name %></p>
         </section>
       </section>
