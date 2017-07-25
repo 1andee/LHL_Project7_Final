@@ -35,8 +35,7 @@
         <% end %>
         <%= form_tag project_path(project_id), :method => 'put' do %>
           <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentor_pending value="false">
-          <input type=hidden name=accepted value=false>
+          <input type=hidden name=purpose value="mentor_decline">
           <%= submit_tag "Decline invitation to be a mentor", { :class=>"btn" } %>
         <% end %>
       <% end %>
@@ -68,8 +67,7 @@
         <% end %>
         <%= form_tag project_path(project_id), :method => 'put' do %>
           <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentee_pending value="false">
-          <input type=hidden name=accepted value="false">
+          <input type=hidden name=purpose value="mentee_decline">
           <%= submit_tag "Decline invitation to be a mentee", { :class=>"btn" } %>
         <% end %>
       <% end %>
@@ -88,7 +86,10 @@
   <p>Project URL: <%= @project.project_url %><p>
   <p>Start date: <%= @project.start_date %><p>
   <p>Finish date: <%= @project.finish_date %><p>
+  <p>Public project: <%= @project.public ? "Yes" : "No, this project is private." %>
+  <p>Completion status: <%= CompletionStatus.find(@project.completion_status_id).name %>
 
+<br><br>
   <%= link_to 'Edit', edit_project_path(@project) %>
 
 <section class="project-page">
@@ -110,35 +111,92 @@
 
 <!-- Add mentor and mentee actual names -->
 <section class="rating-section">
-<% if current_user &&  current_user.id == @project.mentor_id %>
-  <h1> Rate MenteeNameHere As Mentee On This Project </h1>
-  <div class="row">
-    <div class="small-2 large-4 columns">
-      <% if current_user %>
-        Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
-        <br>
-        Availability: <%= rating_for @project, "availability", stars: 5  %>
-        <br>
-      <% end %>
-    </div>
-  </div>
+<% if current_user %>
 
-<% elsif current_user && current_user.id == @project.mentee_id  %>
-  <h1> Rate MentorNameHere As Mentor On This Project </h1>
-    <div class="row">
-      <div class="small-2 large-4 columns">
-        <% if current_user %>
-          Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+  <% if current_user.id == @project.mentor_id %>
+  <!-- current user is the mentor: show mentee's ratings to edit and mentor's rating to see -->
+    <% if @project.mentee_id.present? %>
+      <% mentee_name = User.find(@project.mentee_id).name %>
+      <h1> <%= mentee_name %>'s rating as mentee on this project </h1>
+      <div class="row">
+        <div class="small-2 large-4 columns">
+          <% if current_user %>
+            Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+            <br>
+            Availability: <%= rating_for @project, "availability", stars: 5  %>
+            <br>
+          <% end %>
+        </div>
+      </div>
+
+      <div>
+        Feedback for mentee:<br>
+        <%= form_tag project_path(project_id), :method => 'put' do %>
+          <input type=hidden name=project_id value=<%= project_id %>>
+          <input type=hidden name=purpose value="update_mentor_feedback">
+          <%= text_area_tag(:mentor_feedback, @project.mentor_feedback, cols: 80, rows: 5) %>
           <br>
-          Availability: <%= rating_for @project, "availability", stars: 5  %>
-          <br>
+          <%= submit_tag "Update feedback", { :class=>"btn" } %>
         <% end %>
       </div>
+    <% else %>
+      <h4> There is no mentee on this project to be rated</h4>
+    <% end %>
+    <br><br>
+    <h1> <%= current_user.name %>'s rating as mentor on this project </h1>
+    <div>PENDING: include stars read only here!</div>
+    <div>
+      Feedback for mentor:<br>
+      <textarea cols="80" rows="5" disabled>
+        <%=@project.mentee_feedback%>
+      </textarea>
     </div>
+
+  <% elsif current_user.id == @project.mentee_id  %>
+  <!-- current user is the mentee: show mentor's ratings to edit and mentee's rating to see -->
+    <h1> <%= current_user.name %>'s rating as mentee on this project </h1>
+    <div>PENDING: include stars read only here!</div>
+    <div>
+      Feedback for mentee:<br>
+      <textarea cols="80" rows="5" disabled>
+        <%=@project.mentor_feedback%>
+      </textarea>
+    </div>
+    <% if @project.mentor_id.present? %>
+      <% mentor_name = User.find(@project.mentor_id).name %>
+      <h1> <%= mentor_name %>'s rating as mentor on this project </h1>
+      <div class="row">
+        <div class="small-2 large-4 columns">
+          <% if current_user %>
+            Accuracy: <%= rating_for @project, "accuracy", stars: 5 %>
+            <br>
+            Availability: <%= rating_for @project, "availability", stars: 5  %>
+            <br>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        Feedback for mentor:<br>
+        <%= form_tag project_path(project_id), :method => 'put' do %>
+          <input type=hidden name=project_id value=<%= project_id %>>
+          <input type=hidden name=purpose value="update_mentee_feedback">
+          <%= text_area_tag(:mentee_feedback, @project.mentee_feedback, cols: 80, rows: 5) %>
+          <%= submit_tag "Update feedback", { :class=>"btn" } %>
+        <% end %>
+      </div>
+    <% else %>
+      <h4> There is no mentor on this project to be rated</h4>
+    <% end %>
+  <% elsif %>
+    <h4> </h4>
+  <% end %>
+
 <% end %>
 </section>
 
 
 <% else %>
-  <h4>This is a private project, you have no permission to access it.</h4>
+  <h4>This is a private project, you need permission to access it.</h4>
 <% end %>
+
+<% console %>

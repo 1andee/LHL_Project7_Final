@@ -16,13 +16,25 @@
   <section class="reputation-system">
      <div style="width: 100;">
           <!-- Show average recieved ratings for user -->
-        <h3> User Reputation</h3>
-        <h4> Knowledge Accuracy</h4>
-        <h5> <%= @user.received_ratings.average(:accuracy).to_f%></h5>
-        <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).to_f%>></span>
-        <h4> User Availability</h4>
-        <h5> <%= @user.received_ratings.average(:availability).to_f%></h5>
-        <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).to_f%>></span>
+        <% if !@user.received_ratings.blank? %>
+          <h3> User Reputation</h3>
+          <h4> Knowledge Accuracy</h4>
+          <% if !@user.received_ratings.average(:accuracy).blank? %>
+            <h5> <%= @user.received_ratings.average(:accuracy).round(2) %></h5>
+            <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).round(2) %>></span>
+            <% else %>
+            <h5><em> Not yet rated </em></h5>
+          <% end %>
+          <h4> User Availability</h4>
+          <% if !@user.received_ratings.average(:availability).blank? %>
+            <h5> <%= @user.received_ratings.average(:availability).round(2) %></h5>
+            <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).round(2) %>></span>
+            <% else %>
+            <h5><em> Not yet rated </em></h5>
+          <% end %>
+
+        <% else %>
+        <% end %>
     </div>
   </section>
   <% if project_id && mentee_id %>
