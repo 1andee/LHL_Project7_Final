@@ -10,10 +10,14 @@
       <div class="user-info">
         <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
         <p><strong><%= user.name %></strong></p>
+        <% if !user.received_ratings.blank? %>
         <p>Knowledge Accuracy:</p>
         <p>Average: <%= user.received_ratings.average(:accuracy).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:accuracy).round(2) %>></span></p>
         <p>User Availability:</p>
         <p>Average: <%= user.received_ratings.average(:availability).round(2) %> <span class='star-rating' data-score=<%= user.received_ratings.average(:availability).round(2) %>></span></p>
+        <% else %>
+        <p><em> Not yet rated </em></p>
+        <% end %>
       </div>
 
       <div class="clear"></div>
