@@ -18,11 +18,11 @@
           <!-- Show average recieved ratings for user -->
         <h3> User Reputation</h3>
         <h4> Knowledge Accuracy</h4>
-        <h5> <%= @user.received_ratings.average(:accuracy).to_f%></h5>
-        <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).to_f%>></span>
+        <h5> <%= @user.received_ratings.average(:accuracy).round(2) %></h5>
+        <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).round(2) %>></span>
         <h4> User Availability</h4>
-        <h5> <%= @user.received_ratings.average(:availability).to_f%></h5>
-        <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).to_f%>></span>
+        <h5> <%= @user.received_ratings.average(:availability).round(2) %></h5>
+        <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).round(2) %>></span>
     </div>
   </section>
   <% if project_id && mentee_id %>
