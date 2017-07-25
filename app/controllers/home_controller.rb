@@ -21,7 +21,13 @@ class HomeController < ApplicationController
             # @activity_list =  Feed.where(user_id: @all_relationships).order(created_at: :desc)
             @feeds = Feed.where("user_id IN (?) and created_at > ? ", @all_relationships, Time.at(params[:after].to_i))
 
+
+            respond_to do |format|
+                format.js
+            end
+
         end
+
 
     end
 end
