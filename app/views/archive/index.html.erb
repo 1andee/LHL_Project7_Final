@@ -1,5 +1,10 @@
+<% if current_user.present? %>
 <h1>Archive</h1>
 
-<section>
+<section class="project-showcase">
    <%= render 'archive/partial_archive' %>
 </section>
+
+<% else %>
+Not authorized.
+<% end %>
