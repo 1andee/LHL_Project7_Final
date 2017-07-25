@@ -57,6 +57,16 @@ class ProjectsController < ApplicationController
 
   def update
 
+    purpose = params[:purpose]
+
+    if purpose == "update_mentor_feedback"
+      Project.update_mentor_feedback(params[:project_id], params[:mentor_feedback], current_user)
+      redirect_to :action => 'show'
+    elsif purpose == "update_mentee_feedback"
+      Project.update_mentee_feedback(params[:project_id], params[:mentee_feedback], current_user)
+      redirect_to :action => 'show'
+    else
+
     if params[:project_id].present?
       @project = Project.find(params[:project_id])
     end
@@ -79,6 +89,7 @@ class ProjectsController < ApplicationController
           flash[:error] = "Error. Your decline could not be sent."
           render :action => 'show'
         end
+
       elsif params[:mentee_pending].present?
         # "mentee decline"
         @project.update(mentee_pending: nil, mentee_id: nil)
@@ -167,6 +178,7 @@ puts "editing project"
       end
 
     end
+  end
 
 
     puts "updated"
@@ -181,6 +193,12 @@ puts "editing project"
     #   end
     # end
 
+  end
+
+  def update_feedback
+    puts "update feedback"
+    puts "mentor feedback: #{@mentor_feedback}"
+    puts "project_id: #{@project_id}"
   end
 
   def destroy
