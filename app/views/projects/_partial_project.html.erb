@@ -6,8 +6,9 @@
   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
   <% @project_users.each do |user| %>
   <% if !user.mentor_projects.blank? %>
-  <% (user.mentor_projects).each do |mentor_project| %>
   <h1 class="title">As a mentor:</h1>
+  <% (user.mentor_projects).each do |mentor_project| %>
+  <% if mentor_project.public %>
   <article>
     <section class="mentor-project">
       <% if mentor_project &&  mentor_project.mentor_id = user.id %>
@@ -66,6 +67,7 @@
       <% end %>
     </section>
     <% end %>
+    <% end %>
     <% else %>
     <h3>No current projects as mentor</h3>
     <% end %>
@@ -78,8 +80,9 @@
   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
   <% @project_users.each do |user| %>
   <% if !user.mentee_projects.blank? %>
-  <% (user.mentee_projects).each do |mentee_project| %>
   <h1 class="title">As a mentee:</h1>
+  <% (user.mentee_projects).each do |mentee_project| %>
+  <% if mentee_project.public %>
   <article>
     <section class="mentee-project">
       <% if mentee_project &&  mentee_project.mentee_id = user.id %>
@@ -137,6 +140,7 @@
       <% end %>
       <% end %>
     </section>
+    <% end %>
     <% end %>
     <% else %>
     <h3>No current projects as mentee</h3>
