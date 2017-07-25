@@ -17,3 +17,21 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+
+$(function() {
+  if($("#feeds-list").length > 0) {
+    setTimeout(updateFeeds , 10000);
+  }
+});
+
+function updateFeeds () {
+  if ($("#feeds-list").length > 0) {
+    var after = $(".feed-message:last-child").attr("data-time");
+  } else {
+    var after = "0";
+  }
+  $.getScript("/home/index.js" + "&after=" + after)
+  setTimeout(updateFeeds , 10000);
+}

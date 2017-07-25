@@ -11,16 +11,14 @@
 
   </section>
 
-  <section class="feed-list">
+  <section class="feed">
     <h1>User Feed</h1>
-    <% if @activity_list.present? %>
-      <% @activity_list.each do |activity|%>
-          <article class="feed-message">
-           [<%=raw activity.created_at%>] <%=raw activity.message %>
-          </article>
-      <% end %>
+    <% if @feeds.present? %>
+      <div id="feeds-list">
+        <%= render @feeds %>
+      </div>
     <% else %>
-      <article>
+      <article  class="no-message">
           <p> You Have No Activites, Create A New Project [Link To Create Project Page].</p>
         </article>
     <% end %>
@@ -28,5 +26,3 @@
   </section>
 
 </section>
-
-<%= console%>

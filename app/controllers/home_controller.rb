@@ -16,8 +16,10 @@ class HomeController < ApplicationController
             @my_mentors = Project.where(mentee_id: current_user.id).pluck(:mentor_id).compact
 
             @all_relationships = @my_mentees + @my_mentors << current_user.id
+
             @all_relationships.uniq
-            @activity_list =  Feed.where(user_id: @all_relationships).order(created_at: :desc)
+            # @activity_list =  Feed.where(user_id: @all_relationships).order(created_at: :desc)
+            @feeds = Feed.where("user_id IN (?) and created_at > ? ", @all_relationships, Time.at(params[:after].to_i))
         end
 
     end
