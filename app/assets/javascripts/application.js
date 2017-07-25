@@ -20,7 +20,7 @@
 
 
 
-$(function() {
+$( document ).on('turbolinks:load', function() {
   if($("#feeds-list").length > 0) {
     setTimeout(updateFeeds , 10000);
   }

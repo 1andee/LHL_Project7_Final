@@ -20,6 +20,7 @@ class HomeController < ApplicationController
             @all_relationships.uniq
             # @activity_list =  Feed.where(user_id: @all_relationships).order(created_at: :desc)
             @feeds = Feed.where("user_id IN (?) and created_at > ? ", @all_relationships, Time.at(params[:after].to_i))
+
         end
 
     end

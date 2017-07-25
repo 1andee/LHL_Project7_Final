@@ -1,3 +1,13 @@
 console.log('here');
-alert("HEre")
-$('#feeds-list').append("<%= raw escape_javascript(render(@feeds)) %>");
+
+// $('#feeds-list').prepend("<%= raw escape_javascript(render(@feeds)) %>");
+
+
+// $('#feeds-list').append("<%= (render(@feeds)).to_s.to_json %>");
+// $( document ).on('turbolinks:load', function() {
+//   $('#feeds-list').append("<%= (render(@feeds)).to_s.to_json %>");
+// });
+
+$( document ).on('turbolinks:load', function() {
+  $('#feeds-list').prepend("<%= raw escape_javascript(render(@feeds)) %>");
+});
