@@ -12,6 +12,8 @@
     <p class="alert alert-<%= key %>"><%= value %></p>
   <% end %>
 
+  <% if current_user %>
+
   <% if current_user.id == @project.mentor_id %>
 
     <% if mentor_mentee && @project.mentee_id %>
@@ -77,6 +79,8 @@
 
   <% end %>
 
+  <% end %>
+
   <hr>
 
   <p>Name: <%= @project.name %><p>
@@ -138,5 +142,3 @@
 <% else %>
   <h4>This is a private project, you have no permission to access it.</h4>
 <% end %>
-
-<% console %>
