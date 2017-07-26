@@ -1,8 +1,8 @@
-<%= render 'projects_sidebar' %>
+  <%= render 'projects_sidebar' %>
 
 <section class="home-user-feed">
 
-  <section class="comment-box">
+  <section id="post-input" class="comment-box" data-turbolinks-permanent>
 
   <%= form_tag(feeds_path, method: :post, remote: false) do %>
     <%= text_area_tag(:post) %>
@@ -14,7 +14,7 @@
   <section class="feed">
     <h1>User Feed</h1>
     <% if @feeds.present? %>
-      <div id="feeds-list">
+      <div id="feeds-list" data-turbolinks-temporary>
         <%= render @feeds %>
       </div>
     <% else %>

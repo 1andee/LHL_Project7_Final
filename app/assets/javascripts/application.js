@@ -20,20 +20,15 @@
 
 
 
-$( document ).on('turbolinks:load', function() {
+$(document).on('turbolinks:load', function() {
   if($("#feeds-list").length > 0) {
     setTimeout(updateFeeds , 10000);
   }
 });
 
 function updateFeeds () {
-  if ($("#feeds-list").length > 0) {
-    var after = $(".feed-message:last-child").attr("data-time");
-  } else {
-    var after = "0";
-  }
 
-  Turbolinks.visit("/home/index.js" + "&after=" + after)
+  Turbolinks.visit('/home/index')
   // $.getScript("/home/index.js" + "&after=" + after)
-  setTimeout(updateFeeds , 10000);
+  setTimeout(updateFeeds , 10000 );
 }
