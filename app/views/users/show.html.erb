@@ -12,15 +12,14 @@
 
   <section class="reputation-system">
   <% if !@user.received_ratings.blank? %>
-    <h3> User Reputation:</h3>
-    <span> Knowledge Accuracy</span><br>
+    <span><strong>Knowledge Accuracy: </strong></span>
     <% if !@user.received_ratings.average(:accuracy).blank? %>
       <span> <%= @user.received_ratings.average(:accuracy).round(2) %></span><br>
       <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).round(2) %>></span><br>
     <% else %>
       <span><em> Not yet rated </em></span><br>
     <% end %>
-    <span> User Availability</span><br>
+    <span><strong>User Availability: </strong></span>
     <% if !@user.received_ratings.average(:availability).blank? %>
       <span> <%= @user.received_ratings.average(:availability).round(2) %></span><br>
       <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).round(2) %>></span><br>
