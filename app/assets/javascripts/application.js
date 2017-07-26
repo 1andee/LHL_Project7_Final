@@ -33,7 +33,7 @@ function updateFeeds () {
     var after = "0";
   }
 
-  Turbolinks.visit("/home/index" + "&after=" + after)
+  Turbolinks.visit("/home/index.js" + "&after=" + after)
   // $.getScript("/home/index.js" + "&after=" + after)
   setTimeout(updateFeeds , 10000);
 }
