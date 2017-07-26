@@ -32,6 +32,8 @@ function updateFeeds () {
   } else {
     var after = "0";
   }
-  $.getScript("/home/index.js" + "&after=" + after)
+
+  Turbolinks.visit("/home/index" + "&after=" + after)
+  // $.getScript("/home/index.js" + "&after=" + after)
   setTimeout(updateFeeds , 10000);
 }

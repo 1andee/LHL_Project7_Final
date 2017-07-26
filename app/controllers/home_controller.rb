@@ -2,7 +2,7 @@ class HomeController < ApplicationController
     def index
         # @users = User.search_by_name(params[:query])
         # @users = User.search_by_skill(params[:query])
-        @feeds = Feed.all.order(created_at: :desc).includes(:projects)
+        # @feeds = Feed.all.order(created_at: :desc).includes(:projects)
         @projects = Project.all
         @project = Project.find_by_id(params[:id])
         # data for view to display partial profile in search
@@ -19,12 +19,8 @@ class HomeController < ApplicationController
 
             @all_relationships.uniq
             # @activity_list =  Feed.where(user_id: @all_relationships).order(created_at: :desc)
-            @feeds = Feed.where("user_id IN (?) and created_at > ? ", @all_relationships, Time.at(params[:after].to_i))
+            @feeds = Feed.where("user_id IN (?) and created_at > ? ", @all_relationships, Time.at(params[:after].to_i)).order(created_at: :desc)
 
-
-            respond_to do |format|
-                format.js
-            end
 
         end
 
