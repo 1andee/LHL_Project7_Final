@@ -4,69 +4,65 @@
   <% owner = false %>
 <% end %>
 
-<% flash.each do |key, value| %>
-  <p class="alert alert-<%= key %>"><%= value %></p>
-<% end %>
-
 <% project_id = params[:project_id] %>
 <% mentee_id = params[:mentee_id] %>
 <% mentor_id = params[:mentor_id] %>
 
 <section class="user-profile">
-  <section class="reputation-system">
-     <div style="width: 100;">
-          <!-- Show average recieved ratings for user -->
-        <% if !@user.received_ratings.blank? %>
-          <h3> User Reputation</h3>
-          <h4> Knowledge Accuracy</h4>
-          <% if !@user.received_ratings.average(:accuracy).blank? %>
-            <h5> <%= @user.received_ratings.average(:accuracy).round(2) %></h5>
-            <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).round(2) %>></span>
-            <% else %>
-            <h5><em> Not yet rated </em></h5>
-          <% end %>
-          <h4> User Availability</h4>
-          <% if !@user.received_ratings.average(:availability).blank? %>
-            <h5> <%= @user.received_ratings.average(:availability).round(2) %></h5>
-            <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).round(2) %>></span>
-            <% else %>
-            <h5><em> Not yet rated </em></h5>
-          <% end %>
 
-        <% else %>
-        <% end %>
-    </div>
+  <section class="reputation-system">
+  <% if !@user.received_ratings.blank? %>
+    <h3> User Reputation:</h3>
+    <span> Knowledge Accuracy</span><br>
+    <% if !@user.received_ratings.average(:accuracy).blank? %>
+      <span> <%= @user.received_ratings.average(:accuracy).round(2) %></span><br>
+      <span class='star-rating' data-score=<%= @user.received_ratings.average(:accuracy).round(2) %>></span><br>
+    <% else %>
+      <span><em> Not yet rated </em></span><br>
+    <% end %>
+    <span> User Availability</span><br>
+    <% if !@user.received_ratings.average(:availability).blank? %>
+      <span> <%= @user.received_ratings.average(:availability).round(2) %></span><br>
+      <span class='star-rating' data-score=<%= @user.received_ratings.average(:availability).round(2) %>></span><br>
+    <% else %>
+      <span><em> Not yet rated </em></span><br>
+    <% end %>
+  <% else %>
+  <% end %>
   </section>
+
   <% if project_id && mentee_id %>
     <%= form_tag project_path(project_id), :method => 'put' do %>
       <input type=hidden name=mentee_id value=<%= mentee_id %>>
       <input type=hidden name=project_id value=<%= project_id %>>
       <input type=hidden name=set_mentor_id value=<%= @user.id %>>
-      <%= submit_tag "Send Mentor request", { :class=>"btn" } %>
+      <%= submit_tag "Send Mentor request", { :class=>"btn" } %><br>
     <% end %>
   <% elsif project_id && mentor_id%>
     <%= form_tag project_path(project_id), :method => 'put' do %>
       <input type=hidden name=mentor_id value=<%= mentor_id %>>
       <input type=hidden name=project_id value=<%= project_id %>>
       <input type=hidden name=set_mentee_id value=<%= @user.id %>>
-      <%= submit_tag "Send Mentee request", { :class=>"btn" } %>
+      <%= submit_tag "Send Mentee request", { :class=>"btn" } %><br>
     <% end %>
   <% end %>
 
-  <p id="notice"><%= notice %></p>
-  <%= image_tag @user.avatar.url(:thumb), { :class=>"user-image" } %>
+  <%= image_tag @user.avatar.url(:medium), { :class=>"user-image" } %>
 
-  <p><strong>Name: </strong><%= @user.name %></p>
-  <p><strong>Email: </strong><%= @user.email %></p>
-  <p><strong>Location: </strong><%= @user.location %></p>
-  <p><strong>Linkedin url: </strong><%= @user.linkedin_url %></p>
-  <p><strong>Github url: </strong><%= @user.github_url %></p>
-  <p><strong>Other site: </strong><%= @user.other_site %></p>
-  <p><strong>Twitter: </strong><%= @user.twitter %></p>
-  <p><strong>Slack name: </strong><%= @user.slack_name %></p>
+  <div class="info">
+    <p><strong>Name: </strong><%= @user.name %></p>
+    <p><strong>Email: </strong><%= @user.email %></p>
+    <p><strong>Location: </strong><%= @user.location %></p>
+    <p><strong>Linkedin url: </strong><%= @user.linkedin_url %></p>
+    <p><strong>Github url: </strong><%= @user.github_url %></p>
+    <p><strong>Other site: </strong><%= @user.other_site %></p>
+    <p><strong>Twitter: </strong><%= @user.twitter %></p>
+    <p><strong>Slack name: </strong><%= @user.slack_name %></p>
+  </div>
 
+  <div class="clear"></div>
 
-  <%= link_to 'Edit', edit_user_path(@user) if owner %>
+  <%= link_to 'Edit Profile', edit_user_path(@user), { :class=>"edit-profile" } if owner %>
 
 </section>
 

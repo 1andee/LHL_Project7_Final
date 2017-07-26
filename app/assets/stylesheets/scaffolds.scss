@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Questrial');
 
 @mixin transition($transition) {
   -webkit-transition: all $transition ease;
@@ -17,10 +17,19 @@ body {
   margin: 0;
 }
 
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  margin: 0 0 20px;
+strong {
+  font-family: 'Montserrat', sans-serif;
 }
+
+p, ol, ul, td {
+  margin: 0 0 10px;
+}
+
+.alert-info {
+  text-align: center;
+  padding-top: 20px;
+}
+
 
 input, textarea {
   box-sizing: border-box;
@@ -33,9 +42,9 @@ input, textarea {
   @include transition(0.3s);
 
   &:focus {
-    border: 1px solid #aaa;
-    color: #000;
-    outline: none;
+    border: 1px solid #aaa !important;
+    color: #000 !important;
+    outline: none !important;
   }
 
 }
@@ -155,11 +164,10 @@ label {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  color: #000;
+  background: #2753b5;
+  color: #fff;
   padding: 5px 10px;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
 
   ul {
@@ -182,13 +190,13 @@ label {
     font-family: 'Questrial', sans-serif;
     display: inline-block;
     font-size: 11px;
-    color: #000;
+    color: #fff;
     padding: 11px 10px 7px;
     text-transform: uppercase;
     text-decoration: none;
 
     &:hover {
-      color: #000;
+      color: #fff;
     }
   }
 
@@ -235,32 +243,95 @@ main {
   height: calc(100% - 48px);
   box-sizing: border-box;
   padding: 20px;
-  color: #fff;
-  background: #2753b5;
+  color: #000;
+  background: #f7f7f7;
+  border-right: 1px solid #ddd;
 
   h2, h3 {
     padding: 20px 0 10px;
     font-weight: normal;
     margin: 0 0 20px;
     clear: both;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #000;
   }
 
   a {
-    color: #fff;
+    color: #000;
     margin-bottom: 5px;
     float: left;
     clear: both;
   }
 
   a.btn {
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid #000;
+    color: #000;
   }
 }
 
 .search-results {
   text-align: center;
+}
+
+.user-profile {
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+
+  .user-image {
+    max-width: 150px;
+    margin: 0;
+    float: left;
+  }
+
+  .info {
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid #ddd;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .edit-profile {
+    position: absolute;
+    bottom: 10px;
+    right: 50%;
+    margin-right: -31px;
+    font-size: 12px;
+    display: inline-block;
+    font-style: italic;
+    color: #989898;
+    letter-spacing: 0.5px;
+  }
+
+  .reputation-system {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    text-align: right;
+
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+  }
+
+}
+
+.user_skills {
+  box-sizing: border-box;
+  padding: 20px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+
+.user_projects {
+  box-sizing: border-box;
+  padding: 0 20px 20px;
 }
 
 .user-image {
@@ -345,6 +416,22 @@ main {
 
 }
 
+.add-skill-form {
+
+  input[type="text"] {
+    padding: 2px 5px;
+    width: 100px;
+  }
+
+  input[type="submit"] {
+    font-size: 11px;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 4px 10px;
+  }
+
+}
+
 .feed-list {
 
   h1 {
@@ -412,24 +499,6 @@ form.new_project {
     padding-right: 10px;
     width: 50%;
 
-    ul.user-skills {
-
-      padding: 0;
-      margin: 0 0 2px;
-
-      li {
-        list-style: none;
-        display: inline-block;
-        background: #cfe4ff;
-        padding: 0 5px;
-        margin: 2px 0;
-        border-radius: 3px;
-        border: 1px solid #5b8eff;
-        color: #0038b3;
-      }
-
-    }
-
   }
 
   .view-profile-space {
@@ -439,6 +508,24 @@ form.new_project {
   a {
     position: absolute;
     bottom: 20px;
+  }
+
+}
+
+ul.user-skills {
+  font-size: 11px;
+  padding: 0;
+  margin: 0 0 2px;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    background: #cfe4ff;
+    padding: 0 5px;
+    margin: 2px 1px;
+    border-radius: 3px;
+    border: 1px solid #5b8eff;
+    color: #0038b3;
   }
 
 }
@@ -468,8 +555,21 @@ form.new_project {
   }
 
   .page {
-    padding: 5px 5px 6px 10px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 23px;
+    height: 20px;
+    line-height: 20px;
     border: 1px solid #ddd;
+
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: 20px;
+      width: 100%;
+    }
   }
 
   .current {

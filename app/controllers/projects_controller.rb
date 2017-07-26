@@ -108,7 +108,7 @@ class ProjectsController < ApplicationController
             mentor_request_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{current_user.name} has requested #{@mentor.name} to be mentor.</p>"
             Feed.create(user_id: params[:mentee_id], project_id: @project.id, message: mentor_request_message)
             redirect_to project_path(@project), :action => 'show'
-            flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for the project."
+            flash[:success] = "Sent #{@mentor.name} an invitation to be a mentor for this project."
           else
             flash[:error] = "Error. Invitation could not be sent."
             puts 'Invitation could not be sent.'
@@ -122,7 +122,7 @@ class ProjectsController < ApplicationController
           mentee_request_message = "<p>[Project <a href='/projects/#{params[:project_id]}' class='feed-project-link'>#{@project.name}</a>] #{current_user.name} has sent to #{@mentee.name} an invitation to be a mentee.</p>"
           Feed.create(user_id: params[:mentor_id], project_id: @project.id, message: mentee_request_message)
           redirect_to project_path(@project), :action => 'show'
-          flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for the project."
+          flash[:success] = "Sent #{@mentee.name} an invitation to be a mentee for this project."
         else
           flash[:error] = "Error. Invitation could not be sent."
           puts 'Invitation could not be sent.'
@@ -206,5 +206,3 @@ class ProjectsController < ApplicationController
   end
 
 end
-
-

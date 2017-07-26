@@ -6,18 +6,9 @@
 
 
  <span class="as_mentor">
-    <span class="title">I'm a mentor in:</span>
+    <span class="title"><strong>I'm a mentor in:</strong></span>
     <span class="mentor_skills">
-      <% if owner %>
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="mentor" value=true>
-          <input type=hidden name="origin" value="user">
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <% end %>
-      <span>
-        <ul id="container_mentor_skills">
+        <ul class="user-skills">
           <% if !@mentor_skills.blank? %>
             <% @mentor_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
@@ -32,23 +23,21 @@
             No skills as mentor
           <% end %>
         </ul>
-      </span>
+        <% if owner %>
+          <%= form_tag('/skills', method: :post, :class=>"add-skill-form", remote: false) do %>
+            <input type=hidden name="mentor" value=true>
+            <input type=hidden name="origin" value="user">
+            <%= text_field_tag(:skill_name) %>
+            <%= submit_tag("Add skill") %>
+          <% end %>
+        <% end %>
     </span>
   </span>
 
   <span class="as_mentee">
-    <span class="title">I'm being mentored in:</span>
+    <span class="title"><strong>I'm being mentored in:</strong></span>
     <span class="mentee_skills">
-      <% if owner %>
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="mentor" value=false>
-          <input type=hidden name="origin" value="user">
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <% end %>
-      <span>
-        <ul id="container_mentee_skills">
+        <ul class="user-skills">
           <% if !@mentee_skills.blank? %>
             <% @mentee_skills.each do |s| %>
               <li id='<%= s.id %>'><%= s.skill_name %>
@@ -63,6 +52,13 @@
             No skills as mentee
           <% end %>
         </ul>
-      </span>
+        <% if owner %>
+          <%= form_tag('/skills', method: :post, :class=>"add-skill-form", remote: false) do %>
+            <input type=hidden name="mentor" value=false>
+            <input type=hidden name="origin" value="user">
+            <%= text_field_tag(:skill_name) %>
+            <%= submit_tag("Add skill") %>
+          <% end %>
+        <% end %>
     </span>
   </span>

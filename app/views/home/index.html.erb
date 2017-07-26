@@ -4,6 +4,10 @@
 
 <% else %>
 
+<% flash.each do |key, value| %>
+  <p class="alert alert-<%= key %>"><%= value %></p>
+<% end %>
+
 <section class="home-search">
   <h1>Find A Mentor In Your Field</h1>
   <%= form_tag home_index_path, :method => 'get', :class=>"search-form" do %>
