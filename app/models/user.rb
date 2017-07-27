@@ -2,6 +2,7 @@ class User < ApplicationRecord
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  after_create :email_user
 
   # defining has many relationships between skills using through table
   has_many :skill_users
@@ -20,6 +21,11 @@ class User < ApplicationRecord
 
 
   has_secure_password
+
+  # Welcome email on registration
+  def email_user
+    UserMailer.welcome_email(self).deliver
+  end
 
   # Adds rating power to user model
   ratyrate_rater
@@ -89,9 +95,3 @@ end
 
 
 # SELECT DISTINCT "user_id" FROM "users" INNER JOIN skill_users ON skill_users.user_id = users.id INNER JOIN skills ON skills.id = skill_users.skill_id WHERE (users.name @@ 'juan html' or skills.skill_name @@ 'juan html')
-
-
-
-
-
-
