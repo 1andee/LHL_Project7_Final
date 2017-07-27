@@ -4,20 +4,10 @@
   <% mentor_mentee = false %>
 <% end %>
 
-<span class="title">Skills:</span>
+<span class="title"><strong>Project skills:</strong></span>
     <span class="project_skills">
-      <% if mentor_mentee %>
-        <%= form_tag('/skills', method: :post, remote: false) do %>
-          <input type=hidden name="origin" value="project">
-          <input type=hidden name="project_id" value="<%= @project.id %>">
-          <input type=hidden name="project_name" value="<%= @project.name %>">
-          <%= text_field_tag(:skill_name) %>
-          <%= submit_tag("Add skill") %>
-        <% end %>
-      <% end %>
-      <span>
-        <ul id="container_project_skills">
-          <% if !@project_skills.blank? %>
+      <ul class="user-skills">
+        <% if !@project_skills.blank? %>
             <% @project_skills.each do |s| %>
               <li id='<%= s.id %>' ><%= s.skill_name %>
                 <% if mentor_mentee %>
@@ -27,10 +17,18 @@
                 <% end %>
               </li>
             <% end %>
-          <% else %>
-            This project has no skills attached.
-          <% end %>
-        </ul>
-      </span>
+        <% else %>
+          This project has no skills attached.
+        <% end %>
+      </ul>
+      <% if mentor_mentee %>
+        <%= form_tag('/skills', method: :post, remote: false) do %>
+          <input type=hidden name="origin" value="project">
+          <input type=hidden name="project_id" value="<%= @project.id %>">
+          <input type=hidden name="project_name" value="<%= @project.name %>">
+          <%= text_field_tag(:skill_name) %>
+          <%= submit_tag("Add skill") %>
+        <% end %>
+      <% end %>
     </span>
   </span>

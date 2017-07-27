@@ -4,8 +4,23 @@
   <% mentor_mentee = false %>
 <% end %>
 
-<span class="title">Goals:</span>
+<span class="title"><strong>Goals:</strong></span>
     <span class="project_goals">
+      <ul class="user-skills">
+        <% if !@project_goals.blank? %>
+          <% @project_goals.each do |g| %>
+            <li id='<%= g.id %>'><%= g.title %>
+              <% if mentor_mentee %>
+                <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        <% else %>
+          This project has no goals attached.
+        <% end %>
+      </ul>
       <% if mentor_mentee %>
         <%= form_tag(project_goals_path(@project.id), method: :post, remote: false) do %>
           <input type=hidden name="project_name" value="<%= @project.name %>">
@@ -13,23 +28,5 @@
           <%= submit_tag("Add goal") %>
         <% end %>
       <% end %>
-      <span>
-        <ul id="container_project_goals">
-          <% if !@project_goals.blank? %>
-            <% @project_goals.each do |g| %>
-              <li id='<%= g.id %>'><strong>Title:</strong> <%= g.title %>
-                <% if mentor_mentee %>
-                  <%= link_to project_goal_path(goal_id: g.id, goal_title: g.title, project_id: @project.id, project_name: @project.name), method: :delete do %>
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                  <% end %>
-                <% end %>
-              </li>
-            <% end %>
-          <% else %>
-            This project has no goals attached.
-          <% end %>
-        </ul>
-
-      </span>
     </span>
   </span>

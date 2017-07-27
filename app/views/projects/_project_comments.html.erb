@@ -4,8 +4,9 @@
   <% mentor_mentee = false %>
 <% end %>
 
-<span class="title">Comments:</span><br>
-  <span class="add_comments">
+<h2>Projects comments:</h2>
+  <div class="add_comments">
+    <strong>Add a comment:</strong>
     <% if mentor_mentee %>
       <%= form_tag(project_comments_path(@project.id), method: :post, remote: false) do %>
         <%= text_area_tag(:comment, nil, cols: 80, rows: 5) %>
@@ -22,17 +23,17 @@
         <br><%= submit_tag("Add comment") %>
       <% end %>
     <% end %>
-  </span>
-  <br>
-  <span class="show_comments">
+  </div>
 
-      <strong>Comments attached to project:</strong>
+  <div class="show_comments">
+
+      <strong>Comments regarding the project in general:</strong>
         <div class="container_comments">
           <% if @comments.where(goal_id: nil).present? %>
             <ul>
               <% @comments.where(goal_id: nil).each do |c| %>
                 <li id='<%= c.id %>'>
-                  <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                  <strong><%= c.created_at.to_date %> - <%= c.name %>:</strong> <%= c.comment %>.
                   <% if c.action_required %>
                     <span class="alert_message">Answer required.</span>
                   <% end %>
@@ -46,13 +47,13 @@
 
         <% if @project_goals.present? %>
           <% @project_goals.each do |g| %>
-            <strong>Comments attached to goal '<%= g.title %>':</strong>
+            <strong>Comments regarding "<%= g.title %>":</strong>
             <div class="container_comments">
               <% if @comments.where(goal_id: g.id).present? %>
                 <ul>
                   <% @comments.where(goal_id: g.id).each do |c| %>
                     <li id='<%= c.id %>'>
-                      <%= c.created_at.to_date %> - <%= c.name %>: <%= c.comment %>.
+                      <strong><%= c.created_at.to_date %> - <%= c.name %>:</strong> <%= c.comment %>.
                       <% if c.action_required %>
                         <span class="alert_message">Answer required.</span>
                       <% end %>
@@ -65,6 +66,6 @@
             </div>
           <% end %>
         <% end %>
-  </span>
+  </div>
 
 </span>
