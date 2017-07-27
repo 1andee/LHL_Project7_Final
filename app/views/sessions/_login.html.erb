@@ -3,11 +3,13 @@
 <%= form_for(:session, url: sessions_path) do |f| %>
 
 <div class="field">
-  Email <%= f.text_field :email %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
 </div class="field">
 
 <div class="field">
-  Password <%= f.password_field :password %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
 </div class="field">
 
 <div class="actions">
