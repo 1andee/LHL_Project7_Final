@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Questrial');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
 
 @mixin transition($transition) {
   -webkit-transition: all $transition ease;
@@ -9,16 +10,16 @@
 }
 
 body {
-  background-color: #fff;
-  color: #333;
-  font-family: 'Questrial', sans-serif;
+  background-color: #ececec;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   line-height: 1.5em;
   margin: 0;
 }
 
 strong {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 p, ol, ul, td {
@@ -71,7 +72,7 @@ input[type="submit"] {
 }
 
 h1 {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   color: #2753b5;
   font-size: 25px;
@@ -81,13 +82,20 @@ h1 {
   padding: 50px 0 20px;
 }
 
+h2, h3 {
+  font-weight: 400;
+}
+
 .btn {
   display: inline-block;
   cursor: pointer;
+  text-transform: uppercase;
   margin: 10px 0 0;
-  padding: 5px 10px;
-  border-radius: 3px;
-  background: #2753b5;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: #ff7b00;
   color: #fff;
   @include transition(0.3s);
 }
@@ -166,7 +174,7 @@ label {
 /* NAV */
 
 .navbar {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -190,13 +198,13 @@ label {
   }
 
   ul li a.logo {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     letter-spacing: 2px;
   }
 
   ul li a {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     display: inline-block;
     font-size: 11px;
     color: #fff;
@@ -242,9 +250,12 @@ main {
 .container {
   width: 95%;
   max-width: 960px;
+  overflow: hidden;
   box-sizing: border-box;
   margin: 20px auto;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .home-page {
@@ -255,7 +266,7 @@ main {
 }
 
 .home-projects-sidebar {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   overflow: scroll;
   position: fixed;
   left: 0;
@@ -336,6 +347,7 @@ main {
   position: relative;
   box-sizing: border-box;
   padding: 20px;
+  background: #f9f9f9;
   border-bottom: 1px solid #ddd;
 
   input {
@@ -380,7 +392,7 @@ main {
     position: absolute;
     bottom: 20px;
     right: 25px;
-    font-size: 12px;
+    font-size: 11px;
     display: inline-block;
     font-style: italic;
     letter-spacing: 1px;
@@ -412,15 +424,21 @@ main {
 }
 
 .user_skills {
-  box-sizing: border-box;
+  position: relative;
+  background: #fff;
   padding: 20px;
   overflow: hidden;
-  border-bottom: 1px solid #ddd;
+  -webkit-box-shadow: 0 0px 30px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 30px 0 rgba(0, 0, 0, 0.2);
 }
 
 .user_projects {
+  width: 100%;
   box-sizing: border-box;
-  padding: 0 20px 20px;
+  padding: 20px;
+  overflow: hidden;
+  background: #f9f9f9;
+  border-top: 1px solid #ddd;
 }
 
 .user-image {
@@ -433,6 +451,7 @@ main {
   position: absolute;
   top: 0;
   left: 225px;
+  background: #fff;
   width: calc(100% - 225px);
   box-sizing: border-box;
   padding: 20px;
@@ -447,34 +466,39 @@ main {
 
 .home-search {
   padding: 0 0 100px;
+  background-image: url("/images/business-mentorship.jpg");
+  background-size: cover;
 }
 
 .user-search {
-  padding: 0 0 100px;
+  padding: 40px 0 100px;
 }
 
 .search-form {
-  width: 220px;
+  width: 240px;
   margin: 0 auto 20px;
   text-align: center;
 
   input[type="text"] {
+    font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
     background: none;
+    letter-spacing: 1px;
+    background: none;
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ddd;
-    color: #000;
+    color: #2753b5;
     padding: 5px 7px 5px;
     font-size: 13px;
     border-radius: 5px;
-    width: 220px;
+    width: 240px;
 
     &::placeholder {
       color: #999;
     }
 
     &:focus {
-      border: 1px solid #999;
-    color: #000;
+      outline: none;
     }
   }
 
@@ -567,18 +591,18 @@ form.new_project {
 
 .partial-profile {
   position: relative;
-  font-size: 11px;
+  font-size: 14px;
   text-align: left;
   display: inline-block;
   vertical-align: top;
   max-width: 355px;
-  min-height: 268px;
+  min-height: 340px;
   margin: 10px;
   box-sizing: border-box;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #2753b5;
-  border: 1px solid #ddd;
+  background: #f9f9f9;
+  color: #000000;
+  border: 1px solid #ccc;
   border-radius: 5px;
 
   p {
@@ -586,7 +610,7 @@ form.new_project {
   }
 
   .star-rating img {
-    height: 10px;
+    height: 12px;
   }
 
   .user-info {
@@ -626,9 +650,9 @@ form.new_project {
 }
 
 ul.user-skills {
-  font-size: 11px;
+  font-size: 12px;
   padding: 0;
-  margin: 0 0 2px;
+  margin: 3px 0 5px;
 
   li {
     list-style: none;
@@ -650,21 +674,27 @@ ul.user-skills {
 
   .first, .prev {
     a {
-      letter-spacing: 1px;
-      font-size: 10px;
-      font-style: italic;
-      padding-right: 10px;
-      color: #666;
+      display: inline-block;
+    letter-spacing: 1px;
+    font-size: 10px;
+    font-style: italic;
+    padding: 0 10px;
+    background: #fff;
+    line-height: 20px;
+    color: #2753b5;
     }
   }
 
   .next, .last {
     a {
+      display: inline-block;
       letter-spacing: 1px;
       font-size: 10px;
       font-style: italic;
-      padding-left: 10px;
-      color: #666;
+      padding: 0 10px;
+      background: #fff;
+      line-height: 20px;
+      color: #2753b5;
     }
   }
 
@@ -675,21 +705,21 @@ ul.user-skills {
     width: 23px;
     height: 20px;
     line-height: 20px;
-    border: 1px solid #ddd;
 
     a {
       position: absolute;
       top: 0;
       left: 0;
-      color: #666;
+      background: #fff;
+      color: #2753b5;
       line-height: 20px;
       width: 100%;
     }
   }
 
   .current {
-    background: #ddd;
-    color: #000;
+    background: #2753b5;
+    color: #fff;
   }
 
 }
@@ -697,6 +727,8 @@ ul.user-skills {
 .project-showcase {
   background: #fff;
   text-align: center;
+  -webkit-box-shadow: 0 -5px 30px 0 rgba(0,0,0,0.6);
+  box-shadow: 0 -5px 30px 0 rgba(0,0,0,0.6);
 
   h1 {
     background: #eee;
@@ -710,9 +742,9 @@ ul.user-skills {
   .mentor-project {
     display: inline-block;
     vertical-align: top;
-    font-size: 11px;
+    font-size: 13px;
     padding: 0 20px !important;
-    margin: 10px !important;
+    margin: 10px 50px 50px !important;
   }
 
 }
