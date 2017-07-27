@@ -6,7 +6,7 @@
   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
   <% @project_users.each do |user| %>
   <% if !user.mentor_projects.blank? %>
-  <h1 class="title">As a mentor:</h1>
+  <h2 class="title">As a mentor:</h2>
   <% (user.mentor_projects).each do |mentor_project| %>
   <% if mentor_project.public %>
   <article>
@@ -69,7 +69,7 @@
     <% end %>
     <% end %>
     <% else %>
-    <h1 class="title">As a mentor:</h1>
+    <h2 class="title">As a mentor:</h2>
     <h3>No current projects as mentor</h3>
     <% end %>
     <% end %>
@@ -81,7 +81,7 @@
   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
   <% @project_users.each do |user| %>
   <% if !user.mentee_projects.blank? %>
-  <h1 class="title">As a mentee:</h1>
+  <h2 class="title">As a mentee:</h2>
   <% (user.mentee_projects).each do |mentee_project| %>
   <% if mentee_project.public %>
   <article>
@@ -144,7 +144,7 @@
     <% end %>
     <% end %>
     <% else %>
-    <h1 class="title">As a mentee:</h1>
+    <h2 class="title">As a mentee:</h2>
     <h3>No current projects as mentee</h3>
     <% end %>
     <% end %>
