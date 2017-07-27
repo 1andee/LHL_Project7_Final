@@ -18,12 +18,12 @@
       <% mentee_avatar = mentee.avatar%>
       <section class="users">
         <section class="user">
-          <h5>Mentor:</h5>
+          <h4>Mentor:</h4>
           <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
-          <h5>Mentee:</h5>
+          <h4>Mentee:</h4>
           <%= image_tag mentee.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= mentee_name%></p>
         </section>
@@ -42,12 +42,12 @@
       <% else %>
       <section class="users">
         <section class="user">
-          <h5>Mentor:</h5>
+          <h4>Mentor:</h4>
           <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
-          <h5>Mentee:</h5>
+          <h4>Mentee:</h4>
           <%= image_tag ("/images/missing.png"), { :class=>"user-image" } %>
           <p>No mentee yet</p>
         </section>
@@ -69,6 +69,7 @@
     <% end %>
     <% end %>
     <% else %>
+    <h1 class="title">As a mentor:</h1>
     <h3>No current projects as mentor</h3>
     <% end %>
     <% end %>
@@ -92,12 +93,12 @@
       <% mentor_avatar = mentor.avatar%>
       <section class="users">
         <section class="user">
-          <h5>Mentor:</h5>
+          <h4>Mentor:</h4>
           <%= image_tag mentor.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= mentor_name%></p>
         </section>
         <section class="user">
-          <h5>Mentee:</h5>
+          <h4>Mentee:</h4>
           <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
@@ -116,12 +117,12 @@
       <% else %>
       <section class="users">
         <section class="user">
-          <h5>Mentor:</h5>
+          <h4>Mentor:</h4>
           <%= image_tag ("/images/missing.png"), { :class=>"user-image" } %>
           <p>No mentor yet</p>
         </section>
         <section class="user">
-          <h5>Mentee:</h5>
+          <h4>Mentee:</h4>
           <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
           <p><%= user.name%></p>
         </section>
@@ -143,6 +144,7 @@
     <% end %>
     <% end %>
     <% else %>
+    <h1 class="title">As a mentee:</h1>
     <h3>No current projects as mentee</h3>
     <% end %>
     <% end %>

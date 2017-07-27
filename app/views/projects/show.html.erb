@@ -6,207 +6,248 @@
 
 <% project_id = params[:id] %>
 
+<div class="container">
 
-<% if @project.public || mentor_mentee %>
+  <% if @project.public || mentor_mentee %>
 
-  <% flash.each do |key, value| %>
-    <p class="alert alert-<%= key %>"><%= value %></p>
-  <% end %>
+    <section class="project-summary">
 
-  <% if current_user %>
-
-  <!-- if user is mentor, show only the mentee avatar -->
-  <% if current_user.id == @project.mentor_id %>
-
-    <% if mentor_mentee && @project.mentee_id %>
-
-      <% mentee = User.get_user(@project.mentee_id)%>
-      <% if @project.mentee_pending %>
-        <p>Mentee pending:</p>
-      <% else %>
-          <p>Mentee:</p>
-      <% end %>
-      <p><%= mentee.name %></p>
-      <div class="user-image"><%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id) %></div>
-      <% if @project.mentor_pending %>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentor_pending value="false">
-          <input type=hidden name=accepted value=true>
-          <%= submit_tag "Accept invitation to be a mentor", { :class=>"btn" } %>
-        <% end %>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=purpose value="mentor_decline">
-          <%= submit_tag "Decline invitation to be a mentor", { :class=>"btn" } %>
-        <% end %>
+      <% flash.each do |key, value| %>
+        <p class="alert alert-<%= key %>"><%= value %></p>
       <% end %>
 
-    <% else %>
+      <% if current_user %>
 
-      <p><%= link_to "Search for mentee", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+        <!-- if user is mentor, show only the mentee avatar -->
+        <% if current_user.id == @project.mentor_id %>
+          <% if mentor_mentee && @project.mentee_id %>
+            <% mentee = User.get_user(@project.mentee_id)%>
+            <%= link_to image_tag(mentee.avatar.url(:medium), { :class=>"user-image" }), user_path(mentee.id) %>
+            <% if @project.mentor_pending %>
+            <% end %>
+          <% else %>
+            <%= image_tag ("/images/missing.png"), { :class=>"user-image" } %>
+          <% end %>
+        <% end %>
 
-    <% end %>
+        <!-- if user is mentee, show only the mentor avatar -->
+        <% if current_user.id == @project.mentee_id %>
+          <% if mentor_mentee && @project.mentor_id %>
+            <% mentor = User.get_user(@project.mentor_id)%>
+            <%= link_to image_tag(mentor.avatar.url(:medium), { :class=>"user-image" }), user_path(mentor.id) %>
+            <% if @project.mentee_pending %>
+            <% end %>
+          <% else %>
+            <%= image_tag ("/images/missing.png"), { :class=>"user-image" } %>
+          <% end %>
+        <% end %>
 
-  <% end %>
-
-  <!-- if user is mentee, show only the mentor avatar -->
-  <% if current_user.id == @project.mentee_id %>
-
-    <% if mentor_mentee && @project.mentor_id %>
-      <% mentor = User.get_user(@project.mentor_id)%>
-      <% if @project.mentor_pending %>
-        <p>Mentor pending:</p>
-      <% else %>
-          <p>Mentor:</p>
       <% end %>
-      <p><%= mentor.name %></p>
-      <div class="user-image"><%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id) %></div>
-      <% if @project.mentee_pending %>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=mentee_pending value="false">
-          <%= submit_tag "Accept invitation to be a mentee", { :class=>"btn" } %>
-        <% end %>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=purpose value="mentee_decline">
-          <%= submit_tag "Decline invitation to be a mentee", { :class=>"btn" } %>
-        <% end %>
+
+      <!-- if user is not mentee or mentor or if is anonymous user, show both avatars -->
+      <% if !mentor_mentee %>
+        <% mentor = User.get_user(@project.mentor_id)%>
+        <% mentee = User.get_user(@project.mentee_id)%>
+        <%= link_to image_tag(mentor.avatar.url(:medium), { :class=>"user-image anonymous-first-user-image" }), user_path(mentor.id) %>
+        <%= link_to image_tag(mentee.avatar.url(:medium), { :class=>"user-image anonymous-second-user-image" }), user_path(mentee.id) %>
       <% end %>
-    <% else %>
-      <p><%= link_to "Search for mentor", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
-    <% end %>
 
-  <% end %>
-
-  <% end %>
-
-  <!-- if user is not mentee or mentor or if is anonymous user, show both avatars -->
-  <% if !mentor_mentee %>
-    <% mentor = User.get_user(@project.mentor_id)%>
-    <% mentee = User.get_user(@project.mentee_id)%>
-    <p>Mentee:</p>
-    <p><%= mentee.name %></p>
-    <div class="user-image"><%= link_to image_tag(mentee.avatar.url(:thumb)), user_path(mentee.id) %></div>
-    <p>Mentor:</p>
-    <p><%= mentor.name %></p>
-    <div class="user-image"><%= link_to image_tag(mentor.avatar.url(:thumb)), user_path(mentor.id) %></div>
-  <% end %>
-
-  <hr>
-
-  <p>Name: <%= @project.name %><p>
-  <p>Description: <%= @project.description %><p>
-  <p>Project URL: <%= @project.project_url %><p>
-  <p>Start date: <%= @project.start_date %><p>
-  <p>Finish date: <%= @project.finish_date %><p>
-  <p>Public project: <%= @project.public ? "Yes" : "No, this project is private." %>
-  <p>Completion status: <%= CompletionStatus.find(@project.completion_status_id).name %>
-
-<br><br>
-  <% if mentor_mentee %>
-    <%= link_to 'Edit', edit_project_path(@project) %>
-  <% end %>
-
-
-<section class="skills">
-  <%= render 'projects/project_skills' %>
-</section>
-
-<section class="goals">
-  <%= render 'projects/project_goals' %>
-</section>
-
-<section class="comments">
-  <%= render 'projects/project_comments' %>
-</section>
-
-<!-- Add mentor and mentee actual names -->
-<section class="rating-section">
-  <% if current_user && mentor_mentee %>
-
-    <% if @project.mentor_pending || !@project.mentor_id.present? %>
-      <h4> Mentor pending. Ratings and feedbacks will be available when mentor was confirmed.  </h4>
-    <% elsif @project.mentee_pending || !@project.mentee_id.present?  %>
-      <h4> Mentee pending. Ratings and feedbacks will be available when mentee was confirmed.  </h4>
-    <% elsif current_user.id == @project.mentor_id %>
-    <!-- current user is the mentor: show mentee's ratings to edit and mentor's rating to see -->
-      <% mentee_name = User.find(@project.mentee_id).name %>
-      <h1> <%= mentee_name %>'s rating as mentee on this project </h1>
-      <div class="row">
-        <div class="small-2 large-4 columns">
-          Accuracy: <%= rating_for @project, "accuracy_mentee", stars: 5 %>
-          <br>
-          Availability: <%= rating_for @project, "availability_mentee", stars: 5  %>
-        </div>
-      </div>
-      <div>
-        Feedback for mentee:<br>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=purpose value="update_mentor_feedback">
-          <%= text_area_tag(:mentor_feedback, @project.mentor_feedback, cols: 80, rows: 5) %>
-          <br>
-          <%= submit_tag "Update feedback", { :class=>"btn" } %>
+      <!-- Project Info -->
+      <div class="info">
+        <p><strong>Project Name:</strong> <%= @project.name %></p>
+        <% if mentor_mentee && @project.mentor_id && @project.mentee_pending || mentor_mentee && @project.mentor_id == current_user.id && @project.mentee_id || mentor_mentee && @project.mentor_id == current_user.id && @project.mentee_id %>
+          <% mentee = User.get_user(@project.mentee_id)%>
+          <% if mentor_mentee && @project.mentee_pending %>
+            <p><strong>Mentee pending:</strong> <%= mentee.name %></p>
+          <% else %>
+            <p><strong>Mentee:</strong> <%= mentee.name %></p>
+          <% end %>
+        <% elsif mentor_mentee && @project.mentee_id && @project.mentor_pending || mentor_mentee && @project.mentor_id && @project.mentee_id == current_user.id || mentor_mentee && @project.mentee_id == current_user.id && @project.mentor_id %>
+          <% mentor = User.get_user(@project.mentor_id)%>
+          <% if mentor_mentee && @project.mentor_pending %>
+            <p><strong>Mentor pending:</strong> <%= mentor.name %></p>
+          <% else %>
+            <p><strong>Mentor:</strong> <%= mentor.name %></p>
+          <% end %>
+        <% elsif @project.mentor_id && @project.mentee_id %>
+          <% mentee = User.get_user(@project.mentee_id)%>
+          <% mentor = User.get_user(@project.mentor_id)%>
+          <p><strong>Mentor:</strong> <%= mentor.name %> | <strong>Mentee:</strong> <%= mentee.name %></p>
+        <% else %>
+          <% if mentor_mentee && @project.mentor_id %>
+          <p><strong>Mentee:</strong> No mentee yet</p>
+          <% elsif mentor_mentee && @project.mentee_id %>
+          <p><strong>Mentor:</strong> No mentor yet</p>
+          <% end %>
         <% end %>
-      </div>
-      <br><br>
-      <h1> <%= current_user.name %>'s rating as mentor on this project </h1>
-      <div class="row">
-        <div class="small-2 large-4 columns">
-          Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
-          <br>
-          Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %>
-        </div>
-      <div>
-        Feedback for mentor:<br>
-        <textarea cols="80" rows="5" disabled>
-          <%=@project.mentee_feedback%>
-        </textarea>
+        <p><strong>Description:</strong> <%= @project.description %></p>
+        <p><strong>Project URL:</strong> <%= @project.project_url %></p>
+        <p><strong>Start date:</strong> <%= @project.start_date %></p>
+        <p><strong>Finish date:</strong> <%= @project.finish_date %></p>
+        <p><strong>Public project:</strong> <%= @project.public ? "Yes" : "No, this project is private." %></p>
+        <p><strong>Completion status:</strong> <%= CompletionStatus.find(@project.completion_status_id).name %></p>
       </div>
 
-    <% elsif current_user.id == @project.mentee_id  %>
-    <!-- current user is the mentee: show mentor's ratings to edit and mentee's rating to see -->
-      <h1> <%= current_user.name %>'s rating as mentee on this project </h1>
-      <div class="row">
-        <div class="small-2 large-4 columns">
-          Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
-          <br>
-          Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %>
-        </div>
-      </div>
-      <div>
-        Feedback for mentee:<br>
-        <textarea cols="80" rows="5" disabled>
-          <%= @project.mentor_feedback %>
-        </textarea>
-      </div>
-      <% mentor_name = User.find(@project.mentor_id).name %>
-      <h1> <%= mentor_name %>'s rating as mentor on this project </h1>
-      <div class="row">
-        <div class="small-2 large-4 columns">
-            Accuracy: <%= rating_for @project, "accuracy_mentor", stars: 5 %>
+      <div class="clear"></div>
+
+      <!-- Menor/Mentee requests -->
+      <% if current_user %>
+
+        <% if current_user.id == @project.mentor_id %>
+          <% if mentor_mentee && @project.mentee_id %>
+            <% mentee = User.get_user(@project.mentee_id)%>
+            <% if @project.mentor_pending %>
+            <section class="mentor-mentee-options">
+              <%= form_tag project_path(project_id), :method => 'put' do %>
+                <input type=hidden name=project_id value=<%= project_id %>>
+                <input type=hidden name=mentor_pending value="false">
+                <input type=hidden name=accepted value=true>
+                <%= submit_tag "Accept invitation to be a mentor", { :class=>"btn" } %>
+              <% end %>
+              <%= form_tag project_path(project_id), :method => 'put' do %>
+                <input type=hidden name=project_id value=<%= project_id %>>
+                <input type=hidden name=purpose value="mentor_decline">
+                <%= submit_tag "Decline invitation to be a mentor", { :class=>"btn" } %>
+              <% end %>
+              </section>
+            <% end %>
+          <% else %>
+              <%= link_to "Search for mentee", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %>
+          <% end %>
+        <% end %>
+        <% if current_user.id == @project.mentee_id %>
+          <% if mentor_mentee && @project.mentor_id %>
+            <% mentor = User.get_user(@project.mentor_id)%>
+            <% if @project.mentee_pending %>
+            <section class="mentor-mentee-options">
+              <%= form_tag project_path(project_id), :method => 'put' do %>
+                <input type=hidden name=project_id value=<%= project_id %>>
+                <input type=hidden name=mentee_pending value="false">
+                <%= submit_tag "Accept invitation to be a mentee", { :class=>"btn" } %>
+              <% end %>
+              <%= form_tag project_path(project_id), :method => 'put' do %>
+                <input type=hidden name=project_id value=<%= project_id %>>
+                <input type=hidden name=purpose value="mentee_decline">
+                <%= submit_tag "Decline invitation to be a mentee", { :class=>"btn" } %>
+              <% end %>
+              </section>
+            <% end %>
+          <% else %>
+            <p><%= link_to "Search for mentor", users_path(:project_id => @project.id, mentee_id: @project.mentee_id, mentor_id: @project.mentor_id), { :class=>"btn" } %><p>
+          <% end %>
+        <% end %>
+
+      <% end %>
+
+      <!-- Edit -->
+      <% if mentor_mentee %>
+        <%= link_to 'Edit Project', edit_project_path(@project), { :class=>"btn edit-profile" } %>
+      <% end %>
+
+    </section>
+
+
+  <section class="skills">
+    <%= render 'projects/project_skills' %>
+  </section>
+
+  <section class="goals">
+    <%= render 'projects/project_goals' %>
+  </section>
+
+  <section class="comments">
+    <%= render 'projects/project_comments' %>
+  </section>
+
+  <div class="clear"></div>
+
+  <!-- Add mentor and mentee actual names -->
+  <section class="rating-section">
+    <% if current_user && mentor_mentee %>
+
+      <% if @project.mentor_pending || !@project.mentor_id.present? %>
+        <h4> Mentor pending. Ratings and feedbacks will be available when mentor was confirmed.  </h4>
+      <% elsif @project.mentee_pending || !@project.mentee_id.present?  %>
+        <h4> Mentee pending. Ratings and feedbacks will be available when mentee was confirmed.  </h4>
+      <% elsif current_user.id == @project.mentor_id %>
+      <!-- current user is the mentor: show mentee's ratings to edit and mentor's rating to see -->
+        <% mentee_name = User.find(@project.mentee_id).name %>
+        <h2> <%= mentee_name %>'s rating as mentee on this project </h2>
+        <div class="row">
+          <div class="small-2 large-4 columns">
+            Accuracy: <%= rating_for @project, "accuracy_mentee", stars: 5 %>
             <br>
-            Availability: <%= rating_for @project, "availability_mentor", stars: 5  %>
+            Availability: <%= rating_for @project, "availability_mentee", stars: 5  %>
+            <br>
+          </div>
         </div>
-      </div>
-      <div>
-        Feedback for mentor:<br>
-        <%= form_tag project_path(project_id), :method => 'put' do %>
-          <input type=hidden name=project_id value=<%= project_id %>>
-          <input type=hidden name=purpose value="update_mentee_feedback">
-          <%= text_area_tag(:mentee_feedback, @project.mentee_feedback, cols: 80, rows: 5) %>
-          <%= submit_tag "Update feedback", { :class=>"btn" } %>
-        <% end %>
-      </div>
+        <div>
+          Feedback for mentee:<br>
+          <%= form_tag project_path(project_id), :method => 'put' do %>
+            <input type=hidden name=project_id value=<%= project_id %>>
+            <input type=hidden name=purpose value="update_mentor_feedback">
+            <%= text_area_tag(:mentor_feedback, @project.mentor_feedback, cols: 80, rows: 5) %>
+            <br>
+            <%= submit_tag "Update feedback", { :class=>"btn" } %>
+          <% end %>
+        </div>
+        <br><br>
+        <h2> <%= current_user.name %>'s rating as mentor on this project </h2>
+        <div class="row">
+          <div class="small-2 large-4 columns">
+            Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
+            <br>
+            Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %><br><br>
+          </div>
+        <div>
+          Feedback for mentor:<br>
+          <textarea cols="80" rows="5" disabled>
+            <%=@project.mentee_feedback%>
+          </textarea>
+        </div>
+
+      <% elsif current_user.id == @project.mentee_id  %>
+      <!-- current user is the mentee: show mentor's ratings to edit and mentee's rating to see -->
+        <h2> <%= current_user.name %>'s rating as mentee on this project </h2>
+        <div class="row">
+          <div class="small-2 large-4 columns">
+            Accuracy: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and accuracy is not null", @project.id).first.accuracy %>></span><% else %>No rating yet<% end %>
+            <br>
+            Availability: <% if current_user.received_ratings.where(project_id: @project.id).present? %><span class='star-rating' data-score=<%=  current_user.received_ratings.where("project_id = ? and availability is not null", @project.id).first.availability %>></span><% else %>No rating yet<% end %><br><br>
+          </div>
+        </div>
+        <div>
+          Feedback for mentee:<br><br>
+          <textarea cols="80" rows="5" disabled>
+            <%= @project.mentor_feedback %>
+          </textarea>
+        </div>
+        <% mentor_name = User.find(@project.mentor_id).name %>
+        <h2> <%= mentor_name %>'s rating as mentor on this project </h2>
+        <div class="row">
+          <div class="small-2 large-4 columns">
+              Accuracy: <%= rating_for @project, "accuracy_mentor", stars: 5 %>
+              <br>
+              Availability: <%= rating_for @project, "availability_mentor", stars: 5  %>
+              <br>
+          </div>
+        </div>
+        <div>
+          Feedback for mentor:<br>
+          <%= form_tag project_path(project_id), :method => 'put' do %>
+            <input type=hidden name=project_id value=<%= project_id %>>
+            <input type=hidden name=purpose value="update_mentee_feedback">
+            <%= text_area_tag(:mentee_feedback, @project.mentee_feedback, cols: 80, rows: 5) %>
+            <%= submit_tag "Update feedback", { :class=>"btn" } %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
+  </section>
+
+
+  <% else %>
+    <h4>This is a private project, you need permission to access it.</h4>
   <% end %>
-</section>
 
-
-<% else %>
-  <h4>This is a private project, you need permission to access it.</h4>
-<% end %>
-
-<% console %>
+</div>

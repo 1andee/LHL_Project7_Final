@@ -9,33 +9,33 @@
 
 
 .user_skills {
-  display: flex;
 
   .as_mentor {
     width: 50%;
-    border: 1px solid #000000;
-    margin: 5px;
-    padding: 5px;
+    float: left;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 0 20px 0 0;
 
     .fa-times {
-      color: red;
+      color: #2753b5;
     }
   }
 
   .as_mentee {
     width: 50%;
-    border: 1px solid #000000;
-    margin: 5px;
-    padding: 5px;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 0 0 20px;
 
     .fa-times {
-      color: red;
+      color: #2753b5;
     }
   }
 
   .title {
-    font-weight: bold;
-    text-decoration: underline;
+    display: inline-block;
+    margin-bottom: 10px;
   }
 
   .container_mentor_skills {
@@ -69,17 +69,30 @@
     border-right: 1px solid #ddd;
     box-sizing: border-box;
     padding: 5px 50px;
+    text-align: center;
   }
 
   .mentor-project {
     border-radius: 5px;
     text-align: left;
-    max-width: 400px;
+    max-width: 340px;
     margin: 0 auto 20px;
     box-sizing: border-box;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
+
+    h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      margin: 20px 0 5px;
+    }
+
+    h5 {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      font-size: 12px;
+    }
 
     .users {
       width: 100%;
@@ -90,17 +103,14 @@
 
     .project-info {
 
-      max-width: 225px;
+      max-width: 220px;
       margin: 0 auto;
-
-      h5 {
-        margin: 0;
-      }
 
       a {
         display: block;
         margin: 30px auto;
         width: 81px;
+        text-align: center;
       }
 
     }
@@ -115,12 +125,19 @@
   }
 
   .mentee-project {
-    max-width: 400px;
+    text-align: left;
+    max-width: 340px;
     margin: 0 auto 20px;
     box-sizing: border-box;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
+
+    h5 {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      font-size: 12px;
+    }
 
     .users {
       width: 100%;
@@ -130,17 +147,14 @@
     }
 
     .project-info {
-      max-width: 225px;
+      max-width: 220px;
       margin: 0 auto;
-
-      h5 {
-        margin: 0;
-      }
 
       a {
         display: block;
         margin: 30px auto;
         width: 81px;
+        text-align: center;
       }
 
     }
@@ -160,6 +174,7 @@
     width: 50%;
     box-sizing: border-box;
     padding: 5px 50px;
+    text-align: center;
   }
 
   .title {
@@ -176,6 +191,39 @@
   .container_mentee_projects {
     border: 1px solid #e3e3e3;
     width: 100%;
+  }
+
+}
+
+@media (max-width: 920px) {
+
+  .user_projects .as_mentor, .project-showcase .as_mentor, .user_projects .as_mentee, .project-showcase .as_mentee {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    border-right: none;
+    box-sizing: border-box;
+    padding: 5px 50px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .user_skills .as_mentor {
+    width: 100%;
+    float: left;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 0 0 10px 0;
+  }
+
+  .user_skills .as_mentee {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    padding: 20px 0 0 0;
   }
 
 }

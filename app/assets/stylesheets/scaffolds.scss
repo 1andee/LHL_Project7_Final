@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Questrial');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600|Questrial');
 
 @mixin transition($transition) {
   -webkit-transition: all $transition ease;
@@ -13,14 +13,30 @@ body {
   color: #333;
   font-family: 'Questrial', sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 1.5em;
   margin: 0;
 }
 
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  margin: 0 0 20px;
+strong {
+  font-family: 'Montserrat', sans-serif;
 }
+
+p, ol, ul, td {
+  margin: 0 0 10px;
+}
+
+.alert-info {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  color: #fff;
+  margin: 0;
+}
+
+.alert-success {
+  padding-bottom: 20px;
+}
+
 
 input, textarea {
   box-sizing: border-box;
@@ -50,6 +66,7 @@ input[type="submit"] {
   padding: 7px 20px;
   font-size: 13px;
   border-radius: 5px;
+  border: none !important;
 }
 
 h1 {
@@ -57,9 +74,10 @@ h1 {
   font-weight: 400;
   color: #2753b5;
   font-size: 25px;
+  line-height: 30px;
   text-align: center;
   margin: 0px;
-  padding: 40px;
+  padding: 50px 0 20px;
 }
 
 .btn {
@@ -68,7 +86,13 @@ h1 {
   margin: 10px 0 0;
   padding: 5px 10px;
   border-radius: 3px;
-  border: 1px solid #000;
+  border: 1px solid #c1c1c1;
+  @include transition(0.3s);
+
+  &:hover {
+    border: 1px solid #777;
+  }
+
 }
 
 .clear {
@@ -83,10 +107,11 @@ pre {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #777;
+  @include transition(0.3s);
 
-  &:visited {
-    color: #000;
+  &:hover {
+    color: inherit;
   }
 }
 
@@ -155,11 +180,10 @@ label {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  color: #000;
+  background: #2753b5;
+  color: #fff;
   padding: 5px 10px;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
 
   ul {
@@ -182,13 +206,13 @@ label {
     font-family: 'Questrial', sans-serif;
     display: inline-block;
     font-size: 11px;
-    color: #000;
+    color: #fff;
     padding: 11px 10px 7px;
     text-transform: uppercase;
     text-decoration: none;
 
     &:hover {
-      color: #000;
+      color: #fff;
     }
   }
 
@@ -213,7 +237,21 @@ label {
 /* MAIN */
 
 main {
-  margin: 49px 0 150px;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin: 48px 0 0;
+  border: none;
+  position: absolute;
+  top: 0;
+}
+
+.container {
+  width: 95%;
+  max-width: 960px;
+  box-sizing: border-box;
+  margin: 20px auto;
+  border: 1px solid #ddd;
 }
 
 .home-page {
@@ -235,27 +273,28 @@ main {
   height: calc(100% - 48px);
   box-sizing: border-box;
   padding: 20px;
-  color: #fff;
-  background: #2753b5;
+  color: #000;
+  background: #f7f7f7;
+  border-right: 1px solid #ddd;
 
   h2, h3 {
     padding: 20px 0 10px;
     font-weight: normal;
     margin: 0 0 20px;
     clear: both;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #000;
   }
 
   a {
-    color: #fff;
+    color: #000;
     margin-bottom: 5px;
     float: left;
     clear: both;
   }
 
   a.btn {
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid #000;
+    color: #000;
   }
 }
 
@@ -263,9 +302,101 @@ main {
   text-align: center;
 }
 
+.user-profile, .project-summary {
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+
+  input {
+    margin: 5px 0 10px;
+  }
+
+  .user-image {
+    max-width: 150px;
+    margin: 0;
+    float: left;
+  }
+
+  .anonymous-first-user-image {
+    max-width: 65px;
+  }
+
+  .anonymous-second-user-image {
+    clear: both;
+    max-width: 65px;
+    margin-top: 20px;
+  }
+
+  .info {
+    position: absolute;
+    display: inline-block;
+    float: left;
+    width: calc(100% - 191px);
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid #ddd;
+  }
+
+  p {
+    margin: 0 0 -1px 0;
+  }
+
+  .btn {
+    margin-top: 20px;
+  }
+
+  .edit-profile {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    font-size: 12px;
+    display: inline-block;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  .reputation-system {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    text-align: right;
+
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+  }
+
+  .mentor-mentee-options {
+    position: relative;
+    padding-top: 20px;
+    margin-bottom: -10px;
+
+    .btn {
+        margin-top: 0;
+    }
+
+  }
+
+}
+
+.user_skills {
+  box-sizing: border-box;
+  padding: 20px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+
+.user_projects {
+  box-sizing: border-box;
+  padding: 0 20px 20px;
+}
+
 .user-image {
   max-width: 100px;
   margin: 0 0 15px;
+  border-radius: 3px;
 }
 
 .home-user-feed {
@@ -277,27 +408,47 @@ main {
   padding: 20px;
   vertical-align: top;
   box-sizing: border-box;
+
+  p {
+    font-size: 16px;
+  }
 }
 
+
 .home-search {
-  padding: 0 0 40px;
+  padding: 0 0 100px;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
 .user-search {
+  padding: 0 0 100px;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
 
 .search-form {
-  width: 210px;
+  width: 220px;
   margin: 0 auto 20px;
   text-align: center;
 
   input[type="text"] {
     box-sizing: border-box;
-    border: 1px solid #ddd;
-    color: #ddd;
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
     padding: 5px 7px 5px;
     font-size: 13px;
     border-radius: 5px;
-    width: 210px;
+    width: 220px;
+
+    &::placeholder {
+      color: #fff;
+    }
+
+    &:focus {
+      border: 2px solid #fff;
+      color: #fff;
+    }
   }
 
   input[type="submit"] {
@@ -345,6 +496,22 @@ main {
 
 }
 
+.add-skill-form {
+
+  input[type="text"] {
+    padding: 2px 5px;
+    width: 100px;
+  }
+
+  input[type="submit"] {
+    font-size: 11px;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 4px 10px;
+  }
+
+}
+
 .feed-list {
 
   h1 {
@@ -382,11 +549,18 @@ form.new_project {
   margin: 10px;
   box-sizing: border-box;
   padding: 20px;
-  border: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2753b5;
+  -webkit-box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
   border-radius: 5px;
 
   p {
     margin: 0;
+  }
+
+  .star-rating img {
+    height: 10px;
   }
 
   .user-info {
@@ -412,24 +586,6 @@ form.new_project {
     padding-right: 10px;
     width: 50%;
 
-    ul.user-skills {
-
-      padding: 0;
-      margin: 0 0 2px;
-
-      li {
-        list-style: none;
-        display: inline-block;
-        background: #cfe4ff;
-        padding: 0 5px;
-        margin: 2px 0;
-        border-radius: 3px;
-        border: 1px solid #5b8eff;
-        color: #0038b3;
-      }
-
-    }
-
   }
 
   .view-profile-space {
@@ -443,9 +599,28 @@ form.new_project {
 
 }
 
+ul.user-skills {
+  font-size: 11px;
+  padding: 0;
+  margin: 0 0 2px;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    background: #cfe4ff;
+    padding: 0 5px;
+    margin: 2px 1px;
+    border-radius: 3px;
+    border: 1px solid #5b8eff;
+    color: #0038b3;
+  }
+
+}
+
 .pagination {
   text-align: center;
   margin: 25px 0;
+  color: #fff;
 
   .first, .prev {
     a {
@@ -453,7 +628,7 @@ form.new_project {
       font-size: 10px;
       font-style: italic;
       padding-right: 10px;
-      color: #999;
+      color: #fff;
     }
   }
 
@@ -463,26 +638,49 @@ form.new_project {
       font-size: 10px;
       font-style: italic;
       padding-left: 10px;
-      color: #999;
+      color: #fff;
     }
   }
 
   .page {
-    padding: 5px 5px 6px 10px;
-    border: 1px solid #ddd;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 23px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #fff;
+
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #fff;
+      line-height: 20px;
+      width: 100%;
+    }
   }
 
   .current {
-    background: #eee;
+    background: #fff;
+    color: #000;
   }
 
 }
 
 .project-showcase {
-  padding-top: 25px;
-  background: #fbfbfb;
-  border-top: 1px solid #ddd;
+  background: #fff;
   text-align: center;
+  -webkit-box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.15);
+
+  h1 {
+    background: #eee;
+    color: #2753b5;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 50px;
+    margin-bottom: 40px;
+  }
 
   .mentor-project {
     display: inline-block;

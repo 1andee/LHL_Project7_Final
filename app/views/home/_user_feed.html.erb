@@ -2,6 +2,10 @@
 
 <section class="home-user-feed">
 
+  <% flash.each do |key, value| %>
+    <p class="alert alert-<%= key %>"><%= value %></p>
+  <% end %>
+
   <section class="comment-box">
 
   <%= form_tag(feeds_path, method: :post, :class=>"user-post-form", remote: false) do %>
