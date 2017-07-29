@@ -4,7 +4,6 @@
 
 <section class="user-search">
   <div class="search-input">
-    <h1>Find A Mentor In Your Field!</h1>
     <%= form_tag users_path, :method => 'get', :class=>"search-form" do %>
       <% placeholder = "Find a mentor by name or skill..." %>
       <input type=hidden name=project_id value=<%= project_id %>>

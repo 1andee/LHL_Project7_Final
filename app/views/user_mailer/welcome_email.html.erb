@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Welcome to Pairwise, <%= @user.name %></h1>
+  <p>
+    You have successfully registered for Pairwise!
+    <br>
+    <br>
+    Please remember to keep track of your login credentials.
+    <br>
+    Your login is: <%= @user.email %>
+    <br>
+  </p>
+  <p>
+    To login to the site, just follow this link: <a href="<%= @url %>"><%= @url %></a>
+  </p>
+  <p>Have an awesome day!</p>
+  <p>- Your friends at Pairwise</p>
+</body>
+</html>

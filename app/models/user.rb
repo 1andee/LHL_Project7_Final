@@ -18,8 +18,13 @@ class User < ApplicationRecord
   has_many :mentor_projects, :class_name => 'Project', :foreign_key => 'mentor_id'
   has_many :mentee_projects, :class_name => 'Project', :foreign_key => 'mentee_id'
 
-
   has_secure_password
+  after_create :email_user
+
+  # Welcome email on registration
+  def email_user
+    UserMailer.welcome_email(self).deliver
+  end
 
   # Adds rating power to user model
   ratyrate_rater
@@ -89,9 +94,3 @@ end
 
 
 # SELECT DISTINCT "user_id" FROM "users" INNER JOIN skill_users ON skill_users.user_id = users.id INNER JOIN skills ON skills.id = skill_users.skill_id WHERE (users.name @@ 'juan html' or skills.skill_name @@ 'juan html')
-
-
-
-
-
-
