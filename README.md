@@ -1,10 +1,26 @@
 ## Pairwise
-A project-driven mentoring platform built for experienced devs and learners to collaborate and grow. Made with Ruby on Rails and PostgreSQL.
+A project-driven mentoring platform built for experienced devs & learners to collaborate and grow. Users can search for a mentee by name/subject, create projects together, and exchange goals, comments, and feedback.
 
-## Notable Gems
+The platform is powered by Ruby on Rails/PostgreSQL and core functionality relies upon the following gems:
 - bcrypt
 - kaminari
 - thoughtbot paperclip
+- ratyrate
+
+## Build Status
+Under development.
+
+## Screenshot
+!["Screenshot of homepage"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/homepage.png)
+
+## Installation
+1. Clone the repo to run locally
+2. Run `bundle install` to install dependencies
+3. Run `bin/rake db:reset` to create the database schema
+4. Run `bin/rails s -b 0.0.0.0` to start the server
+
+## Configuration
+- Seedfile containing sample users, projects, & ratings has been made private and is not included in repository.
 
 ## Contributors
 
