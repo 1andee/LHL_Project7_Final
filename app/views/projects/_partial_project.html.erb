@@ -16,18 +16,16 @@
       <% if mentor_project &&  mentor_project.mentor_id = user.id %>
       <% if mentor_project.mentee_id.present?%>
       <% mentee = User.get_user(mentor_project.mentee_id)%>
-      <% mentee_name = mentee.name %>
-      <% mentee_avatar = mentee.avatar%>
       <section class="users">
         <section class="user">
           <h4>Mentor:</h4>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb), { :class=>"user-image" }), user_path(user.id) %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
           <h4>Mentee:</h4>
-          <%= image_tag mentee.avatar.url(:thumb), { :class=>"user-image" } %>
-          <p><%= mentee_name%></p>
+          <%= link_to image_tag(mentee.avatar.url(:thumb), { :class=>"user-image" }), user_path(mentee.id) %>
+          <p><%= mentee.name%></p>
         </section>
       </section>
       <section class="project-info">
@@ -45,7 +43,7 @@
       <section class="users">
         <section class="user">
           <h4>Mentor:</h4>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb), { :class=>"user-image" }), user_path(user.id) %>
           <p><%= user.name%></p>
         </section>
         <section class="user">
@@ -91,17 +89,15 @@
       <% if mentee_project &&  mentee_project.mentee_id = user.id %>
       <% if mentee_project.mentor_id.present? %>
       <% mentor = User.get_user(mentee_project.mentor_id)%>
-      <% mentor_name = mentor.name %>
-      <% mentor_avatar = mentor.avatar%>
       <section class="users">
         <section class="user">
           <h4>Mentor:</h4>
-          <%= image_tag mentor.avatar.url(:thumb), { :class=>"user-image" } %>
-          <p><%= mentor_name%></p>
+          <%= link_to image_tag(mentor.avatar.url(:thumb), { :class=>"user-image" }), user_path(mentor.id) %>
+          <p><%= mentor.name%></p>
         </section>
         <section class="user">
           <h4>Mentee:</h4>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb), { :class=>"user-image" }), user_path(user.id) %>
           <p><%= user.name%></p>
         </section>
       </section>
@@ -125,7 +121,7 @@
         </section>
         <section class="user">
           <h4>Mentee:</h4>
-          <%= image_tag user.avatar.url(:thumb), { :class=>"user-image" } %>
+          <%= link_to image_tag(user.avatar.url(:thumb), { :class=>"user-image" }), user_path(user.id) %>
           <p><%= user.name%></p>
         </section>
       </section>
