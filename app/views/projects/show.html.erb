@@ -46,10 +46,22 @@
 
       <!-- if user is not mentee or mentor or if is anonymous user, show both avatars -->
       <% if !mentor_mentee %>
+        <% if @project.mentor_id %>
         <% mentor = User.get_user(@project.mentor_id)%>
+        <% end %>
+        <% if @project.mentee_id %>
         <% mentee = User.get_user(@project.mentee_id)%>
+        <% end %>
+        <% if @project.mentor_id %>
         <%= link_to image_tag(mentor.avatar.url(:medium), { :class=>"user-image anonymous-first-user-image" }), user_path(mentor.id) %>
+        <% else %>
+          <%= image_tag ("/images/missing.png"), { :class=>"user-image anonymous-first-user-image" } %>
+        <% end %>
+        <% if @project.mentee_id %>
         <%= link_to image_tag(mentee.avatar.url(:medium), { :class=>"user-image anonymous-second-user-image" }), user_path(mentee.id) %>
+        <% else %>
+          <%= image_tag ("/images/missing.png"), { :class=>"user-image anonymous-second-user-image" } %>
+        <% end %>
       <% end %>
 
       <!-- Project Info -->
