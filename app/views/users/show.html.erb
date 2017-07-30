@@ -56,6 +56,9 @@
       <p><strong>Location: </strong><%= @user.location %></p>
       <% end %>
       <p><strong>Email: </strong><a href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
+      <% if !@user.other_site.blank? %>
+      <p><strong>Website: </strong><a href="<%= @user.other_site %>" target="_blank"><%= @user.other_site %></a></p>
+      <% end %>
       <p>
       <% if !@user.linkedin_url.blank? %>
       <a href="<%= @user.linkedin_url %>" target="_blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
@@ -69,9 +72,6 @@
       </p>
       <% if !@user.slack_name.blank? %>
       <p><i class="fa fa-slack" aria-hidden="true"></i> <%= @user.slack_name %></p>
-      <% end %>
-      <% if !@user.other_site.blank? %>
-      <p><strong>Website </strong><a href="<%= @user.other_site %>" target="_blank"><%= @user.other_site %></a></p>
       <% end %>
     </div>
 
