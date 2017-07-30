@@ -1,6 +1,8 @@
 <% if current_user.present? %>
-
-<% current_user.id == @user.id ? @owner = true : @owner = false %>
+  <% current_user.id == @user.id ? owner = true : owner = false %>
+<% else %>
+  <% owner = false %>
+<% end %>
 
 <section class="as_mentor">
   <!-- iterate over mentor_projects can add mentee projects using (user.mentor_projects).zip.(user.mentee_projects)each -->
@@ -150,5 +152,3 @@
     <% end %>
   </article>
 </section>
-
-<% end %>

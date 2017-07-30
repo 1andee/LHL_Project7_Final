@@ -55,7 +55,7 @@
       <% if !@user.location.blank? %>
       <p><strong>Location: </strong><%= @user.location %></p>
       <% end %>
-      <p><i class="fa fa-envelope-o" aria-hidden="true"></i> <%= @user.email %></p>
+      <p><strong>Email: </strong><a href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
       <p>
       <% if !@user.linkedin_url.blank? %>
       <a href="<%= @user.linkedin_url %>" target="_blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
