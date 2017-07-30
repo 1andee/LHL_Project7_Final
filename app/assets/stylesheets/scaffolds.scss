@@ -350,6 +350,10 @@ main {
   background: #f9f9f9;
   border-bottom: 1px solid #ddd;
 
+  a {
+    color: black;
+  }
+
   a:hover {
     color: #2753b5;
     text-decoration: underline;
