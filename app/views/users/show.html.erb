@@ -52,13 +52,27 @@
 
     <div class="info">
       <p><strong>Name: </strong><%= @user.name %></p>
-      <p><strong>Email: </strong><%= @user.email %></p>
+      <% if !@user.location.blank? %>
       <p><strong>Location: </strong><%= @user.location %></p>
-      <p><strong>Linkedin url: </strong><%= @user.linkedin_url %></p>
-      <p><strong>Github url: </strong><%= @user.github_url %></p>
-      <p><strong>Other site: </strong><%= @user.other_site %></p>
-      <p><strong>Twitter: </strong><%= @user.twitter %></p>
-      <p><strong>Slack name: </strong><%= @user.slack_name %></p>
+      <% end %>
+      <p><i class="fa fa-envelope-o" aria-hidden="true"></i> <%= @user.email %></p>
+      <p>
+      <% if !@user.linkedin_url.blank? %>
+      <a href="<%= @user.linkedin_url %>" target="_blank"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+      <% end %>
+      <% if !@user.github_url.blank? %>
+      <a href="https://github.com/<%= @user.github_url %>" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+      <% end %>
+      <% if !@user.twitter.blank? %>
+      <a href="https://twitter.com/<%= @user.twitter %>" target="_blank"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+      <% end %>
+      </p>
+      <% if !@user.slack_name.blank? %>
+      <p><i class="fa fa-slack" aria-hidden="true"></i> <%= @user.slack_name %></p>
+      <% end %>
+      <% if !@user.other_site.blank? %>
+      <p><strong>Website </strong><a href="<%= @user.other_site %>" target="_blank"><%= @user.other_site %></a></p>
+      <% end %>
     </div>
 
     <div class="clear"></div>
