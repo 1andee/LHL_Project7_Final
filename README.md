@@ -32,13 +32,25 @@ A project-driven mentoring platform built for experienced devs and learners to c
 
 
 ## Screenshots
-[Main Page - Search:]
+Main Page - Search:
 !["Main Page - Search"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/01.main_page_search.png?raw=true)
+
+Main Page - Public Projects:
 !["Main Page - Public Projects"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/02.main_page_projects.png?raw=true)
+
+Main Page - Logged in user:
 !["Main Page - Logged in user"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/03.main_page_logged_in.png?raw=true)
+
+User profile:
 !["User profile"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/04.user_profile.png?raw=true)
+
+Project page - info and skills:
 !["Project page - info and skills"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/05.project_info_skills.png?raw=true)
+
+Project page - comments:
 !["Project page - comments"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/06.project_comments.png?raw=true)
+
+Project page - feedback and ratings:
 !["Project page - feedback and ratings"](https://github.com/tahuana/LHL_Project7_Pairwise/blob/master/docs/07.project_feedback.png?raw=true)
 
 
