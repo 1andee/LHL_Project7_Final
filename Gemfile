@@ -43,7 +43,7 @@ gem "paperclip", "~> 5.0.0"
 gem 'ratyrate'
 
 
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.5.0'
 gem 'kaminari'
 
 group :development, :test do
