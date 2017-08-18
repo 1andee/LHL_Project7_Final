@@ -191,9 +191,9 @@
         <h2> <%= mentee_name %>'s rating as mentee on this project </h2>
         <div class="row">
           <div class="small-2 large-4 columns">
-            Accuracy: <%= rating_for @project, "accuracy_mentee", stars: 5 %>
+            Accuracy: <%= rating_for @project, "accuracy_mentee", stars: 5, star_path: '/images/ratyrate' %>
             <br>
-            Availability: <%= rating_for @project, "availability_mentee", stars: 5  %>
+            Availability: <%= rating_for @project, "availability_mentee", stars: 5, star_path: '/images/ratyrate' %>
             <br>
           </div>
         </div>
@@ -242,9 +242,9 @@
         <h2> <%= mentor_name %>'s rating as mentor on this project </h2>
         <div class="row">
           <div class="small-2 large-4 columns">
-              Accuracy: <%= rating_for @project, "accuracy_mentor", stars: 5 %>
+              Accuracy: <%= rating_for @project, "accuracy_mentor", stars: 5, star_path: '/images/ratyrate' %>
               <br>
-              Availability: <%= rating_for @project, "availability_mentor", stars: 5  %>
+              Availability: <%= rating_for @project, "availability_mentor", stars: 5, star_path: '/images/ratyrate' %>
               <br>
           </div>
         </div>
