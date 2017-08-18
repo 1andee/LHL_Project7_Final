@@ -25,7 +25,7 @@
       <% end %>
     <% else %>
       <article>
-          <p> You Have No Activites, Create A New Project [Link To Create Project Page].</p>
+          <p> You currently have no activity, <%= link_to 'click here to start a new project', new_project_path %>.</p>
         </article>
     <% end %>
       <button> <%= link_to "Reload", root_path %> </button>
