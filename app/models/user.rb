@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :mentee_projects, :class_name => 'Project', :foreign_key => 'mentee_id'
 
   has_secure_password
-  after_create :email_user
+  # after_create :email_user
 
   # Welcome email on registration
   def email_user
