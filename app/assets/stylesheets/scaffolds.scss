@@ -623,15 +623,22 @@ form.new_project {
     margin: 0;
   }
 
-  .star-rating img {
-    height: 12px;
+  .star-rating {
+    padding-left: 5px;
+
+    img {
+      height: 12px;
+    }
   }
 
   .user-info {
 
     p {
-      display: inline-block;
+      // display: inline-block;
       text-align: left;
+      // margin: 0 0 1px 20px;
+      // width: calc(100% - 120px);
+      display: flex;
       margin-bottom: 1px;
     }
 
@@ -639,7 +646,8 @@ form.new_project {
 
   .user-image {
     float: left;
-    padding-right: 10px;
+    // added below line:
+    padding-right: 20px;
   }
 
   .profile-skills {
