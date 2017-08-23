@@ -1,6 +1,17 @@
+<% if current_user.present? %>
+  <% @project.mentor_id == current_user.id || @project.mentee_id == current_user.id ? mentor_mentee = true : mentor_mentee = false %>
+<% else %>
+  <% mentor_mentee = false %>
+<% end %>
+
 <h1>Editing Project</h1>
 
+<% if mentor_mentee %>
 <%= render 'form', project: @project %>
 
 <%= link_to 'Show', @project %> |
 <%= link_to 'Back', :back %>
+
+<% else %>
+Not authorized.
+<% end %>
