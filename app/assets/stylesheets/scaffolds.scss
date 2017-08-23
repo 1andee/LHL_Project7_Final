@@ -632,14 +632,14 @@ form.new_project {
     p {
       display: inline-block;
       text-align: left;
-      margin: 0 0 1px 20px;
-      width: calc(100% - 120px);
+      margin-bottom: 1px;
     }
 
   }
 
   .user-image {
     float: left;
+    padding-right: 10px;
   }
 
   .profile-skills {
