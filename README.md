@@ -15,10 +15,9 @@ A project-driven mentoring platform built for experienced devs & learners to col
 ## Screenshots
 Main Page - Search | Main Page - Public Projects | Main Page - Logged in user | User profile
 --|--|--|--
-!["Main Page - Search"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/01.main_page_search.png) | !["Main Page - Public Projects"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/02.main_page_projects.png) | !["Main Page - Logged in user"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/03.main_page_logged_in.png) | !["User profile"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/04.user_profile.png)
---|--|--|--
-Project page - info and skills | Project page - comments | Project page - feedback and ratings |  
-!["Project page - info and skills"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/05.project_info_skills.png) | !["Project page - comments"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/06.project_comments.png) | !["Project page - feedback and ratings"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/07.project_feedback.png) |  
+![Home page](https://raw.githubusercontent.com/1andee/pairwise/master/docs/01.main_page_search.png) | ![Public Projects](https://raw.githubusercontent.com/1andee/pairwise/master/docs/02.main_page_projects.png) | ![User Dashboard](https://raw.githubusercontent.com/1andee/pairwise/master/docs/03.main_page_logged_in.png) | ![User Profile](https://raw.githubusercontent.com/1andee/pairwise/master/docs/04.user_profile.png)
+Project Info | Project Comments | Project Ratings/Feedback |  
+![Project page - info and skills](https://raw.githubusercontent.com/1andee/pairwise/master/docs/05.project_info_skills.png) | ![Project page - comments](https://raw.githubusercontent.com/1andee/pairwise/master/docs/06.project_comments.png) | ![Project page - feedback and ratings](https://raw.githubusercontent.com/1andee/pairwise/master/docs/07.project_feedback.png) |  
 
 ## Contributors
 
