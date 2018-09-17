@@ -13,11 +13,11 @@ A project-driven mentoring platform built for experienced devs & learners to col
 - Seedfile containing sample users, projects, & ratings has been made private and is not included in repository.
 
 ## Screenshots
-Main Page - Search | Main Page - Public Projects | Main Page - Logged in user | User profile
+Home page | Public Projects | User Dashboard | User Profile
 --|--|--|--
 ![Home page](https://raw.githubusercontent.com/1andee/pairwise/master/docs/01.main_page_search.png) | ![Public Projects](https://raw.githubusercontent.com/1andee/pairwise/master/docs/02.main_page_projects.png) | ![User Dashboard](https://raw.githubusercontent.com/1andee/pairwise/master/docs/03.main_page_logged_in.png) | ![User Profile](https://raw.githubusercontent.com/1andee/pairwise/master/docs/04.user_profile.png)
-Project Info | Project Comments | Project Ratings/Feedback |  
-![Project page - info and skills](https://raw.githubusercontent.com/1andee/pairwise/master/docs/05.project_info_skills.png) | ![Project page - comments](https://raw.githubusercontent.com/1andee/pairwise/master/docs/06.project_comments.png) | ![Project page - feedback and ratings](https://raw.githubusercontent.com/1andee/pairwise/master/docs/07.project_feedback.png) |  
+**Project Info** | **Project Comments** | **Project Ratings/Feedback** |  
+![Project Info](https://raw.githubusercontent.com/1andee/pairwise/master/docs/05.project_info_skills.png) | ![Project Comments](https://raw.githubusercontent.com/1andee/pairwise/master/docs/06.project_comments.png) | ![Project Ratings/Feedback](https://raw.githubusercontent.com/1andee/pairwise/master/docs/07.project_feedback.png) |  
 
 ## Contributors
 
