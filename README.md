@@ -1,26 +1,24 @@
 ## Pairwise
 A project-driven mentoring platform built for experienced devs & learners to collaborate and grow. Users can search for a mentee by name/subject, create projects together, and exchange goals, comments, and feedback.
 
-The platform is powered by Ruby on Rails/PostgreSQL and core functionality relies upon the following gems:
-- bcrypt
-- kaminari
-- thoughtbot paperclip
-- ratyrate
-
-## Build Status
-Under development.
-
-## Screenshot
-!["Screenshot of homepage"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/homepage.png)
 
 ## Installation
 1. Clone the repo to run locally
 2. Run `bundle install` to install dependencies
-3. Run `bin/rake db:reset` to create the database schema
+3. Set the `config/database.yml`
+4. Run `bin/rake db:reset` to create the database schema
 4. Run `bin/rails s -b 0.0.0.0` to start the server
 
 ## Configuration
 - Seedfile containing sample users, projects, & ratings has been made private and is not included in repository.
+
+## Screenshots
+Main Page - Search | Main Page - Public Projects | Main Page - Logged in user | User profile
+--|--|--|--
+!["Main Page - Search"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/01.main_page_search.png) | !["Main Page - Public Projects"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/02.main_page_projects.png) | !["Main Page - Logged in user"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/03.main_page_logged_in.png) | !["User profile"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/04.user_profile.png)
+--|--|--|--
+Project page - info and skills | Project page - comments | Project page - feedback and ratings |  
+!["Project page - info and skills"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/05.project_info_skills.png) | !["Project page - comments"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/06.project_comments.png) | !["Project page - feedback and ratings"](https://raw.githubusercontent.com/1andee/pairwise/master/docs/07.project_feedback.png) |  
 
 ## Contributors
 
